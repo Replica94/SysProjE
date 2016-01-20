@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <script>
+        function changeImage() {
+            var img = document.getElementById("image");
+            img.src="well-done.png";
+        }
+    </script>
+
+    <div style="text-align:center;">
+        <h1 style="font-size:60px">Press this button!</h1>
+        <button
+            onClick="changeImage();"
+            style="padding:0;border:none;background:none;outline:none;" >
+            <img
+                id="image"
+                alt="Button"
+                src="engine-start.png"
+                style="width:500px;height:500px;" />
+        </button>
+    </div>
+
+    <script type="text/javascript">
+        window.doorbellOptions = {
+            appKey: 'jNTvZmNLbnbccKLxgTlFa4oe2VIslhlyK1A6nMHnLSm3b3876svF0vxz5HOR4zwA'
+        };
+        (function(d, t) {
+            var g = d.createElement(t);
+            g.async = true;
+            g.id = 'doorbellScript';
+            g.type = 'text/javascript';
+            g.src = 'https://embed.doorbell.io/button/2722?t=' + (new Date().getTime());
+            (d.getElementsByTagName('head')[0] || d.getElementsByTagName('body')[0]).appendChild(g);
+        }(document, 'script'));
+    </script>
+</body>
+</html>
