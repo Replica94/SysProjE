@@ -18,7 +18,7 @@ function CanvasDraw()
 	
 	var label = {};
 	var description = "Asd fdges dfklwadio nnrgajdhgfe. Zopd seifuesa kjwdn auwidqwdsj gdskefja nd. Fsadwue rknefsadkadn waawd. 430 sad asffsasd ahgdfhg.";
-	var label = GenerateRandomLabel(RandomBrandName(212),"300mg "+RandomBrandName(211),description);
+	var label = GenerateRandomLabel(RandomBrandName(Math.random()*8888),"300mg "+RandomBrandName(Math.random()*99999),description);
 	
 	RenderLabel(new Vector2(30, 30), label);
 }
@@ -30,8 +30,8 @@ window.addEventListener("resize", CanvasResize, false);
 CanvasResize();
 
 
-
 Texture.initTextures();	
+InitRandomNames();
 
 var fun = function()
 {
@@ -40,6 +40,6 @@ var fun = function()
 		setTimeout(fun, 50);
 		return;
 	}
-	setInterval(CanvasDraw,333);
+	setInterval(CanvasDraw,1555);
 };
 fun();

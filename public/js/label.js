@@ -2,13 +2,24 @@ function GenerateCoolColor(seed)
 {
 	var hexs = "0123456789ABCDEF";
 	var random = new SeededRandom(seed);
-	var dom = 10 + random.getBetween(0,5);
-	var rec = 5 + random.getBetween(0,5);
+	var dom = 12 + random.getBetween(0,3);
+	var rec = 7 + random.getBetween(0,7);
+	var rec2 = 7 + random.getBetween(0,5);
+	
+	var cent = dom + rec + rec2;
+	cent = cent / 3;
+	dom = dom + cent;
+	rec = rec + cent;
+	rec2 = rec2 + cent;
+	
+	dom = Math.floor(dom / 2);
+	rec = Math.floor(rec / 2);
+	rec2 = Math.floor(rec2 / 2);
 	
 	var arr = [];
 	arr.push(hexs[dom] + "0");
 	arr.push(hexs[rec] + "0");
-	arr.push(hexs[rec] + "0");
+	arr.push(hexs[rec2] + "0");
 	
 	var str = "#";
 	
@@ -17,10 +28,83 @@ function GenerateCoolColor(seed)
 	for (x in arr)
 		str += arr[x];
 	
-	console.log(str);
+	return str;
+}
+
+function GenerateDarkColor(seed)
+{
+	var hexs = "0123456789ABCDEF";
+	var random = new SeededRandom(seed);
+	var dom = 3 + random.getBetween(0,3);
+	var rec = 2 + random.getBetween(0,2);
+	var rec2 = 2 + random.getBetween(0,2);
+
+	
+	var arr = [];
+	arr.push(hexs[dom] + "0");
+	arr.push(hexs[rec] + "0");
+	arr.push(hexs[rec2] + "0");
+	
+	var str = "#";
+	
+	ShuffleArraySeed(arr,random);
+	
+	for (x in arr)
+		str += arr[x];
 	
 	return str;
 }
+
+function GetCoolFont(seed)
+{
+	var random = new SeededRandom(seed);
+	
+	var fonts = ["Arial", "Impact", "Times New Roman", "Comic Sans MS", "Tahoma", "Lucida Console", "Georgia"];
+	
+
+	return fonts[random.getBetween(0,fonts.length)];
+}
+
+function GetDullFont(seed)
+{
+	var random = new SeededRandom(seed);
+	
+	var fonts = ["Arial", "Tahoma", "Lucida Console"];
+	
+	return fonts[random.getBetween(0,fonts.length)];
+}
+
+
+
+var LabelLayouts = [];
+LabelLayouts.push
+(
+{
+	size : new Vector2(430,110),
+	namePos : new Vector2(62, 24),
+	descPos : new Vector2(180, 62),
+	subNamePos : new Vector2(12,42),
+	barCodePos : new Vector2(20,58),
+	descWidth : 250
+},
+{
+	size : new Vector2(330,150),
+	namePos : new Vector2(130, 24),
+	subNamePos : new Vector2(120,52),
+	descPos : new Vector2(10, 72),
+	barCodePos : new Vector2(220,98),
+	descWidth : 200
+},
+{
+	size : new Vector2(390,130),
+	namePos : new Vector2(24, 34),
+	subNamePos : new Vector2(24,52),
+	descPos : new Vector2(10, 72),
+	barCodePos : new Vector2(280,48),
+	descWidth : 280
+}
+);
+
 
 function GenerateRandomLabel(name, subName, desc)
 {
@@ -31,20 +115,34 @@ function GenerateRandomLabel(name, subName, desc)
 		subName = "";
 	}
 	
+	var layoutIndex = random.getBetween(0,LabelLayouts.length);
+	
+	var layout = LabelLayouts[layoutIndex];
+	
+	desc += " Layout " + layoutIndex;
+	
 	var label = {};
-	label.size = new Vector2(430,110);
+	label.size = layout.size;
 	label.fillColor = GenerateCoolColor(random.get());
-	label.namePos = new Vector2(62,24);
-	label.subNamePos = new Vector2(12,42);
-	label.descPos = new Vector2(240,42);
-	label.nameFont = "30px Arial";
-	label.nameColor = "#000077";
+	label.namePos = layout.namePos;
+	label.subNamePos = layout.subNamePos;
+	label.descPos = layout.descPos;
+	
+	var cfont = GetCoolFont(random.getBetween(0,23213));
+	
+	label.nameFont = "" + (random.getBetween(0,8) + 24) + "px "+cfont;
+	label.nameColor = GenerateDarkColor(random.get());
 	label.name = name;
-	label.subNameFont = "20px Arial";
-	label.subNameColor = "#000077";
+	label.subNameFont = "" + (random.getBetween(0,4) + 16) + "px "+cfont;
+	label.subNameColor = label.nameColor;
 	label.subName = subName;
-	label.barCodePos = new Vector2(20,58);
+	
+	label.descFont = "12px " + GetDullFont(random.getBetween(0,23213));
+	
+	
+	label.barCodePos = layout.barCodePos;
 	label.description = desc;
+	label.descWidth = layout.descWidth;
 	return label;
 }
 
@@ -59,17 +157,19 @@ function RenderLabel(pos, label)
 	var subNamePos = pos.add(label.subNamePos);
 	var barCodePos = pos.add(label.barCodePos);
 	
-	context.lineWidth = 4;
+	context.lineWidth = 8;
 	context.strokeRect(pos.x,pos.y,max.x,max.y);
 	context.fillStyle = label.fillColor;
 	context.fillRect(pos.x,pos.y,max.x,max.y);
 	
 	context.fillStyle = "#000000";
-	context.font = "12px Courier";
-	context.wrapText(label.description,textPos.x,textPos.y,200,14);
+	context.font = label.descFont;
+	context.wrapText(label.description,textPos.x,textPos.y,label.descWidth,14);
 	
+	context.lineWidth = 2;
 	context.fillStyle = label.nameColor;
 	context.font = label.nameFont;
+	context.strokeText(label.name,namePos.x,namePos.y);
 	context.fillText(label.name,namePos.x,namePos.y);
 	
 	context.fillStyle = label.subNameColor;
