@@ -1,0 +1,9 @@
+A simple drug name generator based on Markov chains.
+
+USAGE: ./generate
+
+Generated names will be output to drugnames.txt
+
+
+Copyright 2016 Risto Karjalainen
+

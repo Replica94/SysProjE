@@ -1,0 +1,6 @@
+#!/bin/bash
+# removes all external data files
+
+rm drugs.csv
+rm names.txt
+
