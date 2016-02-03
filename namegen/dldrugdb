@@ -1,0 +1,7 @@
+#!/bin/bash
+# downloads the drug database from Fimea and converts it to UTF-8
+
+wget -O drugs.csv http://www.fimea.fi/documents/160140/1128399/pakkaus1.txt/1fdad9d7-7933-4cb5-b459-fed2eb25b32d
+iconv -f ISO-8859-15 -t UTF-8 drugs.csv > drugs.utf8
+rm drugs.csv
+mv drugs.utf8 drugs.csv

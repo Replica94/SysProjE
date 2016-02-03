@@ -1,0 +1,9 @@
+#!/bin/bash
+# Generates drug names and outputs them to drugnames.txt
+
+./clean
+./dldrugdb
+python3.2 names.py
+./sanitize
+python3.2 generator.py
+
