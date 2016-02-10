@@ -3,4 +3,6 @@
 
 rm drugs.csv
 rm names.txt
+rm packages.csv
+rm packages.txt
 

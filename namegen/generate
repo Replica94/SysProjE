@@ -4,6 +4,7 @@
 ./clean
 ./dldrugdb
 python3.2 names.py
+python3.2 packages.py
 ./sanitize
 python3.2 generator.py
 

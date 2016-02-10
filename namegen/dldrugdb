@@ -5,3 +5,9 @@ wget -O drugs.csv http://www.fimea.fi/documents/160140/1128399/pakkaus1.txt/1fda
 iconv -f ISO-8859-15 -t UTF-8 drugs.csv > drugs.utf8
 rm drugs.csv
 mv drugs.utf8 drugs.csv
+
+wget -O packages.csv http://www.fimea.fi/documents/160140/1128399/pakkaus_nolla.txt/8ad67660-6860-40eb-8056-159fcc863d60
+iconv -f ISO-8859-15 -t UTF-8 packages.csv > packages.utf8
+rm packages.csv
+mv packages.utf8 packages.csv
+

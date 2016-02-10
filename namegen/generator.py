@@ -4,13 +4,14 @@
 import random
 
 MIN_LENGTH = 5
-MAX_LENGTH = 25
+MAX_LENGTH = 15
 GENERATE_COUNT = 1000
 END_WORD = '$'
 
 def main():
 	firstletters = dict()
 	pairs = dict()
+	blacklist = list()
 	
 	# generate markov chains
 	with open('names.txt', 'r', encoding='utf-8') as f:
@@ -28,13 +29,36 @@ def main():
 	normalize_values(firstletters)
 	normalize_pairs(pairs)
 
+	blacklist = load_blacklist()
+
 	random.seed()
 	with open('drugnames.txt', 'w', encoding='utf-8') as f:
 		for i in range(0, GENERATE_COUNT):
 			name = generate_name(firstletters, pairs)
-			if len(name) >= MIN_LENGTH and len(name) <= MAX_LENGTH:
-				f.write(name+'\n')
-		
+			while not validate_name(name, blacklist):
+				name = generate_name(firstletters, pairs)
+			f.write(name+'\n')
+
+	print("Finished writing random names to drugnames.txt")		
+
+def validate_name(name, blacklist):
+	if len(name) < MIN_LENGTH or len(name) > MAX_LENGTH:
+		return False
+	if name in blacklist:
+		print("Generated existing name:", name)
+		return False
+	return True
+
+def load_blacklist():
+	bl = list()
+	with open('names.txt', encoding='utf-8') as f:
+		lines = [line.strip() for line in f.readlines()]
+		bl.extend(lines)
+	with open('packages.txt', encoding='utf-8') as f:
+		lines = [line.strip() for line in f.readlines()]
+		bl.extend(lines)
+#	print("\n".join(bl[0:100]))
+	return bl
 
 def generate_name(firstletters, pairs):
 	name = generate_first_letter(firstletters)
