@@ -2,4 +2,4 @@ deployment:
   staging:
     branch: master
     heroku:
-      appname: medicutor
+      appname: medicutor2
