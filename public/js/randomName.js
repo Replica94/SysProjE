@@ -1,3 +1,4 @@
+//Deprectaed
 
 var bn_cools = [
 	"max",
@@ -30,7 +31,7 @@ var DrugNames = ["null"];
 function InitRandomNames()
 {
     var rf = new XMLHttpRequest();
-    rf.open("GET", "assets/drugnames.txt", false);
+    rf.open("GET", "https://raw.githubusercontent.com/Replica94/SysProjE/master/namegen/drugnames.txt", false);
     rf.onreadystatechange = function ()
     {
         if(rf.readyState === 4)
@@ -43,7 +44,7 @@ function InitRandomNames()
         }
     }
     rf.send(null);
-	DrugNames = DrugNames.filter(function(t){return (t.length < 15) && (t.length > 3);});
+	//DrugNames = DrugNames.filter(function(t){return (t.length < 15) && (t.length > 3);});
 }
 
 

@@ -12,7 +12,6 @@ function GetRandomWithSeed(seed)
 
 function GetRandomBetweenWithSeed(min, onepastmax, seed)
 {
-	
 	return Math.floor(GetRandomWithSeed(seed) * onepastmax) + min;
 }
 
@@ -45,9 +44,6 @@ function ShuffleArraySeed(arr, random)
 	}
     return arr;
 }
-
-
-
 
 function SeededRandom(seed)
 {

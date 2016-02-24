@@ -74,13 +74,11 @@ function GetDullFont(seed)
 	return fonts[random.getBetween(0,fonts.length)];
 }
 
-
-
 var LabelLayouts = [];
 LabelLayouts.push
 (
 {
-	size : new Vector2(430,110),
+	size : new Vector2(455,140),
 	namePos : new Vector2(62, 24),
 	descPos : new Vector2(180, 62),
 	subNamePos : new Vector2(12,42),
@@ -88,19 +86,19 @@ LabelLayouts.push
 	descWidth : 250
 },
 {
-	size : new Vector2(330,150),
-	namePos : new Vector2(130, 24),
-	subNamePos : new Vector2(120,52),
+	size : new Vector2(355,175),
+	namePos : new Vector2(32, 24),
+	subNamePos : new Vector2(20,52),
 	descPos : new Vector2(10, 72),
-	barCodePos : new Vector2(220,98),
+	barCodePos : new Vector2(220,93),
 	descWidth : 200
 },
 {
-	size : new Vector2(390,130),
+	size : new Vector2(415,145),
 	namePos : new Vector2(24, 34),
 	subNamePos : new Vector2(24,52),
 	descPos : new Vector2(10, 72),
-	barCodePos : new Vector2(280,48),
+	barCodePos : new Vector2(285,52),
 	descWidth : 280
 }
 );
@@ -119,7 +117,6 @@ function GenerateRandomLabel(name, subName, desc)
 	
 	var layout = LabelLayouts[layoutIndex];
 	
-	desc += " Layout " + layoutIndex;
 	
 	var label = {};
 	label.size = layout.size;
@@ -131,10 +128,10 @@ function GenerateRandomLabel(name, subName, desc)
 	var cfont = GetCoolFont(random.getBetween(0,23213));
 	
 	label.nameFont = "" + (random.getBetween(0,8) + 24) + "px "+cfont;
-	label.nameColor = GenerateDarkColor(random.get());
+	label.nameColor = GenerateCoolColor(random.get());
 	label.name = name;
 	label.subNameFont = "" + (random.getBetween(0,4) + 16) + "px "+cfont;
-	label.subNameColor = label.nameColor;
+	label.subNameColor = GenerateDarkColor(random.get());
 	label.subName = subName;
 	
 	label.descFont = "12px " + GetDullFont(random.getBetween(0,23213));
@@ -149,7 +146,7 @@ function GenerateRandomLabel(name, subName, desc)
 
 function RenderLabel(pos, label)
 {
-	var max = pos.add(label.size);
+	var max = label.size;
 	
 	var textPos = pos.add(label.descPos);
 	

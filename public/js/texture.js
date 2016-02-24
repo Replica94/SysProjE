@@ -5,7 +5,7 @@ var Texture = {
 	map: new Array(),
 	initTextures: function ()
 	{
-		this.addTexture("barcode","assets/barcode.png");
+		this.addTexture("barcode","assets/img/barcode.png");
 	},
 	
 	addTexture: function(name,source)
@@ -20,11 +20,13 @@ var Texture = {
 		{
 			capt.textureLoaded(img, name);
 		};
+		
 		img.onerror = function()
 		{
 			console.log("Failed to load texture " + name + " from "+ source);
 			capt.loadedTextures++;
 		};
+		
 		img.src = source;
 	},
 
