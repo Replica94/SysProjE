@@ -3,3 +3,6 @@ deployment:
     branch: master
     heroku:
       appname: medicutor
+test:
+  override:
+    - echo "test"
