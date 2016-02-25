@@ -3,11 +3,18 @@ function Vector2(x, y)
 	this.x = x;
 	this.y = y;
 	
+	this.copy = function ()
+	{
+		return new Vector2(this.x,this.y);
+	};
+	
+	//Add vector2, returns the result
 	this.add = function (vec)
 	{
 		return new Vector2(this.x+vec.x,this.y+vec.y);
 	};
 	
+	//Subtract vector2, returns the result
 	this.sub = function (vec)
 	{
 		return new Vector2(this.x-vec.x,this.y-vec.y);

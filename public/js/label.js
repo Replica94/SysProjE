@@ -104,9 +104,9 @@ LabelLayouts.push
 );
 
 
-function GenerateRandomLabel(name, subName, desc)
+function GenerateRandomLabel(name, subName, desc, seed)
 {
-	var random = new SeededRandom(GetRandomBetween(0,65421));
+	var random = new SeededRandom(seed);
 	if (random.getBetween(0,3) == 1)
 	{
 		desc = desc + " " + subName;

@@ -11,10 +11,12 @@ function GameObject()
 	this.z = 0;
 	//Is set by the Engine, if the mouse is hovering on the object
 	this.mouseHover = false;
+	//Is set by the Engine, if the object was clicked
+	this.clicked = false;
 	//Whether the Engine should send input events to this object
 	this.checkForInput = false;
 	//The object bounds for input checking
-	this.bounds = new AABB(0, 0);
+	this.bounds = new AABB(new Vector2(0,0),new Vector2(0,0));
 	//The method used to draw the object
 	this.draw = null;
 	//The method used for updating the object
@@ -22,15 +24,43 @@ function GameObject()
 	//The onClick callback
 	this.onClick = null;
 	//If the following is true, object will be deleted at next step
-	this.isDoomed = true;
+	this.isDoomed = false;
 }
 
 //How to inherit stuff in JavaScript?
 //
-//var TestObject = function(){stuff...}
-//
-//TestObject.prototype = new GameObject();
-//TestObject.constructor = new TestObject();
+var RealObject = function()
+{
+	//some testing stuff
+	this.position = new Vector2(32,128);
+	this.size = new Vector2(128,128);
+	this.checkForInput = true;
+	this.updateRealObject = function()
+	{
+		this.bounds = GenerateAABB(this.position, this.size);
+	}
+	this.update = function()
+	{
+		this.updateRealObject();
+	}
+	this.draw = function()
+	{
+		if (this.clicked)
+			context.fillStyle = "#ffffff";
+		else
+		if (this.mouseHover)
+			context.fillStyle = "#897867";
+		else
+			context.fillStyle = "#345678";
+		context.fillRect(this.position.x, this.position.y, this.size.x, this.size.y);
+	}
+	this.onClick = function()
+	{
+		this.mouseClicked = true;
+	}
+}
+RealObject.prototype = new GameObject();
+RealObject.constructor = new RealObject();
 
 //Call addObject for stuff
 
@@ -53,21 +83,64 @@ var Engine =
 	
 	update: function ()
 	{
+		var mouseHit = false;
+		var clicked = Input.isPressed();
 		for (var i = this.objects.length - 1; i >= 0; i--)
 		{
 			var obj = this.objects[i];
-			if (obj.update != null)
-				obj.update();
-			if (obj.isDoomed)
-				this.objects.splice(i, 1);
+			try
+			{
+				if (obj.checkForInput)
+				{
+					if ((!mouseHit) && Input.checkMouseOver(obj.bounds))
+					{
+						obj.mouseHover = true;
+						if (clicked)
+						{
+							obj.clicked = true;
+							obj.onClick();
+						}
+						else
+							obj.clicked = false;
+					}
+					else
+					{
+						obj.mouseHover = false;
+						obj.clicked = false;
+					}
+				}
+				
+				if (obj.update != null)
+					obj.update();
+				if (obj.isDoomed)
+					this.objects.splice(i, 1);
+			}
+			catch(err)
+			{
+				//ERROR
+				console.log("Error handling object: ")
+				console.log(obj);
+				console.log(err);
+			}
 		}
 	},
 	init: function ()
 	{
-		
+		this.addObject(new RealObject);
 	},
-	draw: function () //TODO
+	draw: function (context) 
 	{
-		
+		var currentContext = 1;
+		var contextOffset = new Vector2(0,0);
+		for (var i = 0; i <  this.objects.length; i++)
+		{
+			var obj = this.objects[i];
+			if (obj.draw != null)
+			if ((obj.drawContext == 0) || (obj.drawContext & currentContext))
+			{
+				obj.draw(context, contextOffset);
+			}
+			
+		}
 	}
 }
