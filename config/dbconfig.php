@@ -1,14 +1,14 @@
 ﻿<?php
 // Application database
-$appdb['host'] = getenv('DATABASE_HOST');
-$appdb['port'] = getenv('DATABASE_PORT');
-$appdb['username'] = getenv('DATABASE_USERNAME');
-$appdb['password'] = getenv('DATABASE_PASSWORD');
-$appdb['database'] = getenv('DATABASE_DATABASE');
+define('APPDB_HOST', getenv('DATABASE_HOST'));
+define('APPDB_PORT', getenv('DATABASE_PORT'));
+define('APPDB_USERNAME', getenv('DATABASE_USERNAME');
+define('APPDB_PASSWORD', getenv('DATABASE_PASSWORD'));
+define('APPDB_DATABASE', getenv('DATABASE_DATABASE'));
 
 // Medical database
-$drugdb['host'] = getenv('DRUGDB_HOST');
-$drugdb['port'] = getenv('DRUGDB_PORT');
-$drugdb['username'] = getenv('DRUGDB_USERNAME');
-$drugdb['password'] = getenv('DRUGDB_PASSWORD');
-$drugdb['database'] = getenv('DRUGDB_DATABASE');
+define('DRUGDB_HOST', getenv('DRUGDB_HOST');
+define('DRUGDB_PORT', getenv('DRUGDB_PORT'));
+define('DRUGDB_USERNAME', getenv('DRUGDB_USERNAME'));
+define('DRUGDB_PASSWORD', getenv('DRUGDB_PASSWORD');
+define('DRUGDB_DATABASE', getenv('DRUGDB_DATABASE'));
