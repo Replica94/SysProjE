@@ -13,7 +13,7 @@ require_once(__DIR__ . '/Session.class.php');
  * output is sent to the client.
  */
 function requireSSL() {
-	if ($_SERVER['HTTPS'] != 'on') {
+	if (empty($_SERVER['HTTPS']) || $_SERVER['HTTPS'] == 'off') {
 		header("Location: https://" .  $_SERVER["HTTP_HOST"] 
 			. $_SERVER["REQUEST_URI"]);
 		exit();
