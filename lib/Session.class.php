@@ -18,12 +18,20 @@ class Session {
 	}
 
 	/**
-	 * Clear all session variables by calling session_unset()
+	 * Clear a session variable, or all session variables if no $key is
+	 * given
 	 *
+	 * @param $key The variable to unset
 	 * @return True on success, and false on failure.
 	 */	
-	public function clear() {
-		return session_unset();
+	public function clear($key) {
+		if (isset($key)) {
+			unset($_SESSION[$key]);
+			return true;
+		}
+		else {
+			return session_unset();
+		}
 	}
 	
 	/**

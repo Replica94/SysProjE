@@ -11,14 +11,10 @@ autoloader(__DIR__ . "/../lib/dao/");
 // avoid sending passwords over an unsecured connection
 requireSSL();
 
-$session = Session::start();
-$user = getUser();
-// Redirect if we're already logged in
-if (isset($user) && $user->loggedIn()) {
-	header("Location: index.html");
-	exit();
-}
+// disallow new account creation for users who are already logged in
+requireNotLoggedIn();
 
+$session = Session::start();
 $warnings = array();
 
 if (isset($_POST['submit'])) {
@@ -49,14 +45,14 @@ if (isset($_POST['submit'])) {
 				$warnings[] = "Username already taken";
 			}
 			else {
-				$password = pw_encode($password);
-				if (!$dao->createUser($username, $password)) {
+				$passwd = pw_encode($passwd);
+				if (!$dao->createUser($username, $passwd)) {
 					$warnings[] = "Failed to insert to database";
 				}
 				else {
 					// Registration was successful, redirect the user to
 					// the login screen
-					$session->set('registration_successful', true);
+					$session->set('register_flag', true);
 					header("Location: login.php");
 					exit();
 				}

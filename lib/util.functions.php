@@ -4,7 +4,8 @@
  */
  
 require_once(__DIR__ . '/../config/config.php');
- 
+require_once(__DIR__ . '/Session.class.php');
+
 /**
  * Enforces that HTTPS is used for the connection. If the connection is not
  * secure, the connection is redirected to HTTPS and exit() is called.
@@ -17,6 +18,23 @@ function requireSSL() {
 			. $_SERVER["REQUEST_URI"]);
 		exit();
 	}
+}
+
+/**
+ * Enforces that the user isn't logged in. If the user is logged in,
+ * redirect them to the given address and exit. MUST be called before any
+ * output has been sent to the client.
+ *
+ * @param $redirect The address to redirect to (default index.php)
+ */
+function requireNotLoggedIn($redirect = 'index.php') {
+	$session = Session::start();
+	$user = getUser();
+	// Redirect if we're already logged in
+	if (isset($user) && $user->loggedIn()) {
+		header("Location: {$redirect}");
+		exit();
+	}	
 }
 
 /**
@@ -39,7 +57,6 @@ function autoloader($dir) {
  * @return User object if one exists in the session, or null otherwise.
  */
 function getUser() {
-	require_once(__DIR__ . "/Session.class.php");
 	$session = Session::start();
 	$user = $session->get('user');
 	if (isset($user)) {
@@ -94,5 +111,6 @@ function pw_encode($password) {
  * @return True if the password matches, or false otherwise.
  */
 function pw_verify($password, $pwhash) {
-	return hash_equals($pwhas, crypt($password, $pwhas));
+	// TODO: use password_verify() instead if PHP 5.5+ is available
+	return $pwhash === crypt($password, $pwhash);
 }
