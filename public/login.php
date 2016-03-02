@@ -9,7 +9,7 @@ autoloader(__DIR__ . "/../lib/");
 autoloader(__DIR__ . "/../lib/dao/");
 
 // avoid sending passwords over an unsecured connection
-requireSSL();
+// requireSSL();
 
 // already logged in, disallow logging in again
 requireNotLoggedIn();
