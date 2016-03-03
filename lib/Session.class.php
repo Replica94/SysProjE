@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 /**
  * Session singleton that is used to make sure that session_start() is
  * only called once.

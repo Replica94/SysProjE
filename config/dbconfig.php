@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 // Application database
 define('APPDB_HOST', getenv('DATABASE_HOST'));
 define('APPDB_PORT', getenv('DATABASE_PORT'));

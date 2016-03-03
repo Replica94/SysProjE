@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 /**
  * User class. Handles authentication etc.
  */

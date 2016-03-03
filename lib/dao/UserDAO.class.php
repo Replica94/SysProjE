@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 /**
  * Data Access Object for user data.
  */
