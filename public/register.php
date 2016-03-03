@@ -3,6 +3,10 @@
  * Account registration form.
  */
 
+// Enable errors for debugging purposes. Remember to turn them off. 
+error_reporting(-1);
+ini_set('display_errors', 'On');
+
 require_once(__DIR__ . "/../config/config.php");
 require_once(__DIR__ . "/../lib/util.functions.php");
 autoloader(__DIR__ . "/../lib/");
