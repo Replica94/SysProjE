@@ -16,7 +16,7 @@
             <input type="submit" name="submit" value="Register">
             
             <!-- reCAPTCHA: -->
-            <div class="g-recaptcha" data-sitekey="6Lea-BkTAAAAAIJj2zQuwWyeQMgoyhaokYEAClhk"></div>
+            <div class="g-recaptcha" data-sitekey="6Lf48xkTAAAAAGjaAyRttKbbbc5vD3X4i3iUEwg9"></div>
         </form>
         <?php foreach ($warnings as $warning): ?>
             <div class="warning"><?php echo $warning ?></div>
