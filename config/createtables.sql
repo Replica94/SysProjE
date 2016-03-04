@@ -1,3 +1,4 @@
+DROP TABLE IF EXISTS account;
 CREATE TABLE account
 (
   id serial NOT NULL,

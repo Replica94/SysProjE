@@ -13,11 +13,11 @@ require_once(__DIR__ . '/Session.class.php');
  * output is sent to the client.
  */
 function requireSSL() {
-	if (empty($_SERVER['HTTPS']) || $_SERVER['HTTPS'] == 'off') {
-		header("Location: https://" .  $_SERVER["HTTP_HOST"] 
-			. $_SERVER["REQUEST_URI"]);
-		exit();
-	}
+    if (empty($_SERVER['HTTPS']) || $_SERVER['HTTPS'] == 'off') {
+        header("Location: https://" .  $_SERVER["HTTP_HOST"] 
+            . $_SERVER["REQUEST_URI"]);
+        exit();
+    }
 }
 
 /**
@@ -28,13 +28,13 @@ function requireSSL() {
  * @param $redirect The address to redirect to (default index.php)
  */
 function requireNotLoggedIn($redirect = 'index.php') {
-	$session = Session::start();
-	$user = getUser();
-	// Redirect if we're already logged in
-	if (isset($user) && $user->loggedIn()) {
-		header("Location: {$redirect}");
-		exit();
-	}	
+    $session = Session::start();
+    $user = getUser();
+    // Redirect if we're already logged in
+    if (isset($user) && $user->loggedIn()) {
+        header("Location: {$redirect}");
+        exit();
+    }   
 }
 
 /**
@@ -44,11 +44,11 @@ function requireNotLoggedIn($redirect = 'index.php') {
  * @param dir String to the directory where to autoload from.
  */
 function autoloader($dir) {
-	spl_autoload_register(
-		function($classname) use ($dir) {
-			include(rtrim($dir, '/') . '/' . $classname . ".class.php");
-		}
-	);
+    spl_autoload_register(
+        function($classname) use ($dir) {
+            include(rtrim($dir, '/') . '/' . $classname . ".class.php");
+        }
+    );
 }
 
 /**
@@ -57,12 +57,12 @@ function autoloader($dir) {
  * @return User object if one exists in the session, or null otherwise.
  */
 function getUser() {
-	$session = Session::start();
-	$user = $session->get('user');
-	if (isset($user)) {
-		return $user;
-	}
-	return null;
+    $session = Session::start();
+    $user = $session->get('user');
+    if (isset($user)) {
+        return $user;
+    }
+    return null;
 }
 
 /**
@@ -72,10 +72,10 @@ function getUser() {
  * @return True if $passwd is a valid password, or false otherwise.
  */
 function isValidPassword($passwd) {
-	if (strlen($passwd) >= MIN_PASSWORD_LENGTH) {
-		return true;
-	}
-	return false;
+    if (strlen($passwd) >= MIN_PASSWORD_LENGTH) {
+        return true;
+    }
+    return false;
 }
 
 /**
@@ -85,10 +85,10 @@ function isValidPassword($passwd) {
  * @return True if $username is a valid username, or false otherwise.
  */
 function isValidUsername($username) {
-	if (strlen($username) >= MIN_USERNAME_LENGTH) {
-		return true;
-	}
-	return false;
+    if (strlen($username) >= MIN_USERNAME_LENGTH) {
+        return true;
+    }
+    return false;
 }
 
 /**
@@ -98,7 +98,7 @@ function isValidUsername($username) {
  * @return Hashed password
  */
 function pw_encode($password) {
-	return password_hash($password, PASSWORD_DEFAULT);
+    return password_hash($password, PASSWORD_DEFAULT);
 }
 
 /**
@@ -109,5 +109,5 @@ function pw_encode($password) {
  * @return True if the password matches, or false otherwise.
  */
 function pw_verify($password, $pwhash) {
-	return password_verify($password, $pwhash);
+    return password_verify($password, $pwhash);
 }

@@ -19,28 +19,28 @@ $warnings = array();
 
 $session = Session::start();
 if ($session->get('register_flag') != null) {
-	$messages[] = "Registration successful";
-	$session->clear('register_flag');
+    $messages[] = "Registration successful";
+    $session->clear('register_flag');
 }
 
 if (isset($_POST['submit'])) {
-	if (isset($_POST['username']) && isset($_POST['passwd'])) {
-		$username = $_POST['username'];
-		$passwd = $_POST['passwd'];
-		$user = new User();
-		if ($user->logIn($username, $passwd)) {
-			// Login successful, set session variables and redirect to index
-			$session->set('user', $user);
-			header("Location: index.php");
-			exit();
-		}
-		else {
-			$warnings[] = "Login failed";
-		}
-	}
-	else {
-		$warnings[] = "Missing fields";
-	}
+    if (isset($_POST['username']) && isset($_POST['passwd'])) {
+        $username = $_POST['username'];
+        $passwd = $_POST['passwd'];
+        $user = new User();
+        if ($user->logIn($username, $passwd)) {
+            // Login successful, set session variables and redirect to index
+            $session->set('user', $user);
+            header("Location: index.php");
+            exit();
+        }
+        else {
+            $warnings[] = "Login failed";
+        }
+    }
+    else {
+        $warnings[] = "Missing fields";
+    }
 }
 
 // Include the HTML template:
