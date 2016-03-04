@@ -4,13 +4,15 @@
  * only called once.
  */
  
-class Session { 
+class Session 
+{ 
     /**
      * Starts a session if no session exists yet. Otherwise does nothing.
      *
      * @return Session object (Singleton)
      */
-    public static function start() {
+    public static function start() 
+    {
         if (static::$instance === null) {
             static::$instance = new static();
         }
@@ -24,12 +26,12 @@ class Session {
      * @param $key The variable to unset
      * @return True on success, and false on failure.
      */ 
-    public function clear($key) {
+    public function clear($key) 
+    {
         if (isset($key)) {
             unset($_SESSION[$key]);
             return true;
-        }
-        else {
+        } else {
             return session_unset();
         }
     }
@@ -40,7 +42,8 @@ class Session {
      *
      * @return True on success, and false on failure.
      */
-    public function destroy() {
+    public function destroy() 
+    {
         static::$instance = null;
         return session_destroy();
     }
@@ -51,7 +54,8 @@ class Session {
      * @param $key Key of the data to be retrieved
      * @return Session data
      */
-    public function get($key) {
+    public function get($key) 
+    {
         if (isset($_SESSION[$key])) {
             return $_SESSION[$key];
         }
@@ -65,19 +69,22 @@ class Session {
      * @param $value Value to set to
      * @return The new data
      */
-    public function set($key, $value) {
+    public function set($key, $value) 
+    {
         $_SESSION[$key] = $value;
         return $_SESSION[$key];
     }
     
     /** Constructor */
-    protected function __construct() {
+    protected function __construct() 
+    {
         if (static::$instance === null) {
             session_start();
         }
     }
 
-    protected function __clone() {
+    protected function __clone() 
+    {
     }
 
     

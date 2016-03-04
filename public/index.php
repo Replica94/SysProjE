@@ -7,7 +7,6 @@ autoloader(__DIR__ . "/../lib/dao/");
 $user = getUser();
 if (isset($user) && $user->loggedIn()) {
     echo "Logged in as {$user->getUsername()}";
-}
-else {
+} else {
     echo "Not logged in.";
 }

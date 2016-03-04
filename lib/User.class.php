@@ -6,7 +6,8 @@
 require_once(__DIR__ . "/dao/UserDAO.class.php");
 require_once(__DIR__ . "/util.functions.php");
  
-class User {
+class User 
+{
     private $loggedIn = false;
     private $username = null;
     
@@ -17,7 +18,8 @@ class User {
      * @param $password Password
      * @return True if login was successful, or false otherwise.
      */
-    public function logIn($username, $password) {
+    public function logIn($username, $password) 
+    {
         $dao = new UserDAO();
         if ($dao->userExists($username)) {
             $pwhash = $dao->getPassword($username);
@@ -35,7 +37,8 @@ class User {
      * 
      * @return True if the user is logged in, or false otherwise.
      */
-    public function loggedIn() {
+    public function loggedIn() 
+    {
         return $this->loggedIn;
     }
     
@@ -44,7 +47,8 @@ class User {
      *
      * @return Username
      */
-    public function getUsername() {
+    public function getUsername() 
+    {
         return $this->username;
     }
 }

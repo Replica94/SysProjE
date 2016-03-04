@@ -48,8 +48,7 @@ if (isset($_POST['submit'])) {
                 $passwd = pw_encode($passwd);
                 if (!$dao->createUser($username, $passwd)) {
                     $warnings[] = "Failed to insert to database";
-                }
-                else {
+                } else {
                     // Registration was successful, redirect the user to
                     // the login screen
                     $session->set('register_flag', true);

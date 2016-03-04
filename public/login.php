@@ -33,12 +33,10 @@ if (isset($_POST['submit'])) {
             $session->set('user', $user);
             header("Location: index.php");
             exit();
-        }
-        else {
+        } else {
             $warnings[] = "Login failed";
         }
-    }
-    else {
+    } else {
         $warnings[] = "Missing fields";
     }
 }
