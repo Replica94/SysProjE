@@ -3,6 +3,9 @@
     <head>
         <meta charset="UTF-8">
         <title>Register</title>
+        
+        <!-- reCAPTCHA: -->
+        <script src='https://www.google.com/recaptcha/api.js'></script>
     </head>
 
     <body>
@@ -11,6 +14,9 @@
             <input type="password" name="passwd" placeholder="Type a password">
             <input type="password" name="passwd2" placeholder="Retype password">
             <input type="submit" name="submit" value="Register">
+            
+            <!-- reCAPTCHA: -->
+            <div class="g-recaptcha" data-sitekey="6Lea-BkTAAAAAIJj2zQuwWyeQMgoyhaokYEAClhk"></div>
         </form>
         <?php foreach ($warnings as $warning): ?>
             <div class="warning"><?php echo $warning ?></div>

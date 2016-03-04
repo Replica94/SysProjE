@@ -119,3 +119,36 @@ function pw_verify($password, $pwhash)
 {
     return password_verify($password, $pwhash);
 }
+
+/**
+ * Verify a reCAPTCHA. See reCAPTCHA documentation on Google's 
+ * site for specifics.
+ *
+ * @param $secret The secret key used for communication with Google's service
+ * @param $response The value of 'g-recaptcha-response' response from the form
+ * @param $remoteip The remote user's IP
+ * @return True if the captcha was solved successfully, otherwise false.
+ */
+function verifyReCaptcha($secret, $response, $remoteip) 
+{
+    $data = array(
+        "secret" => $secret,
+        "response" => $response,
+        "remoteip" => $remoteip
+    );
+    $options = array(
+        'http' => array(
+            'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
+            'method'  => 'POST',
+            'content' => http_build_query($data)
+        )
+    );
+    $context = stream_context_create($options);
+    $url = "https://www.google.com/recaptcha/api/siteverify";
+    $result = file_get_contents($url, false, $context);
+    if ($result == false) {
+        return false;
+    }
+    $response = json_decode($result, true);
+    return (isset($response['success']) && $response['success'] == true);
+}

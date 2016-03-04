@@ -18,7 +18,10 @@ $session = Session::start();
 $warnings = array();
 
 if (isset($_POST['submit'])) {
-    if (isset($_POST['passwd']) && isset($_POST['passwd2']) && 
+    if (!verifyReCaptcha("6Lea-BkTAAAAAHEyNQ3vkVpFghbEDypdJ2Wm7ygv",
+            @$_POST['g-recaptcha-response'], $_SERVER['REMOTE_ADDR'])) {
+        $warnings[] = "Failed CAPTCHA";
+    } elseif (isset($_POST['passwd']) && isset($_POST['passwd2']) && 
         isset($_POST['username'])) {
         
         $passwd = $_POST['passwd'];
