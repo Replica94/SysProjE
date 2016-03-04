@@ -98,9 +98,7 @@ function isValidUsername($username) {
  * @return Hashed password
  */
 function pw_encode($password) {
-	// TODO: use password_hash() instead of crypt() if PHP 5.5 or
-	// 		 later is available on the production machine
-	return crypt($password);
+	return password_hash($password, PASSWORD_DEFAULT);
 }
 
 /**
@@ -111,6 +109,5 @@ function pw_encode($password) {
  * @return True if the password matches, or false otherwise.
  */
 function pw_verify($password, $pwhash) {
-	// TODO: use password_verify() instead if PHP 5.5+ is available
-	return $pwhash === crypt($password, $pwhash);
+	return password_verify($password, $pwhash);
 }

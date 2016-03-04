@@ -11,4 +11,3 @@ if (isset($user) && $user->loggedIn()) {
 else {
 	echo "Not logged in.";
 }
-	
