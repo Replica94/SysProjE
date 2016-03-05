@@ -5,6 +5,7 @@
  
 require_once(__DIR__ . '/../config/config.php');
 require_once(__DIR__ . '/Session.class.php');
+require_once(__DIR__ . '/User.class.php');
 
 /**
  * Enforces that HTTPS is used for the connection. If the connection is not
@@ -33,15 +34,50 @@ function requireSSL()
  */
 function requireNotLoggedIn($redirect = 'index.php') 
 {
-    if (!headers_sent()) {
-        $session = Session::start();
-        $user = getUser();
-        // Redirect if we're already logged in
-        if (isset($user) && $user->loggedIn()) {
-            header("Location: {$redirect}");
-            exit();
-        }
+    if (isLoggedIn() && !headers_sent()) {
+        header("Location: {$redirect}");
+        exit();
     }   
+}
+
+/**
+ * Checks if a user is logged in.
+ *
+ * @return True if a user is logged in, or false otherwise.
+ */
+function isLoggedIn() 
+{
+    $session = Session::start();
+    $user = getUser();
+    if (isset($user) && $user->loggedIn()) {  
+        return true;
+    } elseif (isset($_COOKIE['medicutor_token'])) {
+        $newuser = new User();
+        if ($newuser->loginWithToken($_COOKIE['medicutor_token'])) {
+            $session->set('user', $newuser);
+            makeNewToken($newuser);
+            return true;
+        }
+    } 
+    return false;
+}
+
+/**
+ * Makes a new login token for the given user and sets cookie.
+ *
+ * @param User $user The user to make the token for
+ */
+function makeNewToken($user) 
+{
+    $expiry = time() + LOGIN_EXPIRY_TIME;
+    $token = $user->generateToken($expiry);
+    setcookie('medicutor_token', $token, $expiry);    
+}
+
+/** Clears the login token cookie */
+function clearTokenCookie() 
+{
+    setcookie('medicutor_token', null, time() - 3600);
 }
 
 /**

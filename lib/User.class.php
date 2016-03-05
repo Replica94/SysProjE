@@ -18,7 +18,7 @@ class User
      * @param $password Password
      * @return True if login was successful, or false otherwise.
      */
-    public function logIn($username, $password) 
+    public function login($username, $password) 
     {
         $dao = new UserDAO();
         if ($dao->userExists($username)) {
@@ -30,6 +30,49 @@ class User
             }
         }
         return false;
+    }
+    
+    /**
+     * Attempts to login with an auth token.
+     *
+     * @return True if the login was successful, or false otherwise.
+     */ 
+    public function loginWithToken($token) 
+    {
+        $parts = explode(':', $token);
+        $selector = $parts[0];
+        $token = $parts[1];
+        $dao = new UserDAO();
+        $row = $dao->getAuthToken($selector);
+        if ($row != false) {
+            $username = $row["username"];
+            $dbtoken = $row["token"];
+            // TODO: hash comparison vulnerable to timing attacks
+            if ($dbtoken == hash("sha256", base64_decode($token))) {
+                $dao->removeToken($selector, $dbtoken);
+                $this->username = $username;
+                $this->loggedIn = true;
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    /**
+     * Generates a new auth token for the user and inserts it into the database.
+     *
+     * @param $expiry Expiration time of the token as a UNIX timestamp
+     * @return New auth token, or null if the operation failed.
+     */
+    public function generateToken($expiry) 
+    {
+        $selector = base64_encode(openssl_random_pseudo_bytes(9));
+        $authenticator = openssl_random_pseudo_bytes(33);
+        $dao = new UserDAO();
+        if ($dao->addToken($this->username, $selector, hash('sha256', $authenticator), $expiry)) {
+            return $selector . ':' . base64_encode($authenticator);
+        }
+        return null;
     }
     
     /**

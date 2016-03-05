@@ -6,3 +6,5 @@ autoloader(__DIR__ . "/../lib/dao/");
 
 $session = Session::start();
 $session->clear('user');
+// clear auth cookies if they're present
+clearTokenCookie();

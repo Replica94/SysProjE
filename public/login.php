@@ -28,9 +28,12 @@ if (isset($_POST['submit'])) {
         $username = $_POST['username'];
         $passwd = $_POST['passwd'];
         $user = new User();
-        if ($user->logIn($username, $passwd)) {
+        if ($user->login($username, $passwd)) {
             // Login successful, set session variables and redirect to index
             $session->set('user', $user);
+            if (isset($_POST['remember_me']) && $_POST['remember_me'] == 'true') {
+                makeNewToken($user);
+            }
             header("Location: index.php");
             exit();
         } else {

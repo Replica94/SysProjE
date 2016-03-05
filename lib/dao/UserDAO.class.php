@@ -79,4 +79,98 @@ class UserDAO
         $arr = pg_fetch_array($res);
         return isset($arr['pwhash']) ? $arr['pwhash'] : null;
     }
+    
+    /**
+     * Gets an auth token row from the database that matches the given selector
+     * and hasn't expired.
+     *
+     * @param $selector
+     * @return Auth token row
+     */
+    public function getAuthToken($selector) 
+    {
+        $query = <<<SQL
+            SELECT acc.username, auth.token 
+                FROM auth_token AS auth
+                INNER JOIN account AS acc 
+                    ON acc.id = auth.userid
+                WHERE auth.selector = $1 AND auth.expires > NOW()
+SQL;
+        
+        $res = pg_query_params(
+            $this->conn,
+            $query,
+            array($selector)
+        );
+        $arr = pg_fetch_array($res);
+        return $arr;
+    }
+    
+    /**
+     * Remove the given token from the database.
+     *
+     * @param $selector
+     * @param $token
+     */
+    public function removeToken($selector, $token) 
+    {
+        pg_query_params(
+            $this->conn,
+            "DELETE FROM auth_token WHERE selector = $1 AND token = $2",
+            array($selector, $token)
+        );
+        $this->clearExpiredTokens();
+    }
+    
+    /**
+     * Adds a new auth token to the database.
+     *
+     * @param $username
+     * @param $selector
+     * @param $token
+     * @param $expiry Expiry time as a UNIX timestamp
+     * @return True if the operation was successful, or false otherwise.
+     */
+    public function addToken($username, $selector, $token, $expiry) 
+    {
+        $userid = $this->getUserId($username);
+        if ($userid != null) {
+            $res = pg_query_params(
+                $this->conn,
+                "INSERT INTO auth_token(userid, selector, token, expires) VALUES ($1, $2, $3, $4)",
+                array($userid, $selector, $token, date("Y-m-d H:i:s", $expiry))
+            );
+            return $res != false;
+        }
+        return false;
+    }
+    
+    /**
+     * Map a username to a userid.
+     *
+     * @param $username
+     * @return User id if a matching user exists, or null otherwise.
+     */
+    protected function getUserId($username) 
+    {
+        $res = pg_query_params(
+            $this->conn,
+            "SELECT id FROM account WHERE username = $1",
+            array($username)
+        );
+        if ($res == false) {
+            return null;
+        }
+        $arr = pg_fetch_array($res);
+        return isset($arr['id']) ? $arr['id'] : null;
+    }
+    
+    /** Clears expired tokens from the database */
+    protected function clearExpiredTokens() 
+    {
+        pg_query(
+            $this->conn,
+            "DELETE FROM auth_token WHERE expires > NOW()"
+        );
+    }
 }
