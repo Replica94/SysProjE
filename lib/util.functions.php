@@ -10,32 +10,37 @@ require_once(__DIR__ . '/Session.class.php');
  * Enforces that HTTPS is used for the connection. If the connection is not
  * secure, the connection is redirected to HTTPS and exit() is called.
  * Because the function calls header(), it MUST be called before any
- * output is sent to the client.
+ * output is sent to the client. If headers have already been sent, the 
+ * function does nothing.
  */
 function requireSSL() 
 {
-    if (empty($_SERVER['HTTPS']) || $_SERVER['HTTPS'] == 'off') {
-        header("Location: https://" .  $_SERVER["HTTP_HOST"] 
-            . $_SERVER["REQUEST_URI"]);
-        exit();
+    if (!headers_sent()) {
+        if (!isset($_SERVER['HTTPS']) || $_SERVER['HTTPS'] == 'off') {
+            header("Location: https://" .  $_SERVER["HTTP_HOST"] 
+                . $_SERVER["REQUEST_URI"]);
+            exit();
+        }
     }
 }
 
 /**
  * Enforces that the user isn't logged in. If the user is logged in,
  * redirect them to the given address and exit. MUST be called before any
- * output has been sent to the client.
+ * output has been sent to the client, otherwise the function does nothing.
  *
  * @param $redirect The address to redirect to (default index.php)
  */
 function requireNotLoggedIn($redirect = 'index.php') 
 {
-    $session = Session::start();
-    $user = getUser();
-    // Redirect if we're already logged in
-    if (isset($user) && $user->loggedIn()) {
-        header("Location: {$redirect}");
-        exit();
+    if (!headers_sent()) {
+        $session = Session::start();
+        $user = getUser();
+        // Redirect if we're already logged in
+        if (isset($user) && $user->loggedIn()) {
+            header("Location: {$redirect}");
+            exit();
+        }
     }   
 }
 
@@ -138,8 +143,8 @@ function verifyReCaptcha($secret, $response, $remoteip)
     );
     $options = array(
         'http' => array(
-            'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
-            'method'  => 'POST',
+            'header' => "Content-type: application/x-www-form-urlencoded\r\n",
+            'method' => 'POST',
             'content' => http_build_query($data)
         )
     );
