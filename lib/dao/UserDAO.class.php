@@ -170,7 +170,7 @@ SQL;
     {
         pg_query(
             $this->conn,
-            "DELETE FROM auth_token WHERE expires > NOW()"
+            "DELETE FROM auth_token WHERE expires < NOW()"
         );
     }
 }
