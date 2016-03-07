@@ -17,10 +17,12 @@
             <input class="w3-input" type="password" name="passwd" placeholder="Type a password"><p>
 			<label class="w3-label" for="passwd2">Repeat password</label>
             <input class="w3-input" type="password" name="passwd2" placeholder="Retype password"><p>
-            <input class="w3-input" type="submit" name="submit" value="Register"><p>
-            
-            <!-- reCAPTCHA: -->
+            	
+           <!-- reCAPTCHA: -->
             <div class="g-recaptcha" data-sitekey="6Lf48xkTAAAAAGjaAyRttKbbbc5vD3X4i3iUEwg9"></div><p>
+            	
+            <input class="w3-input" type="submit" name="submit" value="Register"><p>
+
         </form>
         <?php foreach ($warnings as $warning): ?>
             <div class="warning"><?php echo $warning ?></div>
