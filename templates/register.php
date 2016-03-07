@@ -9,6 +9,7 @@
     </head>
 
     <body>
+	<section>
         <form method="post" action="register.php">
 			<label class="w3-label" for="username">Username</label>
             <input class="w3-input" type="text" name="username" placeholder="Type a username">
@@ -24,5 +25,6 @@
         <?php foreach ($warnings as $warning): ?>
             <div class="warning"><?php echo $warning ?></div>
         <?php endforeach; ?>
-    </body>
+    </section>
+	</body>
 </html>
