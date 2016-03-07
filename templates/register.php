@@ -15,7 +15,7 @@
             <input class="w3-input" type="text" name="username" placeholder="Type a username"><p>
 			<label class="w3-label" for="passwd">Password</label>
             <input class="w3-input" type="password" name="passwd" placeholder="Type a password"><p>
-			<label class="w3-label" for="passwd2">Repeat password</label>
+			<label class="w3-label" for="passwd2">Retype password</label>
             <input class="w3-input" type="password" name="passwd2" placeholder="Retype password"><p>
             	
            <!-- reCAPTCHA: -->
