@@ -1,9 +1,9 @@
 function GameObject()
 {
-	//Bitwise OR of all wanted contexts, or zero for all 
-	this.drawContext = 0;
+	//All wanted contexts, or zero for all 
+	this.drawContext = new Array();
 	//Bitwise OR of all wanted contexts, or zero for all
-	this.inputContext = 0;
+	this.inputContext = new Array();
 	//The z index; greater z is "closer" to the screen
 	this.depth = 0;
 	//Is set by the Engine, if the mouse is hovering on the object
@@ -153,6 +153,11 @@ var Engine =
 		Engine.sort();
 	},
 	
+	setDrawContext: function (ctx)
+	{
+		Engine.currentDrawContext = ctx;
+	},
+	
 	update: function ()
 	{
 		var mouseHit = false;
@@ -162,7 +167,7 @@ var Engine =
 			var obj = Engine.objects[i];
 			try
 			{
-				if ((obj.inputContext == 0) || (obj.inputContext & Engine.currentInputContext))
+				if ((obj.inputContext.length == 0) || (obj.inputContext.indexOf(Engine.currentInputContext) != -1))
 				if (obj.checkForInput)
 				{
 					if ((!mouseHit) && Input.checkMouseOver(obj.bounds))
@@ -210,7 +215,7 @@ var Engine =
 		{
 			var obj = Engine.objects[i];
 			if (obj.draw != null)
-			if ((obj.drawContext == 0) || (obj.drawContext & Engine.currentDrawContext))
+			if ((obj.drawContext.length == 0) || (obj.drawContext.indexOf(Engine.currentDrawContext) != -1))
 			{
 				obj.draw(context, contextOffset);
 			}
