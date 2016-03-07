@@ -10,7 +10,6 @@
 	<section>
         <?php foreach ($messages as $message): ?>
             <div class="message"><?php echo $message ?></div>
-			<div class="message">Logout successfull</div>
         <?php endforeach; ?>
         <form method="post" action="login.php">
 				<label class="w3-label" for="username">Username</label>
@@ -24,7 +23,6 @@
         <?php foreach ($warnings as $warning): ?>
             <div class="warning"><?php echo $warning ?></div>
         <?php endforeach; ?>
-		<div class="warning">Login failed</div>
 	</section>
     </body>
 </html>
