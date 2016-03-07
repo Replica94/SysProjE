@@ -28,6 +28,7 @@ function GameObject()
 //
 var RealObject = function()
 {
+	GameObject.call(this);
 	//some testing stuff
 	this.position = new Vector2(32,128);
 	this.size = new Vector2(128,128);
@@ -59,10 +60,11 @@ var RealObject = function()
 }
 
 RealObject.prototype = new GameObject();
-RealObject.constructor = new RealObject();
+RealObject.constructor = RealObject;
 
 var PropObject = function()
 {
+	GameObject.call(this);
 	
 	this.position = new Vector2(32,128);
 	this.size = new Vector2(128,128);
@@ -80,11 +82,12 @@ var PropObject = function()
 }
 
 PropObject.prototype = new GameObject();
-PropObject.constructor = new PropObject();
+PropObject.constructor = PropObject;
 
 
 var TiledObject = function()
 {
+	GameObject.call(this);
 	//Do not touch
 	this.oldImage = null;
 	
@@ -125,7 +128,7 @@ var TiledObject = function()
 }
 
 TiledObject.prototype = new GameObject();
-TiledObject.constructor = new TiledObject();
+TiledObject.constructor = TiledObject;
 
 
 //Call addObject for stuff
@@ -133,6 +136,9 @@ TiledObject.constructor = new TiledObject();
 var Engine =
 {
 	objects: new Array(),
+	currentDrawContext: 1,
+	currentInputContext: 1,
+	
 	sort: function()
 	{
 		this.objects.sort(function(a,b)
@@ -151,11 +157,12 @@ var Engine =
 	{
 		var mouseHit = false;
 		var clicked = Input.isPressed();
-		for (var i = this.objects.length - 1; i >= 0; i--)
+		for (var i = Engine.objects.length - 1; i >= 0; i--)
 		{
-			var obj = this.objects[i];
+			var obj = Engine.objects[i];
 			try
 			{
+				if ((obj.inputContext == 0) || (obj.inputContext & Engine.currentInputContext))
 				if (obj.checkForInput)
 				{
 					if ((!mouseHit) && Input.checkMouseOver(obj.bounds))
@@ -168,6 +175,7 @@ var Engine =
 						}
 						else
 							obj.clicked = false;
+						mouseHit = true;
 					}
 					else
 					{
@@ -179,7 +187,7 @@ var Engine =
 				if (obj.update != null)
 					obj.update();
 				if (obj.isDoomed)
-					this.objects.splice(i, 1);
+					Engine.objects.splice(i, 1);
 			}
 			catch(err)
 			{
@@ -192,18 +200,17 @@ var Engine =
 	},
 	init: function ()
 	{
-		this.addObject(new RealObject);
-		_EngineInit(this);
+		Engine.addObject(new RealObject);
+		_EngineInit(Engine);
 	},
 	draw: function (context) 
 	{
-		var currentContext = 1;
 		var contextOffset = new Vector2(0,0);
-		for (var i = 0; i <  this.objects.length; i++)
+		for (var i = 0; i <  Engine.objects.length; i++)
 		{
-			var obj = this.objects[i];
+			var obj = Engine.objects[i];
 			if (obj.draw != null)
-			if ((obj.drawContext == 0) || (obj.drawContext & currentContext))
+			if ((obj.drawContext == 0) || (obj.drawContext & Engine.currentDrawContext))
 			{
 				obj.draw(context, contextOffset);
 			}

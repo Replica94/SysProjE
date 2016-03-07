@@ -5,6 +5,9 @@ function _EngineInit(eng)
 	ts.image = Texture.map["desk"];
 	ts.patternType = "repeat-x";
 	ts.depth = -100;
+	ts.drawContext = 1;
+	
+	
 	ts.update = function()
 	{
 		ts.position.x = 0;
@@ -36,8 +39,28 @@ function _EngineInit(eng)
 	
 		//sky.size.x = screenSize.x;
 	//	sky.size.y = screenSize.y;
-		this.updateSize();
 	};
 	eng.addObject(sky);
+	
+	var btn = new ButtonObject();
+	
+	btn.position.y = 22;
+	btn.setText("YO CLICK HERE SON!");
+	btn.onClick = function()
+	{
+		Engine.currentDrawContext = 2;
+	};
+	
+	eng.addObject(btn);
+	
+	var btn2 = new ButtonObject();
+	btn2.position.y = 188;
+	btn2.setText("OR CLICK HERE BROTHA'");
+	btn2.onClick = function()
+	{
+		Engine.currentDrawContext = 1;
+	};
+	
+	eng.addObject(btn2);
 	
 }
