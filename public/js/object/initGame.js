@@ -5,8 +5,7 @@ function _EngineInit(eng)
 	ts.image = Texture.map["desk"];
 	ts.patternType = "repeat-x";
 	ts.depth = -100;
-	ts.drawContext = 1;
-	
+	ts.drawContext += 1;
 	
 	ts.update = function()
 	{
@@ -14,12 +13,12 @@ function _EngineInit(eng)
 		ts.position.y = screenSize.y-320;
 		ts.size.x = screenSize.x;
 		ts.size.y = 320;
+		
 		this.updateSize();
 	};
 	eng.addObject(ts);
 	
 	var sky = new PropObject;
-	
 	sky.image = Texture.map["sky_night"];
 	sky.depth = -250;
 	
@@ -38,9 +37,11 @@ function _EngineInit(eng)
 		//this.size.x = 0;
 	
 		//sky.size.x = screenSize.x;
-	//	sky.size.y = screenSize.y;
+		//sky.size.y = screenSize.y;
 	};
 	eng.addObject(sky);
+	
+	
 	
 	var btn = new ButtonObject();
 	
@@ -48,17 +49,16 @@ function _EngineInit(eng)
 	btn.setText("YO CLICK HERE SON!");
 	btn.onClick = function()
 	{
-		Engine.currentDrawContext = 2;
+		Engine.setDrawContext(2);
 	};
 	
 	eng.addObject(btn);
-	
 	var btn2 = new ButtonObject();
 	btn2.position.y = 188;
 	btn2.setText("OR CLICK HERE BROTHA'");
 	btn2.onClick = function()
 	{
-		Engine.currentDrawContext = 1;
+		Engine.setDrawContext(1);
 	};
 	
 	eng.addObject(btn2);
