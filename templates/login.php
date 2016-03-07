@@ -6,16 +6,16 @@
 		<link rel="stylesheet" type="text/css" href="css/styles.css">
 			
     </head>
-<!-- this is useless comment -->
     <body>
 	<section>
         <?php foreach ($messages as $message): ?>
             <div class="message"><?php echo $message ?></div>
+			<div class="message">Logout successfull</div>
         <?php endforeach; ?>
         <form method="post" action="login.php">
 				<label class="w3-label" for="username">Username</label>
 				<input class="w3-input" type="text" name="username" placeholder="Type a username"><p>
-				<label for="passwd">Password</label>
+				<label class="w3-label" for="passwd">Password</label>
 				<input class="w3-input" type="password" name="passwd" placeholder="Type a password"><p>
 				<input class="w3-check" type="checkbox" name="remember_me" value="true">
 				<label for="checkbox">Remember me</label><p>
@@ -24,6 +24,7 @@
         <?php foreach ($warnings as $warning): ?>
             <div class="warning"><?php echo $warning ?></div>
         <?php endforeach; ?>
+		<div class="warning">Login failed</div>
 	</section>
     </body>
 </html>
