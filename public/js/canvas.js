@@ -52,13 +52,15 @@ function CanvasDraw()
 	
 	var label = {};
 	var description = "asdjhawdn awiodmnaw poidmnsifosen pognaeöonaeöonwöefnweöni fse ö nifeö s sdgljgoseö seongse gnseöogek asdfaw niefös f.";
-
+	
 	var label = GenerateRandomLabel(RandomBrandName(1),"300mg ibuprofen",description,43);
 	
 	RenderLabel(new Vector2(25, 25), label);
 	
+	
 	Engine.draw();
 	
+	Persons.renderAllPersons();
 	context.restore();
 }
 
@@ -76,6 +78,10 @@ var fun = function()
 };
 
 Input.init(canvas);
+//Loads textures
+Persons.initPersons();
+//creates new person
+Persons.addPersonToLine();
 
 window.addEventListener("resize", CanvasResize, false);
 CanvasResize();
