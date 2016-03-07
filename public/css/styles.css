@@ -4,7 +4,7 @@
 	-moz-box-sizing:border-box;
 	box-sizing:border-box
 }
-/* this is useless comment */
+
 /* Extract from normalize.css by Nicolas Gallagher and Jonathan Neal git.io/normalize */
 html	{
 	-ms-text-size-adjust:100%;
@@ -26,6 +26,25 @@ section {
 	margin: auto;
 }
 
+.warning {
+	color: #DE0000;
+	float: center;
+	text-align: center;
+	border-style: groove;
+	border-color: #DE0000;
+	padding: 2px;
+	width: 75%;
+	margin: auto;
+}
+
+.message {
+	float: center;
+	text-align: center;
+	margin: auto;
+	font-weight: bold;
+	font-size: 16pt;
+	padding: 2px;
+}
 
 audio,canvas,video	{
 	display:inline-block;
@@ -621,6 +640,7 @@ img.w3-image,.w3-image img	{
 
 .w3-label	{
 	float: center;
+	font-weight: bold;
 }
 
 .w3-input:not(:valid)~.w3-validate	{
