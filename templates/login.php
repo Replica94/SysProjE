@@ -6,7 +6,7 @@
 		<link rel="stylesheet" type="text/css" href="styles.css">
 			
     </head>
-
+<!-- this is useless comment -->
     <body>
 	<section>
         <?php foreach ($messages as $message): ?>
