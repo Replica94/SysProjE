@@ -31,6 +31,8 @@ var Texture = {
 		
 		img.src = source;
 	},
+	
+
 
 	textureLoaded: function(image, name)
 	{
