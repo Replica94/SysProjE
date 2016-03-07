@@ -2,8 +2,13 @@ var canvas = document.getElementById("gCanvas");
 var context = canvas.getContext("2d");
 
 var resizing = false;
+
 var resizeToWidth = 0;
 var resizeToHeight = 0;
+
+//* Holds the camera screen size, not the window size
+var screenSize = new Vector2(0,0);
+
 function CanvasResize()
 {
 	resizeToWidth = window.innerWidth;
@@ -26,12 +31,16 @@ function CanvasDraw()
 	
 	if (size.x < minSize.x)
 		scale = size.x/minSize.x;
+	
 	if (size.y < minSize.y)
 	{
 		var tScale = size.y/minSize.y;
 		if (tScale < scale)
-			tScale = scale;
+			scale = tScale;
 	}
+	
+	screenSize.x = size.x/scale;
+	screenSize.y = size.y/scale;
 	
 	Input.update(scale);
 	Engine.update();
@@ -61,11 +70,12 @@ var fun = function()
 		setTimeout(fun, 50);
 		return;
 	}
+	Engine.init();
+	
 	setInterval(CanvasDraw,15);
 };
 
 Input.init(canvas);
-Engine.init();
 
 window.addEventListener("resize", CanvasResize, false);
 CanvasResize();

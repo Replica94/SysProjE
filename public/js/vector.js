@@ -1,3 +1,9 @@
+/**
+ 	Constructor for 2 component vector
+	@param {Number} (x) x-component of the vector
+	@param {Number} (y) y-component of the vector
+	@constructor
+*/
 function Vector2(x, y)
 {
 	this.x = x;
@@ -48,5 +54,14 @@ function Vector2(x, y)
 	this.divScalar = function (s)
 	{
 		return new Vector2(this.x/s,this.y/s);
+	};
+	
+	this.equals = function (v)
+	{
+		if (this.x != v.x)
+			return false;
+		if (this.y != v.y)
+			return false;
+		return true;
 	};
 }

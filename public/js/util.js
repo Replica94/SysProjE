@@ -88,3 +88,4 @@ CanvasRenderingContext2D.prototype.wrapText = function (text, x, y, maxWidth, li
         y += lineHeight;
     }
 }
+

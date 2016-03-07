@@ -5,14 +5,16 @@ var Texture = {
 	map: new Array(),
 	initTextures: function ()
 	{
-		this.addTexture("barcode","assets/img/barcode.png");
+		Texture.addTexture("desk","assets/img/desk.png");
+		Texture.addTexture("barcode","assets/img/barcode.png");
+		Texture.addTexture("sky_night","assets/img/sky_night.png");
 	},
 	
 	addTexture: function(name,source)
 	{
 		this.maxTextures+=1;
 		
-		img = new Image();
+		var img = new Image();
 		
 		var capt = this;
 		
@@ -32,7 +34,7 @@ var Texture = {
 
 	textureLoaded: function(image, name)
 	{
-		this.map[name] = image;
-		this.loadedTextures++;
+		Texture.map[name] = image;
+		Texture.loadedTextures++;
 	}
 }

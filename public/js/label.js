@@ -77,30 +77,30 @@ function GetDullFont(seed)
 var LabelLayouts = [];
 LabelLayouts.push
 (
-{
-	size : new Vector2(455,140),
-	namePos : new Vector2(62, 24),
-	descPos : new Vector2(180, 62),
-	subNamePos : new Vector2(12,42),
-	barCodePos : new Vector2(20,58),
-	descWidth : 250
-},
-{
-	size : new Vector2(355,175),
-	namePos : new Vector2(32, 24),
-	subNamePos : new Vector2(20,52),
-	descPos : new Vector2(10, 72),
-	barCodePos : new Vector2(220,93),
-	descWidth : 200
-},
-{
-	size : new Vector2(415,145),
-	namePos : new Vector2(24, 34),
-	subNamePos : new Vector2(24,52),
-	descPos : new Vector2(10, 72),
-	barCodePos : new Vector2(285,52),
-	descWidth : 280
-}
+	{
+		size : new Vector2(455,140),
+		namePos : new Vector2(62, 24),
+		descPos : new Vector2(180, 62),
+		subNamePos : new Vector2(12,42),
+		barCodePos : new Vector2(20,58),
+		descWidth : 250
+	},
+	{
+		size : new Vector2(355,175),
+		namePos : new Vector2(32, 24),
+		subNamePos : new Vector2(20,52),
+		descPos : new Vector2(10, 72),
+		barCodePos : new Vector2(220,93),
+		descWidth : 200
+	},
+	{
+		size : new Vector2(415,145),
+		namePos : new Vector2(24, 34),
+		subNamePos : new Vector2(24,52),
+		descPos : new Vector2(10, 72),
+		barCodePos : new Vector2(285,52),
+		descWidth : 280
+	}
 );
 
 

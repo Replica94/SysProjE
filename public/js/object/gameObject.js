@@ -1,6 +1,3 @@
-
-
-
 function GameObject()
 {
 	//Bitwise OR of all wanted contexts, or zero for all 
@@ -8,7 +5,7 @@ function GameObject()
 	//Bitwise OR of all wanted contexts, or zero for all
 	this.inputContext = 0;
 	//The z index; greater z is "closer" to the screen
-	this.z = 0;
+	this.depth = 0;
 	//Is set by the Engine, if the mouse is hovering on the object
 	this.mouseHover = false;
 	//Is set by the Engine, if the object was clicked
@@ -35,6 +32,7 @@ var RealObject = function()
 	this.position = new Vector2(32,128);
 	this.size = new Vector2(128,128);
 	this.checkForInput = true;
+	
 	this.updateRealObject = function()
 	{
 		this.bounds = GenerateAABB(this.position, this.size);
@@ -59,8 +57,76 @@ var RealObject = function()
 		this.mouseClicked = true;
 	}
 }
+
 RealObject.prototype = new GameObject();
 RealObject.constructor = new RealObject();
+
+var PropObject = function()
+{
+	
+	this.position = new Vector2(32,128);
+	this.size = new Vector2(128,128);
+	this.image = null;
+
+	this.update = function()
+	{
+		
+	}
+	
+	this.draw = function()
+	{
+		context.drawImage(this.image, this.position.x, this.position.y, this.size.x, this.size.y);
+	}
+}
+
+PropObject.prototype = new GameObject();
+PropObject.constructor = new PropObject();
+
+
+var TiledObject = function()
+{
+	//Do not touch
+	this.oldImage = null;
+	
+	
+	this.position = new Vector2(32,128);
+	this.size = new Vector2(128,128);
+	
+	this.image = null;
+	this.pattern = null;
+	this.repeatX = true;
+	this.repeatY = true;
+	
+	this.updateSize = function()
+	{
+	}
+	
+	this.update = function()
+	{
+		this.updateSize();
+	}
+	
+	this.draw = function()
+	{
+		var w = 0;
+		var h = 0;
+		while (w < this.size.x)
+		{
+			h = 0;
+			while (h < this.size.y)
+			{
+				context.drawImage(this.image,this.position.x+w,this.position.y+h);
+				h += this.image.height;
+			}
+			w += this.image.width;
+			
+		}
+	}
+}
+
+TiledObject.prototype = new GameObject();
+TiledObject.constructor = new TiledObject();
+
 
 //Call addObject for stuff
 
@@ -71,14 +137,14 @@ var Engine =
 	{
 		this.objects.sort(function(a,b)
 		{
-			return a.z - b.z;
+			return a.depth - b.depth;
 		});
 	},
 	
 	addObject: function (obj)
 	{
-		this.objects.push(obj);
-		this.sort();
+		Engine.objects.push(obj);
+		Engine.sort();
 	},
 	
 	update: function ()
@@ -127,6 +193,7 @@ var Engine =
 	init: function ()
 	{
 		this.addObject(new RealObject);
+		_EngineInit(this);
 	},
 	draw: function (context) 
 	{
