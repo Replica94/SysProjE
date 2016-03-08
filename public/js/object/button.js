@@ -44,6 +44,7 @@ var ButtonObject = function()
 	//Override the draw function a bit
 	this.draw = function()
 	{
+		context.lineWidth = 2;
 		//Set the current drawing font
 		context.font = this.font;
 		
@@ -57,7 +58,13 @@ var ButtonObject = function()
 		
 		//Fill the area from position to position+size
 		context.fillRect(this.position.x, this.position.y, this.size.x, this.size.y);
-		//Stroke dat rect 2
+		
+		//Stroke a nice shadow
+		context.strokeStyle = "#888888";
+		context.strokeRect(this.position.x, this.position.y, this.size.x-2, this.size.y-2);
+		
+		//Stroke dat edges 2
+		context.strokeStyle = "#000000";
 		context.strokeRect(this.position.x, this.position.y, this.size.x, this.size.y);
 		
 		//Change color to black
@@ -81,3 +88,32 @@ ButtonObject.prototype = new RealObject();
 
 //The constructor assignment
 ButtonObject.constructor = ButtonObject;
+
+//Test some cool button stuff here
+EngineInitializationFunctions.push(function ()
+{
+	//Instantiate a new button (which we described above)
+	var buttonen = new ButtonObject();
+	
+	//Set the x and y coordinates
+	buttonen.position.x = 188;
+	buttonen.position.y = 60;
+	
+	buttonen.setText("OOOOH yEAH!!!");
+	
+	//Set the target draw & input context (for test purposes)
+	buttonen.drawContext += 2;
+	buttonen.inputContext += 2;
+	
+	//Override the onClick, like all the good buttons do
+	buttonen.onClick = function()
+	{
+		//Display a spiffy message
+		alert("I'M THE TOWER OF POWER, TOO SWEET TO BE SOUR");
+		
+		//and destroy this button
+		this.isDoomed = true;
+	};
+	
+	Engine.addObject(buttonen);
+});
