@@ -69,23 +69,6 @@ function _EngineInit(eng)
 	//add the object
 	eng.addObject(sky);
 	
-	
-	//Create a button
-	var btn = new ButtonObject();
-	
-	//set the position
-	btn.position.x = 112;
-	btn.position.y = 22;
-	//set button text
-	btn.setText("YO CLICK HERE SON!");
-	
-	//Set the click handler
-	btn.onClick = function()
-	{
-		Engine.setDrawContext(2);
-	};
-	
-	eng.addObject(btn);
 	var i = 0;
 	for (var ctx in Context.map)
 	{
@@ -95,7 +78,7 @@ function _EngineInit(eng)
 		btn2.position.y = 12+i*32;
 		btn2.setText(ctx + " " + ctn);
 		btn2.targetContext = ctn;
-		
+		btn2.drawOffset = Context.drawOffset["behindDesk"];
 		btn2.onClick = function()
 		{
 			Engine.setDrawContext(this.targetContext);
