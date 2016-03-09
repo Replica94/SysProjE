@@ -1,6 +1,8 @@
 var Context = {
-	
-	MainMenu: 1,
-	Desk: 2
-	
+	map : 
+	{
+		"nullContext":		0,
+		"mainMenu":			1,
+		"gameScreenDesk":	2
+	}
 };

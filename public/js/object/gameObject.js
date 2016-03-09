@@ -99,9 +99,6 @@ PropObject.constructor = PropObject;
 var TiledObject = function()
 {
 	GameObject.call(this);
-	//Do not touch
-	this.oldImage = null;
-	
 	
 	this.position = new Vector2(32,128);
 	this.size = new Vector2(128,128);
@@ -255,7 +252,7 @@ var Engine =
 				if (obj.update != null)
 					obj.update();
 				if (obj.isDoomed)
-					Engine.objects.splice(i, 1);
+					Engine.objects.splice(i, 1); 				
 			}
 			catch(err)
 			{
@@ -266,11 +263,13 @@ var Engine =
 			}
 		}
 	},
+	
 	init: function ()
 	{
 		Engine.addObject(new RealObject);
 		_EngineInit(Engine);
 	},
+	
 	draw: function (context) 
 	{
 		var contextOffset = new Vector2(0,0);
