@@ -10,6 +10,7 @@ var ButtonObject = function()
 	//Add a property "font" and "text" to button
 	this.font = "18px Arial";
 	this.text = "";
+	this.checkForInput = true;
 	
 	
 	//Let's override the method "update"

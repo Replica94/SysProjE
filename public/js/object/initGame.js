@@ -23,7 +23,7 @@ function _EngineInit(eng)
 
 	ts.depth = -10;
 	//set the draw context 
-	ts.drawContext += 1;
+	ts.drawContext += Context.map["gameScreenDesk"];
 	
 	//overload the update
 	ts.update = function()
@@ -86,17 +86,21 @@ function _EngineInit(eng)
 	};
 	
 	eng.addObject(btn);
-	
-	//Same thing as above
-	var btn2 = new ButtonObject();
-	btn2.position.x = 112;
-	btn2.position.y = 188;
-	btn2.setText("OR CLICK HERE BROTHA'");
-	btn2.onClick = function()
+	var i = 0;
+	for (var ctx in Context.map)
 	{
-		Engine.setDrawContext(1);
-	};
-	
-	eng.addObject(btn2);
-	
+		var ctn = Context.map[ctx];
+		var btn2 = new ButtonObject();
+		btn2.position.x = 482;
+		btn2.position.y = 12+i*32;
+		btn2.setText(ctx + " " + ctn);
+		btn2.targetContext = ctn;
+		
+		btn2.onClick = function()
+		{
+			Engine.setDrawContext(this.targetContext);
+		};
+		i++;
+		eng.addObject(btn2);
+	}		
 }
