@@ -3,7 +3,19 @@
 */
 function _EngineInit(eng)
 {
-	
+	for (i = 0; i < EngineInitializationFunctions.length; i++)
+	{
+		try
+		{
+			EngineInitializationFunctions[i]();
+		}
+		catch(err)
+		{
+		
+			console.log("Error in engine initialization: ")
+			console.log(err);
+		}
+	}	
 	//Create a desk
 	var ts = new TiledObject;
 	
@@ -77,7 +89,7 @@ function _EngineInit(eng)
 	
 	//Same thing as above
 	var btn2 = new ButtonObject();
-	btn.position.x = 112;
+	btn2.position.x = 112;
 	btn2.position.y = 188;
 	btn2.setText("OR CLICK HERE BROTHA'");
 	btn2.onClick = function()
