@@ -18,7 +18,7 @@
 				<input class="w3-input" type="password" id="passwd" name="passwd" placeholder="Type a password"><p>
 				<input class="w3-check" type="checkbox" id="remember_me" name="remember_me" value="true">
 				<label for="remember_me">Remember me</label><p>
-				<input class="w3-input" type="submit" name="submit" value="Guest">
+				<input class="w3-input" type="submit" name="submit" value="Guest"><p>
 				<input class="w3-input" type="submit" name="submit" value="Login">
         </form>
         <?php foreach ($warnings as $warning): ?>
