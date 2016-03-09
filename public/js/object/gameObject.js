@@ -12,6 +12,10 @@ function GameObject()
 	this.drawContext = new Array();
 	/** All wanted input contexts, or empty array for all */
 	this.inputContext = new Array();
+	
+	/** Draw offset index to use (see context.js) */
+	this.drawOffset = 0;
+	
 	/** The z index; greater z is "closer" to the screen */
 	this.depth = 0;
 
@@ -164,6 +168,8 @@ var Engine =
 	*/
 	currentInputContext: 1,
 	
+	contextOffsets: [new Vector2(0,0)],
+	
 	/**
 		Engine internal sort function.
 		
@@ -211,6 +217,12 @@ var Engine =
 	*/
 	update: function ()
 	{
+		var behindDesk = new Vector2(0,0);
+		behindDesk.x = 0;
+		behindDesk.y = screenSize.y-400;
+		
+		this.contextOffsets[Context.drawOffset["behindDesk"]] = behindDesk;
+		
 		//If the mouse is over something
 		var mouseHit = false;
 		var clicked = Input.isPressed();
@@ -230,7 +242,7 @@ var Engine =
 				if (obj.checkForInput)
 				if ((obj.inputContext.length == 0) || (obj.inputContext.indexOf(Engine.currentInputContext) != -1))
 				{
-					if ((!mouseHit) && Input.checkMouseOver(obj.bounds))
+					if ((!mouseHit) && Input.checkMouseOverOffset(obj.bounds, this.contextOffsets[obj.drawOffset]))
 					{
 						obj.mouseHover = true;
 						if (clicked)
@@ -272,14 +284,22 @@ var Engine =
 	
 	draw: function (context) 
 	{
-		var contextOffset = new Vector2(0,0);
 		for (var i = 0; i <  Engine.objects.length; i++)
 		{
 			var obj = Engine.objects[i];
 			if (obj.draw != null)
 			if ((obj.drawContext.length == 0) || (obj.drawContext.indexOf(Engine.currentDrawContext) != -1))
 			{
-				obj.draw(context, contextOffset);
+				if (obj.drawOffset)
+				{
+					context.save();
+					context.translate(this.contextOffsets[obj.drawOffset].x, this.contextOffsets[obj.drawOffset].y);
+					obj.draw(context);
+					context.restore();
+				}
+				else
+					obj.draw(context);
+				
 			}
 			
 		}
