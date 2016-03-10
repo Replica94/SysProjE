@@ -58,7 +58,7 @@ function CanvasDraw()
 	RenderLabel(new Vector2(25, 25), label);
 	
 	
-	Engine.draw();
+	Engine.draw(context);
 	
 	Persons.renderAllPersons();
 	context.restore();

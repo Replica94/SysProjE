@@ -1,26 +1,41 @@
+/** Array which stores all functions to be called upon game initialization **/
+var EngineInitializationFunctions = [];
+
+/**
+ 	Constructor for game objects
+ 	
+	@constructor
+*/
 function GameObject()
 {
-	//All wanted contexts, or zero for all 
+	/** All wanted drawing contexts, or empty array for all */
 	this.drawContext = new Array();
-	//Bitwise OR of all wanted contexts, or zero for all
+	/** All wanted input contexts, or empty array for all */
 	this.inputContext = new Array();
-	//The z index; greater z is "closer" to the screen
+	
+	/** Draw offset index to use (see context.js) */
+	this.drawOffset = 0;
+	
+	/** The z index; greater z is "closer" to the screen */
 	this.depth = 0;
-	//Is set by the Engine, if the mouse is hovering on the object
-	this.mouseHover = false;
-	//Is set by the Engine, if the object was clicked
-	this.clicked = false;
-	//Whether the Engine should send input events to this object
+
+	/** Whether the Engine should send input events to this object, such as onClick or mouseHover */
 	this.checkForInput = false;
-	//The object bounds for input checking
+	
+	/** Is set by the Engine if the mouse is hovering on the object before the update, assuming checkForInput is true */
+	this.mouseHover = false;
+	/** Is set by the Engine if the object was clicked before the update, assuming checkForInput is true */
+	this.clicked = false;
+	
+	/** The object bounds for input checking */
 	this.bounds = new AABB(new Vector2(0,0),new Vector2(0,0));
-	//The method used to draw the object
+	/** The method used to draw the object */
 	this.draw = null;
-	//The method used for updating the object
+	/** The method used for updating the object */
 	this.update = null;
-	//The onClick callback
+	/** The onClick callback */
 	this.onClick = null;
-	//If the following is true, object will be deleted at next step
+	/** If the following is set to true, object will be deleted at the next step */
 	this.isDoomed = false;
 }
 
@@ -88,9 +103,6 @@ PropObject.constructor = PropObject;
 var TiledObject = function()
 {
 	GameObject.call(this);
-	//Do not touch
-	this.oldImage = null;
-	
 	
 	this.position = new Vector2(32,128);
 	this.size = new Vector2(128,128);
@@ -131,46 +143,106 @@ TiledObject.prototype = new GameObject();
 TiledObject.constructor = TiledObject;
 
 
-//Call addObject for stuff
-
+/**
+	The Engine contruct
+	
+	Manages the object system and object drawing
+*/
 var Engine =
 {
+	/** Array containing all the game objects */
 	objects: new Array(),
+	/**
+		Numerical representation of the current "drawing view".
+		
+		Usually used to separate different views of the game,
+		such as main menu, the customer view, shelf view etc.
+	*/
 	currentDrawContext: 1,
+	/**
+		Numerical representation of the current input context.
+		
+		Highly similar to the currentDrawContext, except this controls
+		the ability to interact with the object.
+		
+	*/
 	currentInputContext: 1,
 	
+	contextOffsets: [new Vector2(0,0)],
+	
+	/**
+		Engine internal sort function.
+		
+		Used for Z-sorting game objects.
+	*/
 	sort: function()
 	{
+		//sorts the object list based on depth
 		this.objects.sort(function(a,b)
 		{
 			return a.depth - b.depth;
 		});
 	},
 	
+	/**
+		Adds a new object to the engine lists
+		
+		This subjects the object to the world:
+		object's  update(), onClick() and others
+		will be called automatically. The draw()
+		is also called if the drawing context matches.
+	*/
 	addObject: function (obj)
 	{
 		Engine.objects.push(obj);
 		Engine.sort();
 	},
 	
+	/**
+		Sets the current context
+	*/
 	setDrawContext: function (ctx)
 	{
 		Engine.currentDrawContext = ctx;
+		Engine.currentInputContext = ctx;
 	},
 	
+	/**
+		Engine updating routine.
+		
+		Should be called relatively often by the main loop.
+		
+		This updates all the game objects, handles their input
+		and possibly calls their draw methods.
+	*/
 	update: function ()
 	{
+		var behindDesk = new Vector2(0,0);
+		behindDesk.x = 0;
+		behindDesk.y = screenSize.y-400;
+		
+		this.contextOffsets[Context.drawOffset["behindDesk"]] = behindDesk;
+		
+		//If the mouse is over something
 		var mouseHit = false;
 		var clicked = Input.isPressed();
+		
+		//We iterate the array from top to bottom
+		//from closest to the farthest object
+		//to ensure that clicking stuff will invoke the onClick handler of the 
+		//nearest objects
+		
 		for (var i = Engine.objects.length - 1; i >= 0; i--)
 		{
 			var obj = Engine.objects[i];
 			try
 			{
-				if ((obj.inputContext.length == 0) || (obj.inputContext.indexOf(Engine.currentInputContext) != -1))
+				//If the object's inputContext is empty, it is univeral
+				//Otherwise, check for the correct inputContext 
 				if (obj.checkForInput)
+				if ((obj.inputContext.length == 0) || (obj.inputContext.indexOf(Engine.currentInputContext) != -1))
 				{
-					if ((!mouseHit) && Input.checkMouseOver(obj.bounds))
+					if ((!mouseHit) && Input.checkMouseOverOffset(obj.bounds, this.contextOffsets[obj.drawOffset]))
 					{
 						obj.mouseHover = true;
 						if (clicked)
@@ -192,7 +264,7 @@ var Engine =
 				if (obj.update != null)
 					obj.update();
 				if (obj.isDoomed)
-					Engine.objects.splice(i, 1);
+					Engine.objects.splice(i, 1); 				
 			}
 			catch(err)
 			{
@@ -203,21 +275,31 @@ var Engine =
 			}
 		}
 	},
+	
 	init: function ()
 	{
 		Engine.addObject(new RealObject);
 		_EngineInit(Engine);
 	},
+	
 	draw: function (context) 
 	{
-		var contextOffset = new Vector2(0,0);
 		for (var i = 0; i <  Engine.objects.length; i++)
 		{
 			var obj = Engine.objects[i];
 			if (obj.draw != null)
 			if ((obj.drawContext.length == 0) || (obj.drawContext.indexOf(Engine.currentDrawContext) != -1))
 			{
-				obj.draw(context, contextOffset);
+				if (obj.drawOffset)
+				{
+					context.save();
+					context.translate(this.contextOffsets[obj.drawOffset].x, this.contextOffsets[obj.drawOffset].y);
+					obj.draw(context);
+					context.restore();
+				}
+				else
+					obj.draw(context);
+				
 			}
 			
 		}

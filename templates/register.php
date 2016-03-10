@@ -12,11 +12,11 @@
 	<section>
         <form method="post" action="register.php">
 			<label class="w3-label" for="username">Username</label>
-            <input class="w3-input" type="text" name="username" placeholder="Type a username"><p>
+            <input class="w3-input" type="text" id="username" name="username" placeholder="Type a username"><p>
 			<label class="w3-label" for="passwd">Password</label>
-            <input class="w3-input" type="password" name="passwd" placeholder="Type a password"><p>
+            <input class="w3-input" type="password" id="passwd" name="passwd" placeholder="Type a password"><p>
 			<label class="w3-label" for="passwd2">Retype password</label>
-            <input class="w3-input" type="password" name="passwd2" placeholder="Retype password"><p>
+            <input class="w3-input" type="password" id="passwd2" name="passwd2" placeholder="Retype password"><p>
             	
            <!-- reCAPTCHA: -->
             <div class="g-recaptcha" data-sitekey="6Lf48xkTAAAAAGjaAyRttKbbbc5vD3X4i3iUEwg9"></div><p>

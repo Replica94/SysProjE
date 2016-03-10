@@ -3,7 +3,19 @@
 */
 function _EngineInit(eng)
 {
-	
+	for (i = 0; i < EngineInitializationFunctions.length; i++)
+	{
+		try
+		{
+			EngineInitializationFunctions[i]();
+		}
+		catch(err)
+		{
+		
+			console.log("Error in engine initialization: ")
+			console.log(err);
+		}
+	}	
 	//Create a desk
 	var ts = new TiledObject;
 	
@@ -11,7 +23,7 @@ function _EngineInit(eng)
 
 	ts.depth = -10;
 	//set the draw context 
-	ts.drawContext += 1;
+	ts.drawContext += Context.map["gameScreenDesk"];
 	
 	//overload the update
 	ts.update = function()
@@ -57,34 +69,21 @@ function _EngineInit(eng)
 	//add the object
 	eng.addObject(sky);
 	
-	
-	//Create a button
-	var btn = new ButtonObject();
-	
-	//set the position
-	btn.position.x = 112;
-	btn.position.y = 22;
-	//set button text
-	btn.setText("YO CLICK HERE SON!");
-	
-	//Set the click handler
-	btn.onClick = function()
+	var i = 0;
+	for (var ctx in Context.map)
 	{
-		Engine.setDrawContext(2);
-	};
-	
-	eng.addObject(btn);
-	
-	//Same thing as above
-	var btn2 = new ButtonObject();
-	btn.position.x = 112;
-	btn2.position.y = 188;
-	btn2.setText("OR CLICK HERE BROTHA'");
-	btn2.onClick = function()
-	{
-		Engine.setDrawContext(1);
-	};
-	
-	eng.addObject(btn2);
-	
+		var ctn = Context.map[ctx];
+		var btn2 = new ButtonObject();
+		btn2.position.x = 482;
+		btn2.position.y = 12+i*32;
+		btn2.setText(ctx + " " + ctn);
+		btn2.targetContext = ctn;
+		btn2.drawOffset = Context.drawOffset["behindDesk"];
+		btn2.onClick = function()
+		{
+			Engine.setDrawContext(this.targetContext);
+		};
+		i++;
+		eng.addObject(btn2);
+	}		
 }

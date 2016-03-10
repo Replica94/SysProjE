@@ -94,4 +94,28 @@ class User
     {
         return $this->username;
     }
+
+    /**
+     * Set the user's guest state.
+     *
+     * @param $state Set to true if the user is a guest, or to false otherwise.
+     */
+    public function setGuest($state) 
+    {
+        $this->guest = $state;
+        if ($state) {
+            $this->username = "guest";
+            $this->loggedIn = true;
+        }
+    }
+
+    /**
+     * Check whether the user is a guest or not.
+     *
+     * @return True if the user is a guest, or false otherwise.
+     */
+    public function isGuest() 
+    {
+        return $this->guest;
+    }
 }

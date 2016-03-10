@@ -24,7 +24,13 @@ if ($session->get('register_flag') != null) {
 }
 
 if (isset($_POST['submit'])) {
-    if (isset($_POST['username']) && isset($_POST['passwd'])) {
+    if ($_POST['submit'] == 'Guest') {
+        $user = new User();
+        $user->setGuest(true);
+        $session->set('user', $user);
+        header("Location: index.php");
+        exit();
+    } elseif (isset($_POST['username']) && isset($_POST['passwd'])) {
         $username = $_POST['username'];
         $passwd = $_POST['passwd'];
         $user = new User();
