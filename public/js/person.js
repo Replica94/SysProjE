@@ -3,6 +3,8 @@ var Persons = {
     bodyids : 0,
     faceids : 0,
     personids : 0,
+	//last persons arrive time
+	lpersonarrtime : 0,
 	hatscount : 5,
 	facescount : 6,
 	bodiescount : 3,
@@ -10,11 +12,12 @@ var Persons = {
     Hats : [],
     Bodies : [],
     Faces : [],
-	Queue : [],
 	
 	update : function()
 	{
-		
+		if(Date.now() - this.lpersonarrtime > 4000 && this.allPersons.length < 10){
+			this.addPersonToLine();
+		}
 	},
 		
 	addAllHatTextures : function()
@@ -94,14 +97,18 @@ var Persons = {
 	
 	addPersonToLine : function()
 	{
-		this.allPersons.push(new Person());
+		
+		var p = new Person();
+		this.allPersons.push(p);
+		Engine.addObject(p);
+		this.lpersonarrtime = Date.now();
 	},
 	
 	renderAllPersons : function() 
 	{
 		for(var i = 0; i < this.allPersons.length; i++)
 		{
-			this.allPersons[i].render(100, 100);
+			
 		}
 	}
 }
@@ -115,23 +122,42 @@ function Person()
 {
 	GameObject.call(this);
 	//TODO: find positions for the parts
-	this.hatoffset = new Vector2(-10, -70);
+	this.hatoffset = new Vector2(0, -30);
 	this.bodyoffset = new Vector2(0, 0);
 	this.faceoffset = new Vector2(30, 0);
-	this.position = new Vector2(1000, 500);
-	this.sizehat = new Vector2(120, 170);
+	this.position = new Vector2(window.innerWidth, -100);
+	this.size = new Vector2(160, 300);
+    this.checkForInput = true;
+	this.sizehat = new Vector2(180, 170);
 	this.sizeface = new Vector2(130, 170);
 	this.sizebody = new Vector2(200, 300);
-	
+	this.drawOffset = Context.drawOffset["behindDesk"];
+    this.depth = -30;
+	this.targetpos = new Vector2(1000 + Persons.allPersons.length * 100, -100);
+	this.entering = true;
+    this.a = 0;
+    this.update = function()
+    {	
+	//TODO: only update in right context
+		if(this.entering)
+		{
+			this.a += 0.1;
+			this.position = new Vector2(this.position.x - 1, -100 + 10 * Math.sin(this.a));
+			if(this.position.x <= this.targetpos.x){
+				this.entering = false;
+			}
+		}      
+    }
 	this.hat = Persons.getRandomHat();
 	this.face = Persons.getRandomFace(); 
 	this.body = Persons.getRandomBody();
 	this.id = Persons.personids++;
-	this.render = function(x, y)
+	this.draw = function()
 	{	
+	//TODO: persons in line are rendered in wrong order. 
 		context.drawImage(Texture.map[this.body.name], this.position.x + this.bodyoffset.x, this.position.y + this.bodyoffset.y, this.sizebody.x, this.sizebody.y);
 		context.drawImage(Texture.map[this.face.name], this.position.x + this.faceoffset.x, this.position.y + this.faceoffset.y, this.sizeface.x, this.sizeface.y);
-		context.drawImage(Texture.map[this.hat.name], this.position.x + this.hatoffset.x, this.position.y + this.hatoffset.y, this.sizebody.x, this.sizebody.y);
+		context.drawImage(Texture.map[this.hat.name], this.position.x + this.hatoffset.x, this.position.y + this.hatoffset.y, this.sizehat.x, this.sizehat.y);
 	}
 };
 

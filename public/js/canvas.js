@@ -59,9 +59,10 @@ function CanvasDraw()
 	
 	
 	Engine.draw(context);
-	
-	Persons.renderAllPersons();
+	Persons.update();
 	context.restore();
+	Time.calcDelta();
+	
 }
 
 
@@ -82,6 +83,7 @@ Input.init(canvas);
 Persons.initPersons();
 //creates new person
 Persons.addPersonToLine();
+
 
 window.addEventListener("resize", CanvasResize, false);
 CanvasResize();
