@@ -3,7 +3,7 @@ var Persons = {
     bodyids : 0,
     faceids : 0,
     personids : 0,
-	hatscount : 4,
+	hatscount : 5,
 	facescount : 6,
 	bodiescount : 3,
 	allPersons : [],
