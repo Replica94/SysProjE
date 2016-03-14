@@ -16,6 +16,10 @@ function _EngineInit(eng)
 			console.log(err);
 		}
 	}	
+    //test draggableobject
+    var mobject = new MovableObject;
+    mobject.depth = -9;
+    eng.addObject(mobject);
 	//Create a desk
 	var ts = new TiledObject;
 	
@@ -29,7 +33,7 @@ function _EngineInit(eng)
 	ts.update = function()
 	{
 		ts.position.x = 0;
-		ts.position.y = screenSize.y-320;
+		ts.position.y = screenSize.y-280;
 		ts.size.x = screenSize.x;
 		ts.size.y = 320;
 		
