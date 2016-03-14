@@ -6,35 +6,46 @@ var resizing = false;
 var resizeToWidth = 0;
 var resizeToHeight = 0;
 
-//* Holds the camera screen size, not the window size
+/** Holds the camera screen size, not the window size **/
 var screenSize = new Vector2(0,0);
+
+/** Scale from WindowSize --> CanvasSize **/
+var windowScale = 1.0;
+
+// Scale from WindowSize --> ScreenSize
+var winXScale = 1.0;
+var winYScale = 1.0;
+
+/** Scale from CanvasSize --> ScreenSize **/
+var gameScreenScale = 1.0;
 
 function CanvasResize()
 {
-	var maxSize = new Vector2(1920, 9999999);
 	resizeToWidth = window.innerWidth;
 	resizeToHeight = window.innerHeight;
-	
-	scale = 1.0;
-	if (resizeToWidth > maxSize.x)
-		scale = resizeToWidth / maxSize.x;
+	var scale = 1.0;
+	if (resizeToWidth > 1920)
+		scale = resizeToWidth / 1920;
 	
 	resizeToWidth /= scale;
 	resizeToHeight /= scale;
 	
+	windowScale = scale;
+	
 	resizing = true;
 }
 
-function CanvasDraw()
+
+function UpdateScreenSize()
 {
-	if (resizing)
-	{
-		canvas.width = resizeToWidth;
-		canvas.height = resizeToHeight;
-		resizing = false;
-	}
+	canvas.width = resizeToWidth;
+	canvas.height = resizeToHeight;
+	
+	resizing = false;
 	var size = new Vector2(canvas.width, canvas.height);
+	
 	var minSize = new Vector2(480, 480);
+	
 	var scale = 1;
 	
 	if (size.x < minSize.x)
@@ -44,20 +55,41 @@ function CanvasDraw()
 	{
 		var tScale = size.y/minSize.y;
 		if (tScale < scale)
+		{
 			scale = tScale;
+			if ((size.x/scale) > 1920)
+				scale = size.x/1920;
+		}
+		
 	}
-
 	
 	screenSize.x = size.x/scale;
 	screenSize.y = size.y/scale;
 	
-	Input.update(scale);
+	winXScale = scale*windowScale;
+	winYScale = scale*windowScale;
+	gameScreenScale = scale;
+}
+
+function CanvasInitialSize()
+{
+	CanvasResize();
+	UpdateScreenSize();
+}
+function CanvasDraw()
+{
+	if (resizing)
+	{
+		UpdateScreenSize();
+	}
+	
+	
+	Input.update(winXScale, winYScale);
 	Engine.update();
 	
 	context.fillStyle = "#111811";
-	context.fillRect(0,0,size.x,size.y);
 	context.save();
-	context.scale(scale,scale);
+	context.scale(gameScreenScale,gameScreenScale);
 	
 	var label = {};
 	var description = "asdjhawdn awiodmnaw poidmnsifosen pognaeöonaeöonwöefnweöni fse ö nifeö s sdgljgoseö seongse gnseöogek asdfaw niefös f.";
@@ -86,6 +118,8 @@ var fun = function()
 	
 	setInterval(CanvasDraw,15);
 };
+
+CanvasInitialSize();
 
 Input.init(canvas);
 //Loads textures

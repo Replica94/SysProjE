@@ -2,10 +2,12 @@ var Input = {
 	currentMousePos: new Vector2(0,0),
 	mouseClicked: false,
 	uptMouseClicked: false,
-	inputAreaScale: 1.0, //determines how the window coordinates scale to the game coordinates
-	update: function (scale)
+	inputAreaScaleX: 1.0, //determines how the window coordinates scale to the game coordinates
+	inputAreaScaleY: 1.0, //determines how the window coordinates scale to the game coordinates
+	update: function (scaleX, scaleY)
 	{
-		Input.inputAreaScale = scale;
+		Input.inputAreaScaleX = scaleX;
+		Input.inputAreaScaleY = scaleY;
 		//To avoid concurrency issues and stuff, we do it like this
 		Input.mouseClicked = Input.uptMouseClicked;
 		Input.uptMouseClicked = false;
@@ -15,8 +17,8 @@ var Input = {
 		canvas.addEventListener("mousemove",
 		function(ev)
 		{
-			Input.currentMousePos.x = ev.clientX/Input.inputAreaScale;
-			Input.currentMousePos.y = ev.clientY/Input.inputAreaScale;
+			Input.currentMousePos.x = ev.clientX/Input.inputAreaScaleX;
+			Input.currentMousePos.y = ev.clientY/Input.inputAreaScaleY;
 		}
 		, false);
 		

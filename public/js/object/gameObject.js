@@ -70,7 +70,7 @@ var RealObject = function()
 	}
 	this.onClick = function()
 	{
-		this.mouseClicked = true;
+		
 	}
 }
 
