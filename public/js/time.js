@@ -9,6 +9,6 @@ var Time =
 		this.delta = this.now - this.lastupdate;
 	},
 	getSecondsSinceStart : function() {
-		return (Date.now() - this.inittime) / 1000;
+		return Math.floor((Date.now() - this.inittime) / 1000);
 	}
 }

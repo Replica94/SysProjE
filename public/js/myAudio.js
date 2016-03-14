@@ -3,7 +3,7 @@ var MyAudio =
     soundEffects : [],
     music : [],
     currentMusicId : 0,
-	paused : false,
+	paused : true,
     playing : false,
     loadMusic : function()
     {

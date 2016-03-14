@@ -18,7 +18,7 @@ var ButtonObject = function()
 	this.update = function()
 	{
 		//Call this to update the bounding box of the object
-		//Otherwise, the object would be unclickable
+		//Otherwise, the object would be unclickable	
 		this.updateRealObject();
 	}
 	

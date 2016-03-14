@@ -81,11 +81,8 @@ function _EngineInit(eng)
 		MyAudio.paused = !MyAudio.paused;
 	}
 	eng.addObject(pause);
-	var timer = new RealObject();
-	timer.position.x = screenSize.x - 100;
-	timer.position.y = 0;
-	timer.setText(Time.getSecondsSinceStart());
-	eng.addObject(timer);
+	var timerr = new Timer();
+	eng.addObject(timerr);
 	var i = 0;
 	for (var ctx in Context.map)
 	{
