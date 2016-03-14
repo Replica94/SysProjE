@@ -11,8 +11,16 @@ var screenSize = new Vector2(0,0);
 
 function CanvasResize()
 {
+	var maxSize = new Vector2(1920, 9999999);
 	resizeToWidth = window.innerWidth;
 	resizeToHeight = window.innerHeight;
+	
+	scale = 1.0;
+	if (resizeToWidth > maxSize.x)
+		scale = resizeToWidth / maxSize.x;
+	
+	resizeToWidth /= scale;
+	resizeToHeight /= scale;
 	
 	resizing = true;
 }
@@ -38,6 +46,7 @@ function CanvasDraw()
 		if (tScale < scale)
 			scale = tScale;
 	}
+
 	
 	screenSize.x = size.x/scale;
 	screenSize.y = size.y/scale;
