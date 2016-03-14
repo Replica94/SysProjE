@@ -3,6 +3,7 @@ var MyAudio =
     soundEffects : [],
     music : [],
     currentMusicId : 0,
+	paused : false,
     playing : false,
     loadMusic : function()
     {
@@ -11,14 +12,19 @@ var MyAudio =
     
     loopMusic : function()
     {
-        if(!this.playing)
-        {
-            this.music[this.currentMusicId].play();
-            this.music[this.currentMusicId].loop = true;
-        }
-        if(this.music[this.currentMusicId].ended){
-            this.playing = false;
-        }
+		
+		if(!this.playing && !this.paused)
+		{
+			this.music[this.currentMusicId].play();
+			this.music[this.currentMusicId].loop = true;
+		}
+		if(this.music[this.currentMusicId].ended){
+			this.playing = false;
+		}
+		if(this.paused)
+		{
+			this.music[this.currentMusicId].pause();
+		}
     }
     
 }

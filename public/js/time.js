@@ -7,5 +7,8 @@ var Time =
 	calcDelta : function(){
 		this.now = Date.now();
 		this.delta = this.now - this.lastupdate;
+	},
+	getSecondsSinceStart : function() {
+		return (Date.now() - this.inittime) / 1000;
 	}
 }

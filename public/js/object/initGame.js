@@ -72,7 +72,20 @@ function _EngineInit(eng)
 	};
 	//add the object
 	eng.addObject(sky);
-	
+	var pause = new ButtonObject();
+	pause.position.x = 1000;
+	pause.position.y = 0;
+	pause.setText("Pause Music");
+	pause.onClick = function()
+	{
+		MyAudio.paused = !MyAudio.paused;
+	}
+	eng.addObject(pause);
+	var timer = new RealObject();
+	timer.position.x = screenSize.x - 100;
+	timer.position.y = 0;
+	timer.setText(Time.getSecondsSinceStart());
+	eng.addObject(timer);
 	var i = 0;
 	for (var ctx in Context.map)
 	{
