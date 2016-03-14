@@ -5,13 +5,16 @@ var Persons = {
     personids : 0,
 	//last persons arrive time
 	lpersonarrtime : 0,
-	hatscount : 5,
-	facescount : 6,
-	bodiescount : 3,
+	hatscount : 9,
+	facescount : 11,
+	bodiescount : 6,
 	allPersons : [],
     Hats : [],
+    Hats2 : [],
     Bodies : [],
+    Bodies2 : [],
     Faces : [],
+    Faces2 : [],
 	
 	update : function()
 	{
@@ -26,8 +29,10 @@ var Persons = {
 		var count = 0;
 		for(count = 0; count < this.hatscount; count++)
 		{
-			test = Texture.addTexture("hat" + count, "assets/img/hat" + count + ".png");
-			this.Hats.push(new Hat("hat" + count, "assets/img/hat" + count + ".png"));
+			Texture.addTexture("hat" + count, "assets/img/hat" + count + ".png");
+			Texture.addTexture("hatbg" + count, "assets/img/hatbg" + count + ".png");
+			
+			this.Hats.push(new Hat("hat" + count, "hatbg" + count));
 		}
 	},
 	
@@ -113,7 +118,7 @@ var Persons = {
 	}
 }
 
-function Hat(img){this.id = Persons.hatids++; this.name = img;};
+function Hat(img, bgimg){this.id = Persons.hatids++; this.name = img; this.bgname = bgimg;};
 function Body(img){this.id = Persons.bodyids++; this.name = img;};
 function Face(img){this.id = Persons.faceids++; this.name = img;};
 
@@ -122,10 +127,10 @@ function Person()
 {
 	GameObject.call(this);
 	//TODO: find positions for the parts
-	this.hatoffset = new Vector2(0, -30);
+	this.hatoffset = new Vector2(0, -20);
 	this.bodyoffset = new Vector2(0, 0);
 	this.faceoffset = new Vector2(30, 0);
-	this.position = new Vector2(window.innerWidth, -100);
+	this.position = new Vector2(screenSize.x, -100);
 	this.size = new Vector2(160, 300);
     this.checkForInput = true;
 	this.sizehat = new Vector2(180, 170);
@@ -136,17 +141,26 @@ function Person()
 	this.targetpos = new Vector2(1000 + Persons.allPersons.length * 100, -100);
 	this.entering = true;
     this.a = 0;
+    this.kasvaako = false;
     this.update = function()
     {	
 	//TODO: only update in right context
 		if(this.entering)
 		{
-			this.a += 0.1;
-			this.position = new Vector2(this.position.x - 1, -100 + 10 * Math.sin(this.a));
-			if(this.position.x <= this.targetpos.x){
-				this.entering = false;
+			this.a += 0.10;
+            var sini = Math.abs(Math.sin(this.a));
+            this.kasvaako = Math.sin(this.a * 2) > 0;
+			if(this.position.x >= this.targetpos.x){
+				this.position = new Vector2(this.position.x - 1, -100 + 30 * sini);
 			}
-		}      
+            if(this.kasvaako){
+                this.hatoffset.y = -20 - Math.sin(this.a * 2) * 20;
+            }
+            if(this.position.x <= this.targetpos.x && this.hatoffset.y >= -25){
+                this.entering = false;
+            }
+		}
+        
     }
 	this.hat = Persons.getRandomHat();
 	this.face = Persons.getRandomFace(); 
@@ -155,6 +169,8 @@ function Person()
 	this.draw = function()
 	{	
 	//TODO: persons in line are rendered in wrong order. 
+		if (Texture.map[this.hat.bgname])
+				context.drawImage(Texture.map[this.hat.bgname], this.position.x + this.hatoffset.x, this.position.y + this.hatoffset.y, this.sizehat.x, this.sizehat.y);
 		context.drawImage(Texture.map[this.body.name], this.position.x + this.bodyoffset.x, this.position.y + this.bodyoffset.y, this.sizebody.x, this.sizebody.y);
 		context.drawImage(Texture.map[this.face.name], this.position.x + this.faceoffset.x, this.position.y + this.faceoffset.y, this.sizeface.x, this.sizeface.y);
 		context.drawImage(Texture.map[this.hat.name], this.position.x + this.hatoffset.x, this.position.y + this.hatoffset.y, this.sizehat.x, this.sizehat.y);
