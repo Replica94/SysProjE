@@ -72,17 +72,34 @@ function _EngineInit(eng)
 	};
 	//add the object
 	eng.addObject(sky);
+	
+	//audio pause button
 	var pause = new ButtonObject();
-	pause.position.x = 1000;
+	pause.position.x = 80;
 	pause.position.y = 0;
-	pause.setText("Pause Music");
+	pause.setText("Music on/off");
 	pause.onClick = function()
 	{
 		MyAudio.paused = !MyAudio.paused;
 	}
 	eng.addObject(pause);
+	
+	//timer 
 	var timerr = new Timer();
 	eng.addObject(timerr);
+	
+	//menu button
+	var menubutton = new ButtonObject();
+	menubutton.position.x = 5;
+	menubutton.position.y = 0;
+	menubutton.setText("Menu");
+	menubutton.size.x = context.measureText("Menu").width + 20;
+	menubutton.onClick = function()
+	{
+		Engine.setDrawContext(1);
+	}
+	eng.addObject(menubutton);
+	
 	var i = 0;
 	for (var ctx in Context.map)
 	{
