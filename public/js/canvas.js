@@ -98,7 +98,7 @@ function CanvasDraw()
 	
 	RenderLabel(new Vector2(25, 25), label);
 	
-	
+	MyAudio.loopMusic();
 	Engine.draw(context);
 	Persons.update();
 	context.restore();
@@ -126,7 +126,7 @@ Input.init(canvas);
 Persons.initPersons();
 //creates new person
 Persons.addPersonToLine();
-
+MyAudio.loadMusic();
 
 window.addEventListener("resize", CanvasResize, false);
 CanvasResize();
