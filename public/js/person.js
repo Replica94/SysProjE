@@ -10,8 +10,11 @@ var Persons = {
 	bodiescount : 6,
 	allPersons : [],
     Hats : [],
+    Hats2 : [],
     Bodies : [],
+    Bodies2 : [],
     Faces : [],
+    Faces2 : [],
 	
 	update : function()
 	{
@@ -141,8 +144,8 @@ function Person()
 	//TODO: only update in right context
 		if(this.entering)
 		{
-			this.a += 0.1;
-			this.position = new Vector2(this.position.x - 1, -100 + 10 * Math.sin(this.a));
+			this.a += 0.10;
+			this.position = new Vector2(this.position.x - 1, -100 + 10 * Math.abs(Math.sin(this.a)));
 			if(this.position.x <= this.targetpos.x){
 				this.entering = false;
 			}
