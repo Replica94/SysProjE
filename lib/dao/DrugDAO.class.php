@@ -46,7 +46,7 @@
         if ($this->prepared["drugdata"]->execute()) {
             $this->prepared["drugdata"]->bind_result($form, $strength, $package);
             while ($this->prepared["drugdata"]->fetch()) {
-                $result->append(array("form" => $form, "strength" => $strength, "package" => $package));
+                $result[] = array("form" => $form, "strength" => $strength, "package" => $package);
             }
         }
         return $result;        
