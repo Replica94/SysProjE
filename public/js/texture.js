@@ -26,7 +26,7 @@ var Texture = {
 		img.onerror = function()
 		{
 			console.log("Failed to load texture " + name + " from "+ source);
-			capt.loadedTextures++;
+			capt.textureFailedToLoad(name);
 		};
 		
 		img.src = source;
@@ -38,5 +38,11 @@ var Texture = {
 	{
 		Texture.map[name] = image;
 		Texture.loadedTextures++;
+	},
+	textureFailedToLoad: function(name)
+	{
+		Texture.map[name] = null;
+		Texture.loadedTextures++;
 	}
+
 }

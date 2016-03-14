@@ -5,7 +5,7 @@ var Persons = {
     personids : 0,
 	//last persons arrive time
 	lpersonarrtime : 0,
-	hatscount : 7,
+	hatscount : 9,
 	facescount : 11,
 	bodiescount : 6,
 	allPersons : [],
@@ -26,8 +26,10 @@ var Persons = {
 		var count = 0;
 		for(count = 0; count < this.hatscount; count++)
 		{
-			test = Texture.addTexture("hat" + count, "assets/img/hat" + count + ".png");
-			this.Hats.push(new Hat("hat" + count, "assets/img/hat" + count + ".png"));
+			Texture.addTexture("hat" + count, "assets/img/hat" + count + ".png");
+			Texture.addTexture("hatbg" + count, "assets/img/hatbg" + count + ".png");
+			
+			this.Hats.push(new Hat("hat" + count, "hatbg" + count));
 		}
 	},
 	
@@ -113,7 +115,7 @@ var Persons = {
 	}
 }
 
-function Hat(img){this.id = Persons.hatids++; this.name = img;};
+function Hat(img, bgimg){this.id = Persons.hatids++; this.name = img; this.bgname = bgimg;};
 function Body(img){this.id = Persons.bodyids++; this.name = img;};
 function Face(img){this.id = Persons.faceids++; this.name = img;};
 
@@ -155,6 +157,8 @@ function Person()
 	this.draw = function()
 	{	
 	//TODO: persons in line are rendered in wrong order. 
+		if (Texture.map[this.hat.bgname])
+				context.drawImage(Texture.map[this.hat.bgname], this.position.x + this.hatoffset.x, this.position.y + this.hatoffset.y, this.sizehat.x, this.sizehat.y);
 		context.drawImage(Texture.map[this.body.name], this.position.x + this.bodyoffset.x, this.position.y + this.bodyoffset.y, this.sizebody.x, this.sizebody.y);
 		context.drawImage(Texture.map[this.face.name], this.position.x + this.faceoffset.x, this.position.y + this.faceoffset.y, this.sizeface.x, this.sizeface.y);
 		context.drawImage(Texture.map[this.hat.name], this.position.x + this.hatoffset.x, this.position.y + this.hatoffset.y, this.sizehat.x, this.sizehat.y);
