@@ -12,6 +12,8 @@ function GameObject()
 	this.drawContext = new Array();
 	/** All wanted input contexts, or empty array for all */
 	this.inputContext = new Array();
+	/** Target update context */
+	this.updateContext = 0;
 	
 	/** Draw offset index to use (see context.js) */
 	this.drawOffset = 0;
@@ -167,6 +169,7 @@ var Engine =
 		
 	*/
 	currentInputContext: 1,
+	currentUpdateContext: 0,
 	
 	contextOffsets: [new Vector2(0,0)],
 	
@@ -205,6 +208,9 @@ var Engine =
 	{
 		Engine.currentDrawContext = ctx;
 		Engine.currentInputContext = ctx;
+		Engine.currentUpdateContext = 0;
+		if (Context.gameContexts.indexOf(ctx) != -1)
+			Engine.currentUpdateContext = Context.updateContext.game;
 	},
 	
 	/**
@@ -226,6 +232,8 @@ var Engine =
 		//If the mouse is over something
 		var mouseHit = false;
 		var clicked = Input.isPressed();
+		
+		
 		
 		//We iterate the array from top to bottom
 		//from closest to the farthest object
@@ -261,8 +269,9 @@ var Engine =
 					}
 				}
 				
-				if (obj.update != null)
-					obj.update();
+				if ((obj.updateContext == 0) || (obj.updateContext == Engine.currentUpdateContext))
+					if (obj.update != null)
+						obj.update();
 				if (obj.isDoomed)
 					Engine.objects.splice(i, 1); 				
 			}

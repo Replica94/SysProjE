@@ -12,5 +12,13 @@ var Context = {
 	{
 		"normal": 0,
 		"behindDesk": 1
-	}
+	},
+	
+	updateContext :
+	{
+		global: 0,
+		game:   1
+	},
+	
+	gameContexts : [2,3]
 };

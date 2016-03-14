@@ -1,3 +1,4 @@
+
 var Persons = {    
     hatids : 0,
     bodyids : 0,
@@ -5,9 +6,9 @@ var Persons = {
     personids : 0,
 	//last persons arrive time
 	lpersonarrtime : 0,
-	hatscount : 9,
-	facescount : 11,
-	bodiescount : 6,
+	hatscount : 10,
+	facescount : 16,
+	bodiescount : 7,
 	allPersons : [],
     Hats : [],
     Hats2 : [],
@@ -127,6 +128,7 @@ function Person()
 {
 	GameObject.call(this);
 	//TODO: find positions for the parts
+	this.updateContext = Context.updateContext.game;
 	this.hatoffset = new Vector2(0, -20);
 	this.bodyoffset = new Vector2(0, 0);
 	this.faceoffset = new Vector2(30, 0);
