@@ -127,7 +127,7 @@ function Person()
 {
 	GameObject.call(this);
 	//TODO: find positions for the parts
-	this.hatoffset = new Vector2(0, -30);
+	this.hatoffset = new Vector2(0, -20);
 	this.bodyoffset = new Vector2(0, 0);
 	this.faceoffset = new Vector2(30, 0);
 	this.position = new Vector2(screenSize.x, -100);
@@ -141,17 +141,26 @@ function Person()
 	this.targetpos = new Vector2(1000 + Persons.allPersons.length * 100, -100);
 	this.entering = true;
     this.a = 0;
+    this.kasvaako = false;
     this.update = function()
     {	
 	//TODO: only update in right context
 		if(this.entering)
 		{
 			this.a += 0.10;
-			this.position = new Vector2(this.position.x - 1, -100 + 10 * Math.abs(Math.sin(this.a)));
-			if(this.position.x <= this.targetpos.x){
-				this.entering = false;
+            var sini = Math.abs(Math.sin(this.a));
+            this.kasvaako = Math.sin(this.a * 2) > 0;
+			if(this.position.x >= this.targetpos.x){
+				this.position = new Vector2(this.position.x - 1, -100 + 30 * sini);
 			}
-		}      
+            if(this.kasvaako){
+                this.hatoffset.y = -20 - Math.sin(this.a * 2) * 20;
+            }
+            if(this.position.x <= this.targetpos.x && this.hatoffset.y >= -25){
+                this.entering = false;
+            }
+		}
+        
     }
 	this.hat = Persons.getRandomHat();
 	this.face = Persons.getRandomFace(); 
