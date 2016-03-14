@@ -3,11 +3,11 @@ function Timer()
 	this.position = new Vector2(32,128);
 	this.size = new Vector2(128,48);
 	this.checkForInput = false;
-	this.position.x = screenSize.x - 100;																																																																			
+	this.position.x = screenSize.x - 150;																																																																			
 	this.position.y = 20;
 	this.font = "36px Arial";
 	this.text = "";
-
+	this.currenttime = 0;
 	this.setText = function(text)
 	{
 		//Temporarily change the canvas' font
@@ -15,10 +15,12 @@ function Timer()
 		
 		//context.measureText(text) gets the approximate
 		//width of the button text
+		var oldwidth = this.size.x;
 		var width = context.measureText(text).width;
 		
 		//Our button size will be that width plus some extra
 		this.size.x = width+15;
+		this.position.x -= this.size.x - oldwidth;
 		
 		//Nice hardcoded height
 		
@@ -51,10 +53,11 @@ function Timer()
 		context.fillStyle = "#000000";
 		
 		//And print our text
-		context.fillText(this.text,this.position.x+6,this.position.y+35);
+		context.fillText(this.text,this.position.x+7,this.position.y+37);
 	}
 	this.update = function(){
-		this.setText(Time.getSecondsSinceStart());
+		this.currenttime = Time.getSecondsSinceStart();
+		this.setText(this.currenttime);
 	}
 }
 Timer.prototype = new RealObject();

@@ -72,7 +72,7 @@ var ButtonObject = function()
 		context.fillStyle = "#000000";
 		
 		//And print our text
-		context.fillText(this.text,this.position.x+6,this.position.y+22);
+		context.fillText(this.text,this.position.x+10,this.position.y+22);
 	}
 	
 	
