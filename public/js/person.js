@@ -6,8 +6,8 @@ var Persons = {
 	//last persons arrive time
 	lpersonarrtime : 0,
 	hatscount : 7,
-	facescount : 6,
-	bodiescount : 4,
+	facescount : 7,
+	bodiescount : 5,
 	allPersons : [],
     Hats : [],
     Bodies : [],
