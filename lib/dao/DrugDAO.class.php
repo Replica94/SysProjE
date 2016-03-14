@@ -55,17 +55,20 @@
     /**
      * Returns a random drug name
      *
-     * @return Random drug name as a string, or null if query failed.
+     * @param $num Number of drug names to return
+     * @return An array of random drug names, or an empty array if failed.
      */
-    public function getRandomDrug()
+    public function getRandomDrug($num = 1)
     {
+        $names = array();
+        $this->prepared["randomdrug"]->bind_param("i", $num);
         if ($this->prepared["randomdrug"]->execute()) {
             $this->prepared["randomdrug"]->bind_result($drugname);
             while ($this->prepared["randomdrug"]->fetch()) {
-                return $drugname;
+                $names[] = $drugname;
             }
         }
-        return null;
+        return $names;
     }
     
     /**
@@ -91,7 +94,7 @@ SQL;
             return false;
         }
         
-        $query = "SELECT ainenimi FROM laakeaine ORDER BY RAND() LIMIT 1";
+        $query = "SELECT ainenimi FROM laakeaine ORDER BY RAND() LIMIT ?";
         $this->prepared["randomdrug"] = $this->db->stmt_init();
         if (!$this->prepared["randomdrug"]->prepare($query)) {
             return false;
