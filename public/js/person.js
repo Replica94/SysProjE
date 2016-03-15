@@ -132,9 +132,8 @@ function Person()
     this.hatoffsety = -35;
 	this.hatoffset = new Vector2(0, this.hatoffsety);
 	this.bodyoffset = new Vector2(0, 0);
-    this.
 	this.faceoffset = new Vector2(30, 0);
-	this.position = new Vector2(screenSize.x, -100);
+	this.position = new Vector2(screenSize.x/2, -100);
 	this.size = new Vector2(160, 300);
     this.checkForInput = true;
 	this.sizehat = new Vector2(180, 225);
@@ -142,7 +141,7 @@ function Person()
 	this.sizebody = new Vector2(200, 300);
 	this.drawOffset = Context.drawOffset["behindDesk"];
     this.depth = -30;
-	this.targetpos = new Vector2(screenSize.x/2 + Persons.allPersons.length * 100, -100);
+	this.targetpos = new Vector2(0 + Persons.allPersons.length * 100, -100);
 	this.entering = true;
     this.a = 0;
     this.kasvaako = false;

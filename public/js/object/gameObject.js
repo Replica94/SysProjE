@@ -224,7 +224,7 @@ var Engine =
 	update: function ()
 	{
 		var behindDesk = new Vector2(0,0);
-		behindDesk.x = 0;
+		behindDesk.x = screenSize.x/2;
 		behindDesk.y = screenSize.y-400;
 		
 		this.contextOffsets[Context.drawOffset["behindDesk"]] = behindDesk;
