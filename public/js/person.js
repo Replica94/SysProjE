@@ -129,13 +129,14 @@ function Person()
 	GameObject.call(this);
 	//TODO: find positions for the parts
 	this.updateContext = Context.updateContext.game;
-	this.hatoffset = new Vector2(0, -20);
+    this.hatoffsety = -35;
+	this.hatoffset = new Vector2(0, this.hatoffsety);
 	this.bodyoffset = new Vector2(0, 0);
 	this.faceoffset = new Vector2(30, 0);
 	this.position = new Vector2(screenSize.x, -100);
 	this.size = new Vector2(160, 300);
     this.checkForInput = true;
-	this.sizehat = new Vector2(180, 170);
+	this.sizehat = new Vector2(180, 225);
 	this.sizeface = new Vector2(130, 170);
 	this.sizebody = new Vector2(200, 300);
 	this.drawOffset = Context.drawOffset["behindDesk"];
@@ -149,16 +150,16 @@ function Person()
 	//TODO: only update in right context
 		if(this.entering)
 		{
-			this.a += 0.10;
+			this.a += 0.10 * Time.delta;
             var sini = Math.abs(Math.sin(this.a));
             this.kasvaako = Math.sin(this.a * 2) > 0;
 			if(this.position.x >= this.targetpos.x){
-				this.position = new Vector2(this.position.x - 1, -100 + 30 * sini);
+				this.position = new Vector2(this.position.x - 1 * Time.delta, -100 + 30 * sini);
 			}
             if(this.kasvaako){
-                this.hatoffset.y = -20 - Math.sin(this.a * 2) * 20;
+                this.hatoffset.y = this.hatoffsety - Math.sin(this.a * 2) * 20;
             }
-            if(this.position.x <= this.targetpos.x && this.hatoffset.y >= -25){
+            if(this.position.x <= this.targetpos.x && this.hatoffset.y >= this.hatoffsety -5){
                 this.entering = false;
             }
 		}
