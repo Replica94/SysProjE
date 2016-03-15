@@ -1,3 +1,38 @@
+/**
+	Array which stores all functions doing asynchronous requests for required assets
+	
+	These functions should not block exectution, they should return false when the
+	asynchronous requests are not ready.
+	
+	All of these functions will be called before engine initialization.
+**/
+
+var AssetLoadFunctions = [];
+
+/*
+	Example:
+	
+	//A well named variable to store current state
+	var hasLoadedAjaxStuff = false;
+	
+	//Make an ajax request
+	var someAjaxRequest = DoSomeSortOfAjaxRequest("asd.json");
+	
+	//When it's done
+	someAjaxRequest.onFinish = function ()
+	{
+		//Change the state
+		hasLoadedAjaxStuff = true;
+	};
+	
+	AssetLoadFunctions += function ()
+	{
+		//This function only serves as a check whether our stuff is loaded
+		return hasLoadedAjaxStuff;
+	}
+
+*/
+
 
 function GetRandomBetween(min, onepastmax)
 {

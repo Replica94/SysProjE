@@ -44,5 +44,9 @@ var Texture = {
 		Texture.map[name] = null;
 		Texture.loadedTextures++;
 	}
-
 }
+
+AssetLoadFunctions.push(function()
+{
+	return (Texture.loadedTextures == Texture.maxTextures);
+});
