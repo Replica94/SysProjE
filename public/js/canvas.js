@@ -114,7 +114,7 @@ var fun = function()
 {
 	for (var i = 0; i < AssetLoadFunctions.length;)
 	{
-		if (AssetLoadFunctions[i] == false)
+		if (AssetLoadFunctions[i]() == false)
 		{
 			setTimeout(fun, 50);
 			return;
