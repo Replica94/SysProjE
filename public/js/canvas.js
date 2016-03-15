@@ -100,12 +100,12 @@ function CanvasDraw()
 	var label = GenerateRandomLabel(RandomBrandName(1),"300mg ibuprofen",description,43);
 	
 	RenderLabel(new Vector2(25, 25), label);
-	
-	MyAudio.loopMusic();
+	GameLogic.step();
+
 	Engine.draw(context);
-	Persons.update();
+
 	context.restore();
-	Time.calcDelta();
+
 	
 }
 
