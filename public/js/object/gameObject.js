@@ -296,19 +296,29 @@ var Engine =
 		for (var i = 0; i <  Engine.objects.length; i++)
 		{
 			var obj = Engine.objects[i];
-			if (obj.draw != null)
-			if ((obj.drawContext.length == 0) || (obj.drawContext.indexOf(Engine.currentDrawContext) != -1))
+			try
 			{
-				if (obj.drawOffset)
+				if (obj.draw != null)
+				if ((obj.drawContext.length == 0) || (obj.drawContext.indexOf(Engine.currentDrawContext) != -1))
 				{
-					context.save();
-					context.translate(this.contextOffsets[obj.drawOffset].x, this.contextOffsets[obj.drawOffset].y);
-					obj.draw(context);
-					context.restore();
+					if (obj.drawOffset)
+					{
+						context.save();
+						context.translate(this.contextOffsets[obj.drawOffset].x, this.contextOffsets[obj.drawOffset].y);
+						obj.draw(context);
+						context.restore();
+					}
+					else
+						obj.draw(context);
+					
 				}
-				else
-					obj.draw(context);
-				
+			}
+			catch(err)
+			{
+				//ERROR
+				console.log("Error handling object: ")
+				console.log(obj);
+				console.log(err);
 			}
 			
 		}
