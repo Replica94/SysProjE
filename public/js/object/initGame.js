@@ -98,6 +98,8 @@ function _EngineInit(eng)
 	{
 		Engine.setDrawContext(1);
 	}
+    menubutton.inputContext = Context.map["gstates"];
+    menubutton.drawContext = Context.map["gstates"];
 	eng.addObject(menubutton);
 	
 	var i = 0;

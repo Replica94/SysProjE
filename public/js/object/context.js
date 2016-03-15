@@ -6,6 +6,7 @@ var Context = {
 		"gameScreenDesk":			2,
 		"gameScreenSomethingElse":	3,
 		"menus":					[1], //List of all menus
+        "gstates":					[2,3]
 	},
 	
 	drawOffset :

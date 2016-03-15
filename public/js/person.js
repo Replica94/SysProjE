@@ -132,6 +132,7 @@ function Person()
     this.hatoffsety = -35;
 	this.hatoffset = new Vector2(0, this.hatoffsety);
 	this.bodyoffset = new Vector2(0, 0);
+    this.
 	this.faceoffset = new Vector2(30, 0);
 	this.position = new Vector2(screenSize.x, -100);
 	this.size = new Vector2(160, 300);
