@@ -1,9 +1,11 @@
-function MyDebugger()
+var MyDebugger =
 {
-    this.debugmode = false;
-    this.getCoordsFromMouse = function()
+    debugmode : true,
+    getCoordsFromMouse : function()
     {
-        if(debugmode)
-            alert("X: " + Input.currentMousePos.x + " Y: " Input.currentMousePos.y);
+        if(this.debugmode && Input.mouseClicked){
+            console.log("X: " + Input.currentMousePos.x + " Y: " + Input.currentMousePos.y);
+        }
+            
     }
 }

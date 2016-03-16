@@ -1,6 +1,7 @@
 var GameLogic = 
 {
 	step : function(){
+        MyDebugger.getCoordsFromMouse();
 		switch(Engine.currentDrawContext)
 		{
 			case Context.map["gameScreenDesk"]:
