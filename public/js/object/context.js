@@ -6,8 +6,13 @@ var Context = {
 		"gameScreenDesk":			2,
 		"gameScreenSomethingElse":	3,
         "recipeDesk":               4,
+		
+		"gameMedicineCabinet":		5,
+		"gameMedicineCabinetExamine": 6,
+		"gameMedicineCabinetContexts": [5,6],
+		
 		"menus":					[1], //List of all menus
-        "gstates":					[2,3,4],
+        "gstates":					[2,3,4,5,6],
         "menuanddesk":              [1,2,4]
 	},
 	
@@ -23,5 +28,5 @@ var Context = {
 		game: 1
 	},
 	
-	gameContexts : [2, 3, 4]
+	gameContexts : [2, 3, 4, 5, 6]
 };
