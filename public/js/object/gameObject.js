@@ -163,7 +163,7 @@ var WriteObject = function()
 	}
     
 	this.draw = function()
-
+    {
         context.lineWidth = 2;
 		//Set the current drawing font
 		context.font = this.font;
