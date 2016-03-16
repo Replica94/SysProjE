@@ -92,11 +92,21 @@ SELECT DISTINCT lm.laakemuotonimie AS laakemuoto, pak.vahvuus AS vahvuus, sa.nim
         INNER JOIN laakemuoto AS lm ON lm.laakemuototun = pak.laakemuototun
         INNER JOIN sailytysastia AS sa ON sa.astiatun = pak.astiatun
     WHERE
-        la.ainenimi = ?
+        la.ainenimi = ? AND
+        pak.vaikainelkm = 1 AND
+        pak.vahvuus <> ''
 ORDER BY lm.laakemuotonimie, pak.vahvuus, sa.nimie
 SQL;
         
-        $this->queries["randomdrug"] = "SELECT ainenimi FROM laakeaine ORDER BY RAND() LIMIT ?";
+        $this->queries["randomdrug"] = <<<SQL
+SELECT la.ainenimi 
+    FROM laakeaine AS la
+    INNER JOIN pakkaus AS pak ON la.pakkausnro = pak.pakkausnro
+    WHERE
+        pak.vaikainelkm = 1 AND
+        pak.vahvuus <> ''
+ORDER BY RAND() LIMIT ?
+SQL;
     }
     
     /**
@@ -119,3 +129,4 @@ SQL;
         }
     }
  }
+ 

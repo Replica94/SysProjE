@@ -27,7 +27,7 @@ function _EngineInit(eng)
 
 	ts.depth = -10;
 	//set the draw context 
-	ts.drawContext += Context.map["gameScreenDesk"];
+	ts.drawContext += Context.map["menuanddesk"];
 	
 	//overload the update
 	ts.update = function()
@@ -88,19 +88,7 @@ function _EngineInit(eng)
 	var timerr = new Timer();
 	eng.addObject(timerr);
 	
-	//menu button
-	var menubutton = new ButtonObject();
-	menubutton.position.x = 5;
-	menubutton.position.y = 0;
-	menubutton.setText("Menu");
-	menubutton.size.x = context.measureText("Menu").width + 20;
-	menubutton.onClick = function()
-	{
-		Engine.setDrawContext(1);
-	}
-    menubutton.inputContext = Context.map["gstates"];
-    menubutton.drawContext = Context.map["gstates"];
-	eng.addObject(menubutton);
+
 	
 	var i = 0;
 	for (var ctx in Context.map)
