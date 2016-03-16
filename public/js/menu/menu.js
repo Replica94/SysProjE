@@ -76,7 +76,6 @@ EngineInitializationFunctions.push(function ()
 	darkness.depth = 499;
 	
 	darkness.drawContext += menuContext;
-	darkness.inputContext += menuContext;
 	
 	//background darkness
 	darkness.draw = function()

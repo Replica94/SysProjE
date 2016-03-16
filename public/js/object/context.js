@@ -5,8 +5,11 @@ var Context = {
 		"mainMenu":					1,
 		"gameScreenDesk":			2,
 		"gameScreenSomethingElse":	3,
+		"gameMedicineCabinet":		4,
+		"gameMedicineCabinetExamine":5,
+		"gameMedicineCabinetContexts":[4,5],
 		"menus":					[1], //List of all menus
-        "gstates":					[2,3]
+        "gstates":					[2,3,4,5]
 	},
 	
 	drawOffset :
@@ -21,5 +24,5 @@ var Context = {
 		game: 1
 	},
 	
-	gameContexts : [2,3]
+	gameContexts : [2,3,4,5]
 };
