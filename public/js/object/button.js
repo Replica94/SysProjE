@@ -18,7 +18,7 @@ var ButtonObject = function()
 	this.update = function()
 	{
 		//Call this to update the bounding box of the object
-		//Otherwise, the object would be unclickable
+		//Otherwise, the object would be unclickable	
 		this.updateRealObject();
 	}
 	
@@ -72,7 +72,7 @@ var ButtonObject = function()
 		context.fillStyle = "#000000";
 		
 		//And print our text
-		context.fillText(this.text,this.position.x+6,this.position.y+22);
+		context.fillText(this.text,this.position.x+10,this.position.y+22);
 	}
 	
 	
@@ -115,6 +115,11 @@ EngineInitializationFunctions.push(function ()
 		//and destroy this button
 		this.isDoomed = true;
 	};
+	
+	buttonen.tooltip = new TooltipObject(buttonen);
+	buttonen.tooltip.setText("TOO HOT TO HANDLE, TOO COLD TO HOLD");
+	Engine.addObject(buttonen.tooltip);
+
 	
 	Engine.addObject(buttonen);
 });
