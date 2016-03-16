@@ -123,3 +123,17 @@ EngineInitializationFunctions.push(function ()
 	
 	Engine.addObject(buttonen);
 });
+
+var InvisibleButton = function()
+{
+    this.draw = function()
+    {
+        
+    }
+}
+
+//The "inheritance"
+InvisibleButton.prototype = new ButtonObject();
+
+//The constructor assignment
+InvisibleButton.constructor = InvisibleButton;

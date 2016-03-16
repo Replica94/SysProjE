@@ -103,7 +103,7 @@ var Engine =
 				if (obj.checkForInput)
 				if ((obj.inputContext.length == 0) || (obj.inputContext.indexOf(Engine.currentInputContext) != -1))
 				{
-					if ((!mouseHit) && Input.checkMouseOverOffset(obj.bounds, this.contextOffsets[obj.drawOffset]))
+					if ((obj.visible) && (!mouseHit) && Input.checkMouseOverOffset(obj.bounds, this.contextOffsets[obj.drawOffset]))
 					{
 						obj.mouseHover = true;
 						if (clicked)
@@ -151,7 +151,7 @@ var Engine =
 			var obj = Engine.objects[i];
 			try
 			{
-				if (obj.draw != null)
+				if (obj.visible && obj.draw != null)
 				if ((obj.drawContext.length == 0) || (obj.drawContext.indexOf(Engine.currentDrawContext) != -1))
 				{
 					if (obj.drawOffset)
