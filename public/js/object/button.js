@@ -116,5 +116,10 @@ EngineInitializationFunctions.push(function ()
 		this.isDoomed = true;
 	};
 	
+	buttonen.tooltip = new TooltipObject(buttonen);
+	buttonen.tooltip.setText("TOO HOT TO HANDLE, TOO COLD TO HOLD");
+	Engine.addObject(buttonen.tooltip);
+
+	
 	Engine.addObject(buttonen);
 });
