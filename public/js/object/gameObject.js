@@ -39,6 +39,8 @@ function GameObject()
 	this.onClick = null;
 	/** If the following is set to true, object will be deleted at the next step */
 	this.isDoomed = false;
+	
+	this.visible = true;
 }
 
 //How to inherit stuff in JavaScript?
