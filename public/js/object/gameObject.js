@@ -144,5 +144,73 @@ var TiledObject = function()
 TiledObject.prototype = new GameObject();
 TiledObject.constructor = TiledObject;
 
+var WriteObject = function()
+{
+	RealObject.call(this);
+	//some testing stuff
+	this.position = new Vector2(0,0);
+	this.size = new Vector2(128,128);
+	this.checkForInput = false;
+    this.font = "18px Arial";
+	this.text = "";
+    //if false, the width will be calculated from text size.
+    this.fixedsize = false;
+    
+	
+	this.update = function()
+	{
+		
+	}
+    
+	this.draw = function()
+
+        context.lineWidth = 2;
+		//Set the current drawing font
+		context.font = this.font;
+		
+		//Fill the area from position to position+size
+		context.fillRect(this.position.x, this.position.y, this.size.x, this.size.y);
+		
+		//Stroke a nice shadow
+		context.strokeStyle = "#888888";
+		context.strokeRect(this.position.x, this.position.y, this.size.x-2, this.size.y-2);
+		
+		//Stroke dat edges 2
+		context.strokeStyle = "#000000";
+		context.strokeRect(this.position.x, this.position.y, this.size.x, this.size.y);
+		
+		//Change color to black
+		context.fillStyle = "#000000";
+		
+		//And print our text
+		context.fillText(this.text,this.position.x+10,this.position.y+22);
+	}
+	this.onClick = function()
+	{
+		
+	}
+    this.setText = function(text)
+	{
+		//Temporarily change the canvas' font
+		context.font = this.font;
+		
+		//context.measureText(text) gets the approximate
+		//width of the button text
+        if(fixedsize){
+            var width = context.measureText(text).width;
+		      
+		  //Add some extra width
+            this.size.x = width+25;
+		      
+		  //Nice hardcoded height
+            this.size.y = 32;
+        }
+
+		this.text = text;
+	}
+}
+
+WriteObject.prototype = new GameObject();
+WriteObject.constructor = WriteObject;
 
 

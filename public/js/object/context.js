@@ -18,7 +18,7 @@ var Context = {
 	updateContext :
 	{
 		global: 0,
-		game:   1
+		game: 1
 	},
 	
 	gameContexts : [2,3]
