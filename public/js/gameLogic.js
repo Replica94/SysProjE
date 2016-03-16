@@ -3,11 +3,11 @@ var GameLogic =
     isRecipeOnDesk : false,
 	step : function(){
         MyDebugger.getCoordsFromMouse();
+        Persons.update();
 		switch(Engine.currentDrawContext)
 		{
 			case Context.map["gameScreenDesk"]:
 				Time.calcDelta();
-				Persons.update();
 				MyAudio.loopMusic();
 				break;
             case Context.map["recipeDesk"]:

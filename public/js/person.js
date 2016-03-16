@@ -22,7 +22,16 @@ var Persons = {
 		if(Date.now() - this.lpersonarrtime > 4000 && this.allPersons.length < 10){
 			this.addPersonToLine();
 		}
+        if(this.allPersons[0].isServed){
+            this.allPersons[0].isDoomed = true;
+            this.allPersons.splice(0,1);
+            for(var i = 0; i < this.allPersons.length; i++)
+            {
+                this.allPersons[i].entering = true;
+            }
+        }
 	},
+    
 		
 	addAllHatTextures : function()
 	{
@@ -144,7 +153,9 @@ function Person()
 	this.targetpos = new Vector2(0 + Persons.allPersons.length * 100, -100);
 	this.entering = true;
     this.a = 0;
+    this.isServed = false;
     this.kasvaako = false;
+    this.moveinline = false;
     this.update = function()
     {	
 	//TODO: only update in right context
@@ -162,7 +173,12 @@ function Person()
             if(this.position.x <= this.targetpos.x && this.hatoffset.y >= this.hatoffsety -5){
                 this.entering = false;
             }
+            
 		}
+        if(this.moveinline)
+        {
+            
+        }
         
     }
 	this.hat = Persons.getRandomHat();

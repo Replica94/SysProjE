@@ -5,10 +5,10 @@ var Context = {
 		"mainMenu":					1,
 		"gameScreenDesk":			2,
 		"gameScreenSomethingElse":	3,
-        "recipeDesk":                4,
+        "recipeDesk":               4,
 		"menus":					[1], //List of all menus
         "gstates":					[2,3,4],
-        "menuanddesk":               [1,2,4]
+        "menuanddesk":              [1,2,4]
 	},
 	
 	drawOffset :
@@ -23,5 +23,5 @@ var Context = {
 		game: 1
 	},
 	
-	gameContexts : [2,3]
+	gameContexts : [2, 3, 4]
 };
