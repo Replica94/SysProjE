@@ -1,5 +1,6 @@
 var GameLogic = 
 {
+    isRecipeOnDesk : false,
 	step : function(){
         MyDebugger.getCoordsFromMouse();
 		switch(Engine.currentDrawContext)
@@ -9,6 +10,9 @@ var GameLogic =
 				Persons.update();
 				MyAudio.loopMusic();
 				break;
+            case Context.map["recipeDesk"]:
+                
+                break;
 			case Context.map["mainMenu"]:
 				break;
 		}

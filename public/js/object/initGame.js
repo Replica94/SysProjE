@@ -27,7 +27,7 @@ function _EngineInit(eng)
 
 	ts.depth = -10;
 	//set the draw context 
-	ts.drawContext += Context.map["gameScreenDesk"];
+	ts.drawContext += Context.map["menuanddesk"];
 	
 	//overload the update
 	ts.update = function()
