@@ -10,4 +10,21 @@ if (isset($_REQUEST['n'])) {
 }
 
 $dao = new DrugDAO();
-echo json_encode(array("drugs" => $dao->getRandomDrug($num)));
+$drugnames = $dao->getRandomDrug($num);
+
+$drugs = array();
+
+$fcon = file("../../namegen/drugnames.txt");
+
+foreach ($drugnames as $drug) {
+    $newdrug["drug"] = strtolower($drug);
+    $newdrug["name"] = strtolower(rtrim($fcon[array_rand($fcon)]));
+    $alldata = $dao->getDrugData($drug);
+    $data = $alldata[array_rand($alldata)];
+    $newdrug["form"] = strtolower($data["form"]);
+    $newdrug["strength"] = $data["strength"];
+    $newdrug["package"] = strtolower($data["package"]);
+    $drugs[] = $newdrug;
+}
+
+echo json_encode(array("drugs" => $drugs));
