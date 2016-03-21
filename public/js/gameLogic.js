@@ -20,6 +20,11 @@ var GameLogic =
 			case Context.map["mainMenu"]:
 				break;
 		}
-	}
+	},
+    
+    resetGame : function()
+    {
+        
+    }
 	
 }
