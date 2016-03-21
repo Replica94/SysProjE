@@ -62,6 +62,23 @@ EngineInitializationFunctions.push(function ()
 	Engine.addObject(back);
 	*/
 	
+	var back = new RealObject;
+	back.size = new Vector2(128,128);
+	back.position = new Vector2(4,128);
+	back.image = Texture.map["backArrow"];
+	back.draw = function()
+	{
+		context.drawImage(this.image, this.position.x, this.position.y);
+	};
+	back.drawContext += Context.map["gameMedicineCabinetContexts"];
+	back.inputContext = back.drawContext;
+	back.depth =451;
+	back.onClick = function()
+	{
+		Engine.setDrawContext(Context.map["gameScreenDesk"]);
+	};
+	Engine.addObject(back);
+	
 	var cbm = new PropObject;
 	cbm.image = Texture.map["cabinet"];
 	cbm.drawContext += Context.map["gameMedicineCabinetContexts"];
