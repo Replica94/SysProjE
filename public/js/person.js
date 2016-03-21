@@ -166,10 +166,16 @@ function Person()
     this.isServed = false;
     this.kasvaako = false;
     this.moveinline = false;
+    this.wasServedAt = 0;
+    this.setIsServed = function()
+    {
+        this.isServed = true;
+        this.wasServedAt = Date.now();
+    }
     
     this.update = function()
     {	
-        //this.speechBubble.display = true;  
+         
 	   //TODO: only update in right context
         this.a += 0.10 * Time.delta;
         var sini = Math.abs(Math.sin(this.a));
@@ -190,7 +196,15 @@ function Person()
 			
         if(this.isServed)
         {
+            this.maxtimebubble = 2000;
+
+            if(Date.now() - this.wasServedAt < this.maxtimebubble)
+            {
+                this.speechBubble.display = true;
+                this.speechBubble.setText("Thanks!");
+            }
             this.targetpos = new Vector2(-10000, -100);
+            this.moving = true;
             if(this.position.x < screenSize.x / 2 * -1 -100)
             {
                 this.isDoomed = true;

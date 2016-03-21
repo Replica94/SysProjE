@@ -15,7 +15,7 @@ EngineInitializationFunctions.push(function ()
 	recipebutton.onClick = function()
 	{
 		Engine.setDrawContext(Context.map["recipeDesk"]);
-        Persons.allPersons[0].isServed = true;
+        Persons.allPersons[0].setIsServed();
 	};
     recipebutton.inputContext = Context.map["gstates"];
     recipebutton.drawContext = Context.map["gstates"];
@@ -86,6 +86,6 @@ EngineInitializationFunctions.push(function ()
 	
 	//timer 
 	var timerr = new Timer();
-	eng.addObject(timerr);
+	Engine.addObject(timerr);
     
 });
