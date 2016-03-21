@@ -22,6 +22,11 @@ var GameLogic =
 		}
 	},
     
+    startRound : function()
+    {
+        Score.roundStartTime = Date.now();
+    },
+    
     resetGame : function()
     {
         

@@ -67,6 +67,7 @@ EngineInitializationFunctions.push(function ()
 	{
 		//start the game or something i guess
         GameLogic.resetGame();
+        GameLogic.startRound();
 		Engine.setDrawContext(Context.map["gameScreenDesk"]);
 	};
 	

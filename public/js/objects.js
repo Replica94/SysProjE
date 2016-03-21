@@ -15,6 +15,7 @@ EngineInitializationFunctions.push(function ()
 	{
 		Engine.setDrawContext(Context.map["recipeDesk"]);
         Persons.allPersons[0].setIsServed();
+        Score.updateScore();
 	};
     recipebutton.inputContext = Context.map["gstates"];
     recipebutton.drawContext += Context.map["gameScreenDesk"];
@@ -86,6 +87,9 @@ EngineInitializationFunctions.push(function ()
 	//timer 
 	var timerr = new Timer();
 	Engine.addObject(timerr);
+    
+    var scores = new ScoreShow();
+    Engine.addObject(scores);
     
     //the flower
     var flowerDrawObject = new RealObject();
