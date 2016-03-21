@@ -82,6 +82,10 @@
      /**
      * Returns a random drug name of the given form
      *
+     * @param $form Form of the drug, e.g. tablet. Matches if the given string 
+     *              is present anywhere in the form description (i.e. "tablet"
+     *              would match "tablet", but also "film-coated tablet" and 
+     *              "effervescent tablet")
      * @param $num Number of drug names to return
      * @return An array of random drug names, or an empty array if failed.
      */
@@ -103,8 +107,7 @@
     }
     
     /**
-     * Creates all the necessary query strings
-     * that are used in the DAO.
+     * Creates all the necessary query strings that are used in the DAO.
      */
     private function makeQueries()
     {
