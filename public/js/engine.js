@@ -138,6 +138,16 @@ var Engine =
 		}
 	},
 	
+	remoteDoom : function() 
+	{
+		for (var i = Engine.objects.length - 1; i >= 0; i--)
+		{
+			var obj = Engine.objects[i];
+			if (obj.isDoomed)
+				Engine.objects.splice(i, 1); 		
+		}
+	},
+	
 	init: function ()
 	{
 		_EngineInit(Engine);

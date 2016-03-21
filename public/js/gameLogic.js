@@ -29,7 +29,9 @@ var GameLogic =
     
     resetGame : function()
     {
-        
+        Score.resetScore();
+		Persons.resetPersons();
+		Time.reset(); 
     }
 	
 }

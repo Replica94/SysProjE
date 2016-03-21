@@ -7,7 +7,11 @@ function Timer()
 	this.position.y = 20;
 	this.font = "36px Arial";
 	this.text = "";
+	this.updateContext += Context.updateContext.game;
 	this.currenttime = 0;
+	this.roundInitTime = 0;
+	
+
 	this.setText = function(text)
 	{
 		//Temporarily change the canvas' font
@@ -59,6 +63,7 @@ function Timer()
 		this.currenttime = Time.getSecondsSinceStart();
 		this.setText(this.currenttime);
 	}
+
 }
 Timer.prototype = new RealObject();
 Timer.constructor = Timer.Object;

@@ -126,6 +126,16 @@ var Persons = {
 		this.lpersonarrtime = Date.now();
 	},
 	
+	resetPersons : function()
+	{
+		for(var i = 0; i < this.allPersons.length; i++)
+		{
+			this.allPersons[i].isDoomed = true;
+		}
+		Engine.remoteDoom();
+		this.allPersons = [];
+	},
+	
 	renderAllPersons : function() 
 	{
 		for(var i = 0; i < this.allPersons.length; i++)
