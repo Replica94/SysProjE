@@ -196,12 +196,12 @@ function Person()
 			
         if(this.isServed)
         {
+            //Speechbubble when the person is served
             this.maxtimebubble = 2000;
-
             if(Date.now() - this.wasServedAt < this.maxtimebubble)
             {
                 this.speechBubble.display = true;
-                this.speechBubble.setText("Thanks!");
+                this.speechBubble.setText(Dialogue.getRandomPraise());
             }
             this.targetpos = new Vector2(-10000, -100);
             this.moving = true;
