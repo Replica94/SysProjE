@@ -1,0 +1,40 @@
+{"dialogue": 
+			{
+			"greetings":[
+			{"greeting":"Hello!"},
+			{"greeting":"Good day!"},
+			{"greeting":"Bonjour!"},
+			{"greeting":"Guten Tag!"},
+			{"greeting":"G'day mate!"}],
+			"positive":[
+			{"praise":"Thanks!"},
+			{"praise":"Thank you!"},
+			{"praise":"That was quick!"},
+			{"praise":"Good job!"}],
+			"negative":[
+			{"complaint":"Come on..."},
+			{"complaint":"What's taking so long?"},
+			{"complaint":"Could you be any slower?"},
+			{"complaint":"I'm bored"},
+			{"complaint":"..."}],
+			"random":[
+			{"comment":"Jesse! We need to cook!"},
+			{"comment":"Do you come here often?"},
+			{"comment":"I want a Big Mac and a diet Coke, please"},
+			{"comment":"Free rides for the ladies!"},
+			{"comment":"If you were a vegetable you'd be a cute-cumber"},
+			{"comment":"What's on the menu? Me-n-U"}]
+			}
+			
+}
+
+
+
+
+
+
+
+
+
+	
+
