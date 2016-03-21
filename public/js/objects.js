@@ -87,4 +87,20 @@ EngineInitializationFunctions.push(function ()
 	var timerr = new Timer();
 	Engine.addObject(timerr);
     
+    //the flower
+    var flowerDrawObject = new RealObject();
+    flowerDrawObject.position.x = -800;
+    flowerDrawObject.position.y = 20;
+    flowerDrawObject.size.x = 130;
+    flowerDrawObject.size.y = 170;
+    flowerDrawObject.drawOffset = Context.drawOffset["behindDesk"];
+    //recipeDrawObject.depth = 200;
+    flowerDrawObject.drawContext += Context.map["deskshowing"];
+
+    flowerDrawObject.draw = function()
+    {
+        context.drawImage(Texture.map["plant"], this.position.x, this.position.y, this.size.x, this.size.y);
+    }
+    Engine.addObject(flowerDrawObject);
+    
 });

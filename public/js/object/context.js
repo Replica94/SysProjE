@@ -13,7 +13,8 @@ var Context = {
 		
 		"menus":					[1], //List of all menus
         "gstates":					[2,3,4,5,6],
-        "menuanddesk":              [1,2,4]
+        "menuanddesk":              [1,2,4],
+        "deskshowing":              [2,4]
 	},
 	
 	drawOffset :

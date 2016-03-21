@@ -4,7 +4,6 @@ var GameLogic =
 	step : function(){
         MyDebugger.getCoordsFromMouse();
 		Time.calcDelta();
-        
 		switch(Engine.currentDrawContext)
 		{
 			case Context.map["gameScreenDesk"]:

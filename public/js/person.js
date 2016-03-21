@@ -161,6 +161,7 @@ function Person()
 	this.targetpos = new Vector2(0 + this.positionInQueue * 100, -100);
 	this.moving = true;
     this.a = 0;
+    
     this.eliminate = false;
     this.isLeaving = false;
     this.isServed = false;
@@ -201,7 +202,6 @@ function Person()
             if(Date.now() - this.wasServedAt < this.maxtimebubble)
             {
                 this.speechBubble.display = true;
-                this.speechBubble.setText(Dialogue.getRandomPraise());
             }
             this.targetpos = new Vector2(-10000, -100);
             this.moving = true;
@@ -240,7 +240,7 @@ function Person()
 	this.speechBubble.drawContext = this.drawContext;
 	this.speechBubble.drawOffset = this.drawOffset;
 	this.speechBubble.display = false;
-	this.speechBubble.setText(this.greeting);//"WHAT'YA GONNA DO WHEN HULKAMANIAS GONNA RUN WILD ON YOU");
+    this.speechBubble.setText(Dialogue.getRandomPraise());
 	Engine.addObject(this.speechBubble);
 };
 
