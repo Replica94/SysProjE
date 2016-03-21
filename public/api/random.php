@@ -15,7 +15,6 @@ if (isset($_REQUEST['form'])) {
 
 $dao = new DrugDAO();
 if (isset($form)) {
-    echo "form {$form}\n";
     $drugnames = $dao->getRandomDrugOfForm($form, $num);
 } else {
     $drugnames = $dao->getRandomDrug($num);
