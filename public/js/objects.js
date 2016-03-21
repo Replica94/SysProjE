@@ -95,7 +95,7 @@ EngineInitializationFunctions.push(function ()
     flowerDrawObject.size.y = 170;
     flowerDrawObject.drawOffset = Context.drawOffset["behindDesk"];
     //recipeDrawObject.depth = 200;
-    flowerDrawObject.drawContext += Context.map["deskshowing"];
+    flowerDrawObject.drawContext += Context.map["menuanddesk"];
 
     flowerDrawObject.draw = function()
     {
