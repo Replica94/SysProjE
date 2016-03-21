@@ -169,6 +169,7 @@ function Person()
     
     this.update = function()
     {	
+        this.speechBubble.display = true;  
 	   //TODO: only update in right context
         this.a += 0.10 * Time.delta;
         var sini = Math.abs(Math.sin(this.a));
@@ -184,15 +185,10 @@ function Person()
             if(this.position.x <= this.targetpos.x && this.hatoffset.y >= this.hatoffsety -5){
                 this.moving = false;
             }
-<<<<<<< HEAD
+
         }
-        if(this.isServed)
-=======
-			this.speechBubble.display = true;
-            
-		}
+			
         if(this.moveinline)
->>>>>>> origin/master
         {
             this.targetpos = new Vector2(-10000, -100);
             if(this.position.x < screenSize.x / 2 * -1 -100)
@@ -201,18 +197,14 @@ function Person()
                 Persons.leavingPersons.splice(0, 1);
             }
         }
-<<<<<<< HEAD
         else
         {
             this.targetpos = new Vector2(0 + this.positionInQueue * 100, -100);
         }
-        
-=======
 		
 		this.speechBubble.position = this.position.copy();
 		this.speechBubble.position.x += 90;
 		this.speechBubble.visible = true;
->>>>>>> origin/master
         
     }
 	this.hat = Persons.getRandomHat();
@@ -230,7 +222,6 @@ function Person()
 		
 	}
 	this.greeting = Dialogue.getRandomGreeting();
-	
 	this.speechBubble = new SpeechBubbleObject(this);
 	this.speechBubble.drawContext = this.drawContext;
 	this.speechBubble.drawOffset = this.drawOffset;
