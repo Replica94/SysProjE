@@ -90,7 +90,7 @@ EngineInitializationFunctions.push(function ()
 	logout.onClick = function()
 	{
 		//start the game or something i guess
-        location.href = 'medicutor.herokuapp.com/logout.php';
+        location.href = 'logout.php';
 		
 	};
 	
