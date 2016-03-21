@@ -90,39 +90,6 @@ ButtonObject.prototype = new RealObject();
 //The constructor assignment
 ButtonObject.constructor = ButtonObject;
 
-//Test some cool button stuff here
-EngineInitializationFunctions.push(function ()
-{
-	//Instantiate a new button (which we described above)
-	var buttonen = new ButtonObject();
-	
-	//Set the x and y coordinates
-	buttonen.position.x = 188;
-	buttonen.position.y = 60;
-	
-	buttonen.setText("OOOOH yEAH!!!");
-	
-	//Set the target draw & input context (for test purposes)
-	buttonen.drawContext += 2;
-	buttonen.inputContext += 2;
-	
-	//Override the onClick, like all the good buttons do
-	buttonen.onClick = function()
-	{
-		//Display a spiffy message
-		alert("I'M THE TOWER OF POWER, TOO SWEET TO BE SOUR");
-		
-		//and destroy this button
-		this.isDoomed = true;
-	};
-	
-	buttonen.tooltip = new TooltipObject(buttonen);
-	buttonen.tooltip.setText("TOO HOT TO HANDLE, TOO COLD TO HOLD");
-	Engine.addObject(buttonen.tooltip);
-
-	
-	Engine.addObject(buttonen);
-});
 
 var InvisibleButton = function()
 {

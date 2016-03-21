@@ -16,10 +16,6 @@ function _EngineInit(eng)
 			console.log(err);
 		}
 	}	
-    //test draggableobject
-    var mobject = new MovableObject;
-    mobject.depth = -9;
-    eng.addObject(mobject);
 	//Create a desk
 	var ts = new TiledObject;
 	
