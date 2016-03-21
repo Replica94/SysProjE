@@ -7,10 +7,16 @@ var Texture = {
 	{
 		Texture.addTexture("desk","assets/img/desk.png");
 		Texture.addTexture("barcode","assets/img/barcode.png");
+<<<<<<< HEAD
 		Texture.addTexture("sky_day","assets/img/sky_day.png");
         Texture.addTexture("prescription","assets/img/prescription.png");
         Texture.addTexture("note","assets/img/note.png");
         Texture.addTexture("noteoff","assets/img/noteoff.png");
+=======
+		Texture.addTexture("background","assets/img/background.png");
+		Texture.addTexture("cabinet","assets/img/cabinet.png");
+		Texture.addTexture("backArrow","assets/img/back.png");
+>>>>>>> origin/master
 	},
 	
 	addTexture: function(name,source)

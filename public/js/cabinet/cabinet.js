@@ -7,7 +7,7 @@ var MedicineBoxObject = function()
 	ButtonObject.call(this);
 	this.row = 0;
 	this.column = 0;
-	this.depth = 100;
+	this.depth = 155;
 	
 	var description = "asdjhawdn awiodmnaw poidmnsifosen pognaeöonaeöonwöefnweöni fse ö nifeö s sdgljgoseö seongse gnseöogek asdfaw niefös f.";
 	
@@ -45,7 +45,7 @@ EngineInitializationFunctions.push(function ()
 			box.setText("them meds "+i*j)
 			Engine.addObject(box);
 		}
-		
+		/*
 	var back = new GameObject;
 
 	back.depth = 40;
@@ -60,9 +60,42 @@ EngineInitializationFunctions.push(function ()
 	};
 	
 	Engine.addObject(back);
+	*/
+	
+	var back = new RealObject;
+	back.size = new Vector2(128,128);
+	back.position = new Vector2(4,128);
+	back.image = Texture.map["backArrow"];
+	back.draw = function()
+	{
+		context.drawImage(this.image, this.position.x, this.position.y);
+	};
+	back.drawContext += Context.map["gameMedicineCabinetContexts"];
+	back.inputContext = back.drawContext;
+	back.depth =451;
+	back.onClick = function()
+	{
+		Engine.setDrawContext(Context.map["gameScreenDesk"]);
+	};
+	Engine.addObject(back);
+	
+	var cbm = new PropObject;
+	cbm.image = Texture.map["cabinet"];
+	cbm.drawContext += Context.map["gameMedicineCabinetContexts"];
+	
+	cbm.depth = 110;
+	
+	cbm.update = function()
+	{
+		this.position.y = 0;
+		this.position.x = 0;
+		
+		this.size.y = screenSize.y;
+		this.size.x = screenSize.x;
+	};
+	Engine.addObject(cbm);
 	
 	var boxm = new GameObject;
-
 	boxm.depth = 450;
 	boxm.drawContext += Context.map["gameMedicineCabinetExamine"];
 	
