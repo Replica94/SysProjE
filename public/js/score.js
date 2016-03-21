@@ -13,6 +13,11 @@ var Score =
             this.currentScore += 100 - this.roundTime;
     },
     
+	newRound : function()
+	{
+		this.roundStartTime = Date.now();
+	},
+	
     resetScore : function()
     {
         this.currentScore = 0;

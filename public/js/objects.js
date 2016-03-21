@@ -16,6 +16,7 @@ EngineInitializationFunctions.push(function ()
 		Engine.setDrawContext(Context.map["recipeDesk"]);
         Persons.allPersons[0].setIsServed();
         Score.updateScore();
+		Score.newRound();
 	};
     recipebutton.inputContext = Context.map["gstates"];
     recipebutton.drawContext += Context.map["gameScreenDesk"];
