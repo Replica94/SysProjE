@@ -12,6 +12,8 @@ function GameObject()
 	this.drawContext = new Array();
 	/** All wanted input contexts, or empty array for all */
 	this.inputContext = new Array();
+	/** Target update context */
+	this.updateContext = 0;
 	
 	/** Draw offset index to use (see context.js) */
 	this.drawOffset = 0;
@@ -37,6 +39,8 @@ function GameObject()
 	this.onClick = null;
 	/** If the following is set to true, object will be deleted at the next step */
 	this.isDoomed = false;
+	
+	this.visible = true;
 }
 
 //How to inherit stuff in JavaScript?
@@ -142,166 +146,73 @@ var TiledObject = function()
 TiledObject.prototype = new GameObject();
 TiledObject.constructor = TiledObject;
 
-
-/**
-	The Engine contruct
-	
-	Manages the object system and object drawing
-*/
-var Engine =
+var WriteObject = function()
 {
-	/** Array containing all the game objects */
-	objects: new Array(),
-	/**
-		Numerical representation of the current "drawing view".
-		
-		Usually used to separate different views of the game,
-		such as main menu, the customer view, shelf view etc.
-	*/
-	currentDrawContext: 1,
-	/**
-		Numerical representation of the current input context.
-		
-		Highly similar to the currentDrawContext, except this controls
-		the ability to interact with the object.
-		
-	*/
-	currentInputContext: 1,
+	RealObject.call(this);
+	//some testing stuff
+	this.position = new Vector2(0,0);
+	this.size = new Vector2(128,128);
+	this.checkForInput = false;
+    this.font = "18px Arial";
+	this.text = "";
+    //if false, the width will be calculated from text size.
+    this.fixedsize = false;
+    
 	
-	contextOffsets: [new Vector2(0,0)],
-	
-	/**
-		Engine internal sort function.
-		
-		Used for Z-sorting game objects.
-	*/
-	sort: function()
+	this.update = function()
 	{
-		//sorts the object list based on depth
-		this.objects.sort(function(a,b)
-		{
-			return a.depth - b.depth;
-		});
-	},
-	
-	/**
-		Adds a new object to the engine lists
 		
-		This subjects the object to the world:
-		object's  update(), onClick() and others
-		will be called automatically. The draw()
-		is also called if the drawing context matches.
-	*/
-	addObject: function (obj)
+	}
+    
+	this.draw = function()
+    {
+        context.lineWidth = 2;
+		//Set the current drawing font
+		context.font = this.font;
+		
+		//Fill the area from position to position+size
+		context.fillRect(this.position.x, this.position.y, this.size.x, this.size.y);
+		
+		//Stroke a nice shadow
+		context.strokeStyle = "#888888";
+		context.strokeRect(this.position.x, this.position.y, this.size.x-2, this.size.y-2);
+		
+		//Stroke dat edges 2
+		context.strokeStyle = "#000000";
+		context.strokeRect(this.position.x, this.position.y, this.size.x, this.size.y);
+		
+		//Change color to black
+		context.fillStyle = "#000000";
+		
+		//And print our text
+		context.fillText(this.text,this.position.x+10,this.position.y+22);
+	}
+	this.onClick = function()
 	{
-		Engine.objects.push(obj);
-		Engine.sort();
-	},
-	
-	/**
-		Sets the current context
-	*/
-	setDrawContext: function (ctx)
+		
+	}
+    this.setText = function(text)
 	{
-		Engine.currentDrawContext = ctx;
-		Engine.currentInputContext = ctx;
-	},
-	
-	/**
-		Engine updating routine.
+		//Temporarily change the canvas' font
+		context.font = this.font;
 		
-		Should be called relatively often by the main loop.
-		
-		This updates all the game objects, handles their input
-		and possibly calls their draw methods.
-	*/
-	update: function ()
-	{
-		var behindDesk = new Vector2(0,0);
-		behindDesk.x = 0;
-		behindDesk.y = screenSize.y-400;
-		
-		this.contextOffsets[Context.drawOffset["behindDesk"]] = behindDesk;
-		
-		//If the mouse is over something
-		var mouseHit = false;
-		var clicked = Input.isPressed();
-		
-		//We iterate the array from top to bottom
-		//from closest to the farthest object
-		//to ensure that clicking stuff will invoke the onClick handler of the 
-		//nearest objects
-		
-		for (var i = Engine.objects.length - 1; i >= 0; i--)
-		{
-			var obj = Engine.objects[i];
-			try
-			{
-				//If the object's inputContext is empty, it is univeral
-				//Otherwise, check for the correct inputContext 
-				if (obj.checkForInput)
-				if ((obj.inputContext.length == 0) || (obj.inputContext.indexOf(Engine.currentInputContext) != -1))
-				{
-					if ((!mouseHit) && Input.checkMouseOverOffset(obj.bounds, this.contextOffsets[obj.drawOffset]))
-					{
-						obj.mouseHover = true;
-						if (clicked)
-						{
-							obj.clicked = true;
-							obj.onClick();
-						}
-						else
-							obj.clicked = false;
-						mouseHit = true;
-					}
-					else
-					{
-						obj.mouseHover = false;
-						obj.clicked = false;
-					}
-				}
-				
-				if (obj.update != null)
-					obj.update();
-				if (obj.isDoomed)
-					Engine.objects.splice(i, 1); 				
-			}
-			catch(err)
-			{
-				//ERROR
-				console.log("Error handling object: ")
-				console.log(obj);
-				console.log(err);
-			}
-		}
-	},
-	
-	init: function ()
-	{
-		Engine.addObject(new RealObject);
-		_EngineInit(Engine);
-	},
-	
-	draw: function (context) 
-	{
-		for (var i = 0; i <  Engine.objects.length; i++)
-		{
-			var obj = Engine.objects[i];
-			if (obj.draw != null)
-			if ((obj.drawContext.length == 0) || (obj.drawContext.indexOf(Engine.currentDrawContext) != -1))
-			{
-				if (obj.drawOffset)
-				{
-					context.save();
-					context.translate(this.contextOffsets[obj.drawOffset].x, this.contextOffsets[obj.drawOffset].y);
-					obj.draw(context);
-					context.restore();
-				}
-				else
-					obj.draw(context);
-				
-			}
-			
-		}
+		//context.measureText(text) gets the approximate
+		//width of the button text
+        if(fixedsize){
+            var width = context.measureText(text).width;
+		      
+		  //Add some extra width
+            this.size.x = width+25;
+		      
+		  //Nice hardcoded height
+            this.size.y = 32;
+        }
+
+		this.text = text;
 	}
 }
+
+WriteObject.prototype = new GameObject();
+WriteObject.constructor = WriteObject;
+
+

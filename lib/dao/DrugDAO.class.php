@@ -9,6 +9,7 @@
  {
     private $db = null;
     private $prepared = array();
+    private $queries = array();
     
     /** Constructor. Creates a DB connection. */
     public function __construct()
@@ -20,9 +21,10 @@
             DRUGDB_DATABASE,
             DRUGDB_PORT
         );
-        if ($this->db->connect_error || !$this->makePreparedStatements()) {
+        if ($this->db->connect_error) {
             die('MySQL error (' . $this->db->connect_errno . ') ' . $this->db->connect_error);
         }
+        $this->makeQueries();
     }
        
     /** Destructor. Closes the DB connection. */
@@ -42,11 +44,14 @@
     public function getDrugData($drugname)
     {
         $result = array();
-        $this->prepared["drugdata"]->bind_param("s", $drugname);
-        if ($this->prepared["drugdata"]->execute()) {
-            $this->prepared["drugdata"]->bind_result($form, $strength, $package);
-            while ($this->prepared["drugdata"]->fetch()) {
-                $result[] = array("form" => $form, "strength" => $strength, "package" => $package);
+        $stmt = $this->getPrepared("drugdata");
+        if ($stmt) {
+            $stmt->bind_param("s", $drugname);
+            if ($stmt->execute()) {
+                $stmt->bind_result($form, $strength, $package);
+                while ($stmt->fetch()) {
+                    $result[] = array("form" => $form, "strength" => $strength, "package" => $package);
+                }
             }
         }
         return $result;        
@@ -55,48 +60,73 @@
     /**
      * Returns a random drug name
      *
-     * @return Random drug name as a string, or null if query failed.
+     * @param $num Number of drug names to return
+     * @return An array of random drug names, or an empty array if failed.
      */
-    public function getRandomDrug()
+    public function getRandomDrug($num = 1)
     {
-        if ($this->prepared["randomdrug"]->execute()) {
-            $this->prepared["randomdrug"]->bind_result($drugname);
-            while ($this->prepared["randomdrug"]->fetch()) {
-                return $drugname;
+        $names = array();
+        $stmt = $this->getPrepared("randomdrug");
+        if ($stmt) {            
+            $stmt->bind_param("i", $num);
+            if ($stmt->execute()) {
+                $stmt->bind_result($drugname);
+                while ($stmt->fetch()) {
+                    $names[] = $drugname;
+                }
             }
         }
-        return null;
+        return $names;
     }
     
     /**
-     * Creates all the necessary prepared statements
+     * Creates all the necessary query strings
      * that are used in the DAO.
-     *
-     * @return True if successful, or false otherwise.
      */
-    private function makePreparedStatements()
+    private function makeQueries()
     {
-        $query = <<<SQL
+        $this->queries["drugdata"] = <<<SQL
 SELECT DISTINCT lm.laakemuotonimie AS laakemuoto, pak.vahvuus AS vahvuus, sa.nimie AS astia
     FROM pakkaus AS pak
         INNER JOIN laakeaine AS la ON pak.pakkausnro = la.pakkausnro
         INNER JOIN laakemuoto AS lm ON lm.laakemuototun = pak.laakemuototun
         INNER JOIN sailytysastia AS sa ON sa.astiatun = pak.astiatun
     WHERE
-        la.ainenimi = ?
+        la.ainenimi = ? AND
+        pak.vaikainelkm = 1 AND
+        pak.vahvuus <> ''
 ORDER BY lm.laakemuotonimie, pak.vahvuus, sa.nimie
 SQL;
-        $this->prepared["drugdata"] = $this->db->stmt_init();
-        if (!$this->prepared["drugdata"]->prepare($query)) {
-            return false;
-        }
         
-        $query = "SELECT ainenimi FROM laakeaine ORDER BY RAND() LIMIT 1";
-        $this->prepared["randomdrug"] = $this->db->stmt_init();
-        if (!$this->prepared["randomdrug"]->prepare($query)) {
-            return false;
+        $this->queries["randomdrug"] = <<<SQL
+SELECT la.ainenimi 
+    FROM laakeaine AS la
+    INNER JOIN pakkaus AS pak ON la.pakkausnro = pak.pakkausnro
+    WHERE
+        pak.vaikainelkm = 1 AND
+        pak.vahvuus <> ''
+ORDER BY RAND() LIMIT ?
+SQL;
+    }
+    
+    /**
+     * Gets a prepared statement with the given name.
+     *
+     * @param Name of the prepared statement
+     * @return The prepared statement, or null if not found.
+     */    
+    private function getPrepared($name)
+    {
+        if (isset($this->prepared[$name])) {
+            return $this->prepared[$name];
+        } elseif (isset($this->queries[$name])) {
+            $stmt = $this->db->stmt_init();
+            $stmt->prepare($this->queries[$name]);
+            $this->prepared[$name] = $stmt;
+            return $stmt;
+        } else {
+            return null;
         }
-        
-        return true;    
     }
  }
+ 

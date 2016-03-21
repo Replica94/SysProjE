@@ -27,7 +27,7 @@ function _EngineInit(eng)
 
 	ts.depth = -10;
 	//set the draw context 
-	ts.drawContext += Context.map["gameScreenDesk"];
+	ts.drawContext += Context.map["menuanddesk"];
 	
 	//overload the update
 	ts.update = function()
@@ -44,7 +44,7 @@ function _EngineInit(eng)
 	
 	//Create a sky
 	var sky = new PropObject;
-	sky.image = Texture.map["sky_night"];
+	sky.image = Texture.map["sky_day"];
 	
 	//far far behind
 	sky.depth = -250;
@@ -72,6 +72,23 @@ function _EngineInit(eng)
 	};
 	//add the object
 	eng.addObject(sky);
+	
+	//audio pause button
+	var pause = new ButtonObject();
+	pause.position.x = 80;
+	pause.position.y = 0;
+	pause.setText("Music on/off");
+	pause.onClick = function()
+	{
+		MyAudio.paused = !MyAudio.paused;
+	}
+	eng.addObject(pause);
+	
+	//timer 
+	var timerr = new Timer();
+	eng.addObject(timerr);
+	
+
 	
 	var i = 0;
 	for (var ctx in Context.map)

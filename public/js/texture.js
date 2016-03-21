@@ -7,7 +7,7 @@ var Texture = {
 	{
 		Texture.addTexture("desk","assets/img/desk.png");
 		Texture.addTexture("barcode","assets/img/barcode.png");
-		Texture.addTexture("sky_night","assets/img/sky_night.png");
+		Texture.addTexture("sky_day","assets/img/sky_day.png");
 	},
 	
 	addTexture: function(name,source)
@@ -26,7 +26,7 @@ var Texture = {
 		img.onerror = function()
 		{
 			console.log("Failed to load texture " + name + " from "+ source);
-			capt.loadedTextures++;
+			capt.textureFailedToLoad(name);
 		};
 		
 		img.src = source;
@@ -38,5 +38,15 @@ var Texture = {
 	{
 		Texture.map[name] = image;
 		Texture.loadedTextures++;
+	},
+	textureFailedToLoad: function(name)
+	{
+		Texture.map[name] = null;
+		Texture.loadedTextures++;
 	}
 }
+
+AssetLoadFunctions.push(function()
+{
+	return (Texture.loadedTextures == Texture.maxTextures);
+});

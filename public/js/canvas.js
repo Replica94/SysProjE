@@ -1,8 +1,11 @@
+
 var canvas = document.getElementById("gCanvas");
 var context = canvas.getContext("2d");
 
+/* Stores true if the window was resized during/after the last step */
 var resizing = false;
 
+/* The size canvas should be resized to. Doesn't contain actual window size */
 var resizeToWidth = 0;
 var resizeToHeight = 0;
 
@@ -97,22 +100,28 @@ function CanvasDraw()
 	var label = GenerateRandomLabel(RandomBrandName(1),"300mg ibuprofen",description,43);
 	
 	RenderLabel(new Vector2(25, 25), label);
-	
-	
+	GameLogic.step();
+
 	Engine.draw(context);
-	Persons.update();
+
 	context.restore();
-	Time.calcDelta();
+
 	
 }
 
 
 var fun = function()
 {
-	if (Texture.loadedTextures != Texture.maxTextures)
+	for (var i = 0; i < AssetLoadFunctions.length;)
 	{
-		setTimeout(fun, 50);
-		return;
+		if (AssetLoadFunctions[i]() == false)
+		{
+			setTimeout(fun, 50);
+			return;
+		}
+		//else
+		//remove the first element;
+		AssetLoadFunctions.splice(0,1);
 	}
 	Engine.init();
 	
@@ -126,7 +135,7 @@ Input.init(canvas);
 Persons.initPersons();
 //creates new person
 Persons.addPersonToLine();
-
+MyAudio.loadMusic();
 
 window.addEventListener("resize", CanvasResize, false);
 CanvasResize();
