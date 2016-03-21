@@ -8,7 +8,7 @@ function SpeechBubbleObject(masta)
 	
 	this.position = new Vector2(0,0);
 	this.size = new Vector2(0,0);
-	this.depth = 9000;
+	this.depth = 90;
 	this.displayTimeLimit = 0;
 	this.display = false;
 	this.displayTimer = 0;

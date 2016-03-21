@@ -8,6 +8,7 @@ var Texture = {
 		Texture.addTexture("desk","assets/img/desk.png");
 		Texture.addTexture("barcode","assets/img/barcode.png");
 		Texture.addTexture("background","assets/img/background.png");
+		Texture.addTexture("cabinet","assets/img/cabinet.png");
 	},
 	
 	addTexture: function(name,source)

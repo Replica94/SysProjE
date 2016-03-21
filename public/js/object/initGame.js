@@ -97,6 +97,7 @@ function _EngineInit(eng)
 		var btn2 = new ButtonObject();
 		btn2.position.x = 482;
 		btn2.position.y = 12+i*32;
+		btn2.depth = 1243;
 		btn2.setText(ctx + " " + ctn);
 		btn2.targetContext = ctn;
 		btn2.drawOffset = Context.drawOffset["behindDesk"];
