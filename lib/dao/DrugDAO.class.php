@@ -48,9 +48,9 @@
         if ($stmt) {
             $stmt->bind_param("s", $drugname);
             if ($stmt->execute()) {
-                $stmt->bind_result($form, $strength, $package);
+                $stmt->bind_result($form, $strength, $container);
                 while ($stmt->fetch()) {
-                    $result[] = array("form" => $form, "strength" => $strength, "package" => $package);
+                    $result[] = array("form" => $form, "strength" => $strength, "container" => $container);
                 }
             }
         }
@@ -69,6 +69,29 @@
         $stmt = $this->getPrepared("randomdrug");
         if ($stmt) {            
             $stmt->bind_param("i", $num);
+            if ($stmt->execute()) {
+                $stmt->bind_result($drugname);
+                while ($stmt->fetch()) {
+                    $names[] = $drugname;
+                }
+            }
+        }
+        return $names;
+    }
+    
+     /**
+     * Returns a random drug name of the given form
+     *
+     * @param $num Number of drug names to return
+     * @return An array of random drug names, or an empty array if failed.
+     */
+    public function getRandomDrugOfForm($form, $num = 1)
+    {
+        $names = array();
+        $stmt = $this->getPrepared("randomdrugofform");
+        if ($stmt) {            
+            $form = "%{$form}%";
+            $stmt->bind_param("si", $form, $num);
             if ($stmt->execute()) {
                 $stmt->bind_result($drugname);
                 while ($stmt->fetch()) {
@@ -105,6 +128,18 @@ SELECT la.ainenimi
     WHERE
         pak.vaikainelkm = 1 AND
         pak.vahvuus <> ''
+ORDER BY RAND() LIMIT ?
+SQL;
+        
+        $this->queries["randomdrugofform"] = <<<SQL
+SELECT la.ainenimi 
+    FROM laakeaine AS la
+    INNER JOIN pakkaus AS pak ON la.pakkausnro = pak.pakkausnro
+    INNER JOIN laakemuoto AS lm ON lm.laakemuototun = pak.laakemuototun
+    WHERE
+        pak.vaikainelkm = 1 AND
+        pak.vahvuus <> '' AND
+        lm.laakemuotonimie LIKE ?        
 ORDER BY RAND() LIMIT ?
 SQL;
     }
