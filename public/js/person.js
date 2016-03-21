@@ -169,7 +169,7 @@ function Person()
     
     this.update = function()
     {	
-        this.speechBubble.display = true;  
+        //this.speechBubble.display = true;  
 	   //TODO: only update in right context
         this.a += 0.10 * Time.delta;
         var sini = Math.abs(Math.sin(this.a));
@@ -188,7 +188,7 @@ function Person()
 
         }
 			
-        if(this.moveinline)
+        if(this.isServed)
         {
             this.targetpos = new Vector2(-10000, -100);
             if(this.position.x < screenSize.x / 2 * -1 -100)
