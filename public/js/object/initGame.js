@@ -69,6 +69,30 @@ function _EngineInit(eng)
 	//add the object
 	eng.addObject(sky);
 	
+	var tocabinet = new RealObject;
+	tocabinet.size = new Vector2(250,100);
+	tocabinet.position = new Vector2(4,4);
+	tocabinet.image = Texture.map["cabinetArrow"];
+	tocabinet.draw = function()
+	{
+		context.drawImage(this.image, this.position.x, this.position.y, this.size.x, this.size.y);
+	};
+	
+	tocabinet.update = function()
+	{
+		this.updateRealObject();
+		tocabinet.position = new Vector2(0,screenSize.y-this.size.y);
+		
+	};
+	tocabinet.drawContext += Context.map["gameDeskContexts"];
+	tocabinet.inputContext += Context.map["gameDeskContexts"];
+	tocabinet.depth = 451;
+	tocabinet.onClick = function()
+	{
+		Engine.setDrawContext(Context.map["gameMedicineCabinet"]);
+	};
+	Engine.addObject(tocabinet);
+	
 
 	
 	var i = 0;
