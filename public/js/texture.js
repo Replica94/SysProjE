@@ -15,6 +15,11 @@ var Texture = {
 		Texture.addTexture("cabinet","assets/img/cabinet.png");
 		Texture.addTexture("backArrow","assets/img/back.png");
         Texture.addTexture("plant","assets/img/cigarplant.png");
+		
+		Texture.addTexture("medicine1","assets/img/container-blank.png");
+		Texture.addTexture("medicine2","assets/img/container-blue.png");
+        Texture.addTexture("medicine3","assets/img/container-green.png");
+        Texture.addTexture("medicine4","assets/img/container-red.png");
 	},
 	
 	addTexture: function(name,source)
