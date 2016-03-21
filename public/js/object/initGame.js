@@ -73,21 +73,6 @@ function _EngineInit(eng)
 	//add the object
 	eng.addObject(sky);
 	
-	//audio pause button
-	var pause = new ButtonObject();
-	pause.position.x = 80;
-	pause.position.y = 0;
-	pause.setText("Music on/off");
-	pause.onClick = function()
-	{
-		MyAudio.paused = !MyAudio.paused;
-	}
-	eng.addObject(pause);
-	
-	//timer 
-	var timerr = new Timer();
-	eng.addObject(timerr);
-	
 
 	
 	var i = 0;
