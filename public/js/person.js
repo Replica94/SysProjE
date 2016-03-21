@@ -173,12 +173,17 @@ function Person()
             if(this.position.x <= this.targetpos.x && this.hatoffset.y >= this.hatoffsety -5){
                 this.entering = false;
             }
+			this.speechBubble.display = true;
             
 		}
         if(this.moveinline)
         {
             
         }
+		
+		this.speechBubble.position = this.position.copy();
+		this.speechBubble.position.x += 90;
+		this.speechBubble.visible = true;
         
     }
 	this.hat = Persons.getRandomHat();
@@ -193,7 +198,16 @@ function Person()
 		context.drawImage(Texture.map[this.body.name], this.position.x + this.bodyoffset.x, this.position.y + this.bodyoffset.y, this.sizebody.x, this.sizebody.y);
 		context.drawImage(Texture.map[this.face.name], this.position.x + this.faceoffset.x, this.position.y + this.faceoffset.y, this.sizeface.x, this.sizeface.y);
 		context.drawImage(Texture.map[this.hat.name], this.position.x + this.hatoffset.x, this.position.y + this.hatoffset.y, this.sizehat.x, this.sizehat.y);
+		
 	}
+	this.greeting = Dialogue.getRandomGreeting();
+	
+	this.speechBubble = new SpeechBubbleObject(this);
+	this.speechBubble.drawContext = this.drawContext;
+	this.speechBubble.drawOffset = this.drawOffset;
+	this.speechBubble.display = false;
+	this.speechBubble.setText(this.greeting);//"WHAT'YA GONNA DO WHEN HULKAMANIAS GONNA RUN WILD ON YOU");
+	Engine.addObject(this.speechBubble);
 };
 
 Person.prototype = new GameObject();

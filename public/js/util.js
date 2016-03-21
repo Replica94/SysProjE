@@ -124,3 +124,23 @@ CanvasRenderingContext2D.prototype.wrapText = function (text, x, y, maxWidth, li
     }
 }
 
+CanvasRenderingContext2D.prototype.drawBubble = function (x, y, w, h, tgx, tgy, radius)
+{
+  var r = x + w;
+  var b = y + h;
+  this.beginPath();
+  this.moveTo(x+radius, y);
+  this.lineTo(r-radius, y);
+  this.quadraticCurveTo(r, y, r, y+radius);
+  this.lineTo(r, y+h-radius);
+  this.quadraticCurveTo(r, b, r-radius, b);
+  this.lineTo(x+radius+20, b);
+  this.lineTo(tgx, tgy);
+  this.lineTo(x+radius,b);
+  this.quadraticCurveTo(x, b, x, b-radius);
+  this.lineTo(x, y+radius);
+  this.quadraticCurveTo(x, y, x+radius, y);
+  this.fill();
+  this.stroke();
+}
+
