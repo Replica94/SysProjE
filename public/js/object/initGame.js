@@ -44,7 +44,7 @@ function _EngineInit(eng)
 	
 	//Create a sky
 	var sky = new PropObject;
-	sky.image = Texture.map["sky_day"];
+	sky.image = Texture.map["background"];
 	
 	//far far behind
 	sky.depth = -250;
