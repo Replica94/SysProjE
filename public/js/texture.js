@@ -8,6 +8,18 @@ var Texture = {
 		Texture.addTexture("desk","assets/img/desk.png");
 		Texture.addTexture("barcode","assets/img/barcode.png");
 		Texture.addTexture("sky_day","assets/img/sky_day.png");
+        Texture.addTexture("prescription","assets/img/prescription.png");
+        Texture.addTexture("note","assets/img/note.png");
+        Texture.addTexture("noteoff","assets/img/noteoff.png");
+		Texture.addTexture("background","assets/img/background.png");
+		Texture.addTexture("cabinet","assets/img/cabinet.png");
+		Texture.addTexture("backArrow","assets/img/back.png");
+        Texture.addTexture("plant","assets/img/cigarplant.png");
+		
+		Texture.addTexture("medicine1","assets/img/container-blank.png");
+		Texture.addTexture("medicine2","assets/img/container-blue.png");
+        Texture.addTexture("medicine3","assets/img/container-green.png");
+        Texture.addTexture("medicine4","assets/img/container-red.png");
 	},
 	
 	addTexture: function(name,source)

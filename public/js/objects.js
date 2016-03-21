@@ -4,9 +4,8 @@ EngineInitializationFunctions.push(function ()
 	recipebutton.position.x = 0;
 	recipebutton.position.y = 132;
 	recipebutton.depth = 400;
-	
 	recipebutton.drawOffset = Context.drawOffset["behindDesk"];
-	recipebutton.setText("Recipe!!!!! :DDDD");
+	recipebutton.setText("Prescription");
 	recipebutton.update = function()
 	{
 		this.updateRealObject();
@@ -14,11 +13,11 @@ EngineInitializationFunctions.push(function ()
 	};
 	recipebutton.onClick = function()
 	{
-		//Engine.setDrawContext(Context.map["recipeDesk"]);
-        Persons.allPersons[0].isServed = true;
+		Engine.setDrawContext(Context.map["recipeDesk"]);
+        Persons.allPersons[0].setIsServed();
 	};
     recipebutton.inputContext = Context.map["gstates"];
-    recipebutton.drawContext = Context.map["gstates"];
+    recipebutton.drawContext += Context.map["gameScreenDesk"];
 	Engine.addObject(recipebutton);
     
     //menu button
@@ -54,16 +53,54 @@ EngineInitializationFunctions.push(function ()
     var recipeDrawObject = new RealObject();
     recipeDrawObject.position.x = 678;
     recipeDrawObject.position.y = 154;
-    recipeDrawObject.size.x = 400;
+    recipeDrawObject.size.x = 640;
+    recipeDrawObject.size.y = 400;
     //recipeDrawObject.depth = 200;
     recipeDrawObject.drawContext += Context.map["recipeDesk"];
-    recipeDrawObject.size.y = 400;
+
     recipeDrawObject.draw = function()
     {
-        context.drawImage(Texture.map["hat1"], this.position.x, this.position.y, this.size.x, this.size.y);
+        context.drawImage(Texture.map["prescription"], this.position.x, this.position.y, this.size.x, this.size.y);
     }
     Engine.addObject(recipeDrawObject);
     
+    //audio pause button
+	var pause = new RealObject();
+	pause.position.x = 80;
+	pause.position.y = 0;
+    pause.size.x = 20;
+    pause.size.y = 30;
+	pause.onClick = function()
+	{
+		MyAudio.paused = !MyAudio.paused;
+	}
+	Engine.addObject(pause);
+    pause.draw = function()
+    {
+        if(!MyAudio.paused)
+            context.drawImage(Texture.map["note"], this.position.x, this.position.y, this.size.x, this.size.y);
+        else
+            context.drawImage(Texture.map["noteoff"], this.position.x, this.position.y, this.size.x, this.size.y);
+    }
+	
+	//timer 
+	var timerr = new Timer();
+	Engine.addObject(timerr);
     
+    //the flower
+    var flowerDrawObject = new RealObject();
+    flowerDrawObject.position.x = -800;
+    flowerDrawObject.position.y = 20;
+    flowerDrawObject.size.x = 130;
+    flowerDrawObject.size.y = 170;
+    flowerDrawObject.drawOffset = Context.drawOffset["behindDesk"];
+    //recipeDrawObject.depth = 200;
+    flowerDrawObject.drawContext += Context.map["menuanddesk"];
+
+    flowerDrawObject.draw = function()
+    {
+        context.drawImage(Texture.map["plant"], this.position.x, this.position.y, this.size.x, this.size.y);
+    }
+    Engine.addObject(flowerDrawObject);
     
 });

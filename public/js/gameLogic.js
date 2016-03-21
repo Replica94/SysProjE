@@ -4,11 +4,15 @@ var GameLogic =
 	step : function(){
         MyDebugger.getCoordsFromMouse();
 		Time.calcDelta();
-        Persons.update();
 		switch(Engine.currentDrawContext)
 		{
 			case Context.map["gameScreenDesk"]:
+            case Context.map["gameScreenSomethingElse"]:
+            case Context.map["gameMedicineCabinetExamine"]:
+            case Context.map["gameMedicineCabinet"]:
+            case Context.map["recipeDesk"]:
 				MyAudio.loopMusic();
+                Persons.update();
 				break;
             case Context.map["recipeDesk"]:
                 
@@ -16,6 +20,11 @@ var GameLogic =
 			case Context.map["mainMenu"]:
 				break;
 		}
-	}
+	},
+    
+    resetGame : function()
+    {
+        
+    }
 	
 }

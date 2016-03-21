@@ -10,29 +10,36 @@ var Persons = {
 	facescount : 16,
 	bodiescount : 7,
 	allPersons : [],
+    leavingPersons : [],
     Hats : [],
     Hats2 : [],
     Bodies : [],
     Bodies2 : [],
     Faces : [],
     Faces2 : [],
+    //how many persons were eliminated last cycle
+    personsServed : true,
 	
 	update : function()
 	{
 		if(Date.now() - this.lpersonarrtime > 4000 && this.allPersons.length < 10){
 			this.addPersonToLine();
 		}
-        if(this.allPersons[0].isServed){
-            this.allPersons[0].isDoomed = true;
-            this.allPersons.splice(0,1);
-            for(var i = 0; i < this.allPersons.length; i++)
+        
+        for(var i = 0; i < this.allPersons.length; i++)
+        {
+            if(this.allPersons[i].isServed)
             {
-                this.allPersons[i].entering = true;
+                this.leavingPersons.push(this.allPersons[i]);
+                this.allPersons.splice(i,1);
+                for(var j = 0; j < this.allPersons.length; j++)
+                {
+                    this.allPersons[j].positionInQueue--;
+                }
             }
         }
 	},
     
-		
 	addAllHatTextures : function()
 	{
 		var test = 1;
@@ -150,35 +157,68 @@ function Person()
 	this.sizebody = new Vector2(200, 300);
 	this.drawOffset = Context.drawOffset["behindDesk"];
     this.depth = -30 - Persons.allPersons.length;
-	this.targetpos = new Vector2(0 + Persons.allPersons.length * 100, -100);
-	this.entering = true;
+    this.positionInQueue = Persons.allPersons.length;
+	this.targetpos = new Vector2(0 + this.positionInQueue * 100, -100);
+	this.moving = true;
     this.a = 0;
+    
+    this.eliminate = false;
+    this.isLeaving = false;
     this.isServed = false;
     this.kasvaako = false;
     this.moveinline = false;
+    this.wasServedAt = 0;
+    this.setIsServed = function()
+    {
+        this.isServed = true;
+        this.wasServedAt = Date.now();
+    }
+    
     this.update = function()
     {	
-	//TODO: only update in right context
-		if(this.entering)
+         
+	   //TODO: only update in right context
+        this.a += 0.10 * Time.delta;
+        var sini = Math.abs(Math.sin(this.a));
+        if(this.position.x >= this.targetpos.x){
+            this.position = new Vector2(this.position.x - 1 * Time.delta, -100 + 30 * sini);
+		if(this.moving)
 		{
-			this.a += 0.10 * Time.delta;
-            var sini = Math.abs(Math.sin(this.a));
             this.kasvaako = Math.sin(this.a * 2) > 0;
-			if(this.position.x >= this.targetpos.x){
-				this.position = new Vector2(this.position.x - 1 * Time.delta, -100 + 30 * sini);
 			}
             if(this.kasvaako){
                 this.hatoffset.y = this.hatoffsety - Math.sin(this.a * 2) * 20;
             }
             if(this.position.x <= this.targetpos.x && this.hatoffset.y >= this.hatoffsety -5){
-                this.entering = false;
+                this.moving = false;
             }
-            
-		}
-        if(this.moveinline)
-        {
-            
+
         }
+			
+        if(this.isServed)
+        {
+            //Speechbubble when the person is served
+            this.maxtimebubble = 2000;
+            if(Date.now() - this.wasServedAt < this.maxtimebubble)
+            {
+                this.speechBubble.display = true;
+            }
+            this.targetpos = new Vector2(-10000, -100);
+            this.moving = true;
+            if(this.position.x < screenSize.x / 2 * -1 -100)
+            {
+                this.isDoomed = true;
+                Persons.leavingPersons.splice(0, 1);
+            }
+        }
+        else
+        {
+            this.targetpos = new Vector2(0 + this.positionInQueue * 100, -100);
+        }
+		
+		this.speechBubble.position = this.position.copy();
+		this.speechBubble.position.x += 90;
+		this.speechBubble.visible = true;
         
     }
 	this.hat = Persons.getRandomHat();
@@ -189,11 +229,19 @@ function Person()
 	{	
 	//TODO: persons in line are rendered in wrong order. 
 		if (Texture.map[this.hat.bgname])
-				context.drawImage(Texture.map[this.hat.bgname], this.position.x + this.hatoffset.x, this.position.y + this.hatoffset.y, this.sizehat.x, this.sizehat.y);
+            context.drawImage(Texture.map[this.hat.bgname], this.position.x + this.hatoffset.x, this.position.y + this.hatoffset.y, this.sizehat.x, this.sizehat.y);
 		context.drawImage(Texture.map[this.body.name], this.position.x + this.bodyoffset.x, this.position.y + this.bodyoffset.y, this.sizebody.x, this.sizebody.y);
 		context.drawImage(Texture.map[this.face.name], this.position.x + this.faceoffset.x, this.position.y + this.faceoffset.y, this.sizeface.x, this.sizeface.y);
 		context.drawImage(Texture.map[this.hat.name], this.position.x + this.hatoffset.x, this.position.y + this.hatoffset.y, this.sizehat.x, this.sizehat.y);
+		
 	}
+	this.greeting = Dialogue.getRandomGreeting();
+	this.speechBubble = new SpeechBubbleObject(this);
+	this.speechBubble.drawContext = this.drawContext;
+	this.speechBubble.drawOffset = this.drawOffset;
+	this.speechBubble.display = false;
+    this.speechBubble.setText(Dialogue.getRandomPraise());
+	Engine.addObject(this.speechBubble);
 };
 
 Person.prototype = new GameObject();

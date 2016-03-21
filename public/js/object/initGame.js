@@ -16,10 +16,6 @@ function _EngineInit(eng)
 			console.log(err);
 		}
 	}	
-    //test draggableobject
-    var mobject = new MovableObject;
-    mobject.depth = -9;
-    eng.addObject(mobject);
 	//Create a desk
 	var ts = new TiledObject;
 	
@@ -44,7 +40,7 @@ function _EngineInit(eng)
 	
 	//Create a sky
 	var sky = new PropObject;
-	sky.image = Texture.map["sky_day"];
+	sky.image = Texture.map["background"];
 	
 	//far far behind
 	sky.depth = -250;
@@ -73,21 +69,6 @@ function _EngineInit(eng)
 	//add the object
 	eng.addObject(sky);
 	
-	//audio pause button
-	var pause = new ButtonObject();
-	pause.position.x = 80;
-	pause.position.y = 0;
-	pause.setText("Music on/off");
-	pause.onClick = function()
-	{
-		MyAudio.paused = !MyAudio.paused;
-	}
-	eng.addObject(pause);
-	
-	//timer 
-	var timerr = new Timer();
-	eng.addObject(timerr);
-	
 
 	
 	var i = 0;
@@ -97,6 +78,7 @@ function _EngineInit(eng)
 		var btn2 = new ButtonObject();
 		btn2.position.x = 482;
 		btn2.position.y = 12+i*32;
+		btn2.depth = 1243;
 		btn2.setText(ctx + " " + ctn);
 		btn2.targetContext = ctn;
 		btn2.drawOffset = Context.drawOffset["behindDesk"];

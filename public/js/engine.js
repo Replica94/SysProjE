@@ -140,7 +140,6 @@ var Engine =
 	
 	init: function ()
 	{
-		Engine.addObject(new RealObject);
 		_EngineInit(Engine);
 	},
 	

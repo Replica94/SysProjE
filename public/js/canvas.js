@@ -134,7 +134,6 @@ Input.init(canvas);
 //Loads textures
 Persons.initPersons();
 //creates new person
-Persons.addPersonToLine();
 MyAudio.loadMusic();
 
 window.addEventListener("resize", CanvasResize, false);
