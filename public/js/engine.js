@@ -66,6 +66,7 @@ var Engine =
 			Engine.currentUpdateContext = Context.updateContext.game;
 	},
 	
+	
 	/**
 		Engine updating routine.
 		

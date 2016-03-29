@@ -42,6 +42,7 @@ MenuButtonObject.constructor = MenuButtonObject;
 //Init menu stuff
 EngineInitializationFunctions.push(function ()
 {
+	var diff = "Easy";
 	var menuContext;
 	menuContext = [];
 	menuContext += Context.map["menus"];
@@ -73,11 +74,34 @@ EngineInitializationFunctions.push(function ()
 	
 	Engine.addObject(NewGame);
     
+	
+    var difficultyButton = new MenuButtonObject();
+	
+	difficultyButton.position.x = screenSize.x / 4;
+	difficultyButton.position.y = NewGame.position.y + 100;
+	
+	difficultyButton.setText("Difficulty: " + diff);
+	
+	difficultyButton.depth = 500;
+	
+	//Set the target draw & input context
+	difficultyButton.drawContext += mainMenuContext;
+	difficultyButton.inputContext += mainMenuContext;
+	
+	//Override the onClick, like all the good buttons do
+	difficultyButton.onClick = function()
+	{
+		Difficulty.changeDifficulty();
+		difficultyButton.setText("Difficulty: " + Difficulty.gameDifficultyString);
+	};
+
+	
+	Engine.addObject(difficultyButton);
     
     var logout = new MenuButtonObject();
 	
 	logout.position.x = screenSize.x / 4;
-	logout.position.y = NewGame.position.y + 100;
+	logout.position.y = difficultyButton.position.y + 100;
 	
 	logout.setText("Logout");
 	
@@ -96,6 +120,9 @@ EngineInitializationFunctions.push(function ()
 	};
 	
 	Engine.addObject(logout);
+	
+	
+
     
     
 	
@@ -116,3 +143,7 @@ EngineInitializationFunctions.push(function ()
 	
 	Engine.addObject(darkness);
 });
+
+
+
+

@@ -35,3 +35,30 @@ var GameLogic =
     }
 	
 }
+
+var Difficulty =
+{
+	gameDifficultyString : "Easy",
+	gameDifficulty : 1,
+	
+	changeDifficulty : function()
+	{
+		if(this.gameDifficulty < 3)
+			this.gameDifficulty++
+		else
+			this.gameDifficulty = 1;
+		switch(this.gameDifficulty)
+		{
+			case 1:
+			this.gameDifficultyString = "Easy";
+			break;
+			case 2:
+			this.gameDifficultyString = "Medium";
+			break;
+			case 3:
+			this.gameDifficultyString = "Hard";
+			break;
+			
+		}
+	}
+}

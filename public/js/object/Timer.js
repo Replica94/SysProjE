@@ -1,12 +1,13 @@
 function Timer()
 {
 	this.position = new Vector2(32,128);
-	this.size = new Vector2(128,48);
+	
 	this.checkForInput = false;
-	this.position.x = screenSize.x - 150;																																																																			
+	this.position.x = screenSize.x - 58;																																																																			
 	this.position.y = 20;
 	this.font = "36px Arial";
-	this.text = "";
+	this.text = "0";
+	this.size = new Vector2(context.measureText(this.text).width+25, 48);
 	this.updateContext += Context.updateContext.game;
 	this.currenttime = 0;
 	this.roundInitTime = 0;
