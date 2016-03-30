@@ -66,7 +66,6 @@ EngineInitializationFunctions.push(function ()
         context.drawImage(Texture.map["prescription"], this.position.x, this.position.y, this.size.x, this.size.y);
     }
     Engine.addObject(recipeDrawObject);
-    
     //audio pause button
 	var pause = new RealObject();
 	pause.position.x = 90;
@@ -112,4 +111,25 @@ EngineInitializationFunctions.push(function ()
     }
     Engine.addObject(flowerDrawObject);
     
+
+
+    
+    var darknessCalculations = new GameObject;
+
+	darknessCalculations.depth = 499;
+	
+	darknessCalculations.drawContext += Context.map["gameCalculationScreen"];
+	
+	//background darkness
+	darknessCalculations.draw = function()
+	{
+		context.fillStyle="#000000";
+		context.globalAlpha=0.8;
+		context.fillRect(0,0,screenSize.x,screenSize.y);
+		context.globalAlpha=1;
+	};
+	
+	Engine.addObject(darknessCalculations);
+    
+
 });

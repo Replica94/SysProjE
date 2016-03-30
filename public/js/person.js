@@ -8,7 +8,7 @@ var Persons = {
 	lpersonarrtime : 0,
 	hatscount : 18,
 	facescount : 16,
-	bodiescount : 7,
+	bodiescount : 10,
 	allPersons : [],
     leavingPersons : [],
     Hats : [],

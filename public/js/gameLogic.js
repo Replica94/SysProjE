@@ -11,6 +11,16 @@ var GameLogic =
             case Context.map["gameMedicineCabinetExamine"]:
             case Context.map["gameMedicineCabinet"]:
             case Context.map["recipeDesk"]:
+            case Context.map["gameCalculationScreen"]:
+                if(Time.getSecondsSinceStart() > 10)
+                {
+                    var values = new Array();
+                    values.push(500);
+                    values.push(10000);
+                    values.push(1000000);
+                    values.push(1);
+                    RadioButtons.changeButtonValues(values);
+                }
 				MyAudio.loopMusic();
                 Persons.update();
 				break;
