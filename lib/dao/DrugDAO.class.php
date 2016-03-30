@@ -125,7 +125,7 @@ ORDER BY lm.laakemuotonimie, pak.vahvuus, sa.nimie
 SQL;
         
         $this->queries["randomdrug"] = <<<SQL
-SELECT la.ainenimi 
+SELECT DISTINCT la.ainenimi 
     FROM laakeaine AS la
     INNER JOIN pakkaus AS pak ON la.pakkausnro = pak.pakkausnro
     WHERE
@@ -135,7 +135,7 @@ ORDER BY RAND() LIMIT ?
 SQL;
         
         $this->queries["randomdrugofform"] = <<<SQL
-SELECT la.ainenimi 
+SELECT DISTINCT la.ainenimi 
     FROM laakeaine AS la
     INNER JOIN pakkaus AS pak ON la.pakkausnro = pak.pakkausnro
     INNER JOIN laakemuoto AS lm ON lm.laakemuototun = pak.laakemuototun

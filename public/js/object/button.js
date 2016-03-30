@@ -105,17 +105,16 @@ InvisibleButton.prototype = new ButtonObject();
 //The constructor assignment
 InvisibleButton.constructor = InvisibleButton;
 
-var RadioButton = function(pos, buttonnumber, parent)
+var RadioButton = function(pos, buttonnumber)
 {
     
     this.selected = false;
     this.value = 0;
-    this.parent = parent;
     this.position = pos;
     this.size = new Vector2(48, 48);
     this.font = "18px Arial";
 	this.text = this.value;
-    this.depth = 1000;
+    this.depth = 500;
     this.buttonnumber = buttonnumber;
     this.inputContext += Context.map["gameCalculationScreen"];
     this.drawContext += Context.map["gameCalculationScreen"];
@@ -130,7 +129,7 @@ var RadioButton = function(pos, buttonnumber, parent)
 		var width = context.measureText(text).width;
 		
 		//Our button size will be that width plus some extra
-		this.size.x = width+25;
+		this.size.x = width+22;
 		
 		//Nice hardcoded height
 		this.size.y = 32;
@@ -177,7 +176,7 @@ var RadioButton = function(pos, buttonnumber, parent)
     this.onClick = function()
     {
         this.selected = true;
-        this.parent.checkForSelections(this.buttonnumber);
+        RadioButtons.checkForSelections(this.buttonnumber);
     }
     
 }
@@ -185,35 +184,42 @@ var RadioButton = function(pos, buttonnumber, parent)
 RadioButton.prototype = new ButtonObject();
 RadioButton.constructor = RadioButton;
     
-var RadioButtons = function()
+var RadioButtons =
 {
-    this.buttons = [];
-    this.buttonsAmount = 4;
-    this.position = new Vector2(0,0);
-    this.size = new Vector2(200, 200);
-    this.depth = 0;
-    this.changeButtonValues = function(values)
+
+    buttons : [],
+    buttonsAmount : 4,
+    position : new Vector2(1235, 232),
+    size : new Vector2(1,1),
+    depth : 0,
+    isselected : false,
+    changeButtonValues : function(values)
     {
         for(var i = 0; i < this.buttonsAmount; i++)
         {
             this.buttons[i].value = values[i];
             this.buttons[i].setText(values[i]);
         }
-    }
-    this.reSize = function()
+        this.reSize();
+    },
+    
+    reSize : function()
     {
         if(this.buttons[0])
-            return new Vector2(this.buttons[0].size.x, this.buttons[0].size.y + this.buttonsAmount * 50);
-    }
-    this.generateButtons = function()
+            this.size = new Vector2(this.buttons[0].size.x, this.buttons[0].size.y + this.buttonsAmount * 20);
+    },
+    
+    generateButtons : function()
     {
         for(var i = 0; i < this.buttonsAmount; i++)
         {
-            this.buttons.push(new RadioButton(new Vector2(this.position.x, this.position.y + i * 50), i, this));
+            this.buttons.push(new RadioButton(new Vector2(this.position.x, this.position.y + i * 50), i));
         }
-    }
+        for(var i = 0; i < this.buttonsAmount; i++)
+            Engine.addObject(this.buttons[i]);
+    },
     
-    this.checkForSelections = function(num)
+    checkForSelections : function(num)
     {
         for(var i = 0; i < this.buttonsAmount; i++)
         {
@@ -222,31 +228,19 @@ var RadioButtons = function()
                 this.buttons[i].selected = false;
             }
         }
-    }
+        this.isselected = true;
+    },
     
-    this.update = function()
+    update : function()
     {
         
-    }
-    this.draw = function()
+    },
+    
+    draw : function()
     {
 
-        //Fill the area from position to position+size
-		context.fillRect(this.position.x, this.position.y, this.size.x, this.size.y);
-		
-		//Stroke a nice shadow
-		context.strokeStyle = "#888888";
-		context.strokeRect(this.position.x, this.position.y, this.size.x-2, this.size.y-2);
-		
-		//Stroke dat edges 2
-		context.strokeStyle = "#000000";
-		context.strokeRect(this.position.x, this.position.y, this.size.x, this.size.y);
-		
-		//Change color to black
-		context.fillStyle = "#000000";
-    }
+
+    },
 }
 
-RadioButtons.prototype = new RealObject();
-RadioButtons.constructor = RadioButtons;
 
