@@ -11,7 +11,6 @@ var Dialogue =
 			{
 				if (get.status==200)
 				{
-					console.log(get.responseText);
 					Dialogue.dialogue = JSON.parse(get.responseText);
 					Dialogue.loaded = true;
 				}
@@ -43,6 +42,17 @@ var Dialogue =
 			this.dialogue["dialogue"]["positive"].length > 0)
 			{
 				return this.dialogue["dialogue"]["positive"][GetRandomBetween(0,this.dialogue["dialogue"]["positive"].length)]["praise"];
+			}
+		else
+			return "...";
+	},
+	getRandomComment : function()
+	{
+		if ("dialogue" in this.dialogue &&
+			"random" in this.dialogue["dialogue"] &&
+			this.dialogue["dialogue"]["random"].length > 0)
+			{
+				return this.dialogue["dialogue"]["random"][GetRandomBetween(0,this.dialogue["dialogue"]["random"].length)]["comment"];
 			}
 		else
 			return "...";
