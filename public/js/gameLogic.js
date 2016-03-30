@@ -11,6 +11,7 @@ var GameLogic =
             case Context.map["gameMedicineCabinetExamine"]:
             case Context.map["gameMedicineCabinet"]:
             case Context.map["recipeDesk"]:
+            case Context.map["gameCalculationScreen"]:
 				MyAudio.loopMusic();
                 Persons.update();
 				break;

@@ -66,7 +66,6 @@ EngineInitializationFunctions.push(function ()
         context.drawImage(Texture.map["prescription"], this.position.x, this.position.y, this.size.x, this.size.y);
     }
     Engine.addObject(recipeDrawObject);
-    
     //audio pause button
 	var pause = new RealObject();
 	pause.position.x = 90;
@@ -111,5 +110,23 @@ EngineInitializationFunctions.push(function ()
         context.drawImage(Texture.map["plant"], this.position.x, this.position.y, this.size.x, this.size.y);
     }
     Engine.addObject(flowerDrawObject);
+    
+
+    var medicineCalcRadio = new RadioButtons();
+    
+    medicineCalcRadio.position = new Vector2(100, 100);
+    medicineCalcRadio.generateButtons();
+    medicineCalcRadio.size = medicineCalcRadio.reSize();
+    var values = new Array();
+    values.push(1);
+    values.push(2);
+    values.push(3);
+    values.push(4);
+    medicineCalcRadio.changeButtonValues(values);
+    medicineCalcRadio.drawContext += Context.map["gameCalculationScreen"];
+   
+    Engine.addObject(medicineCalcRadio);
+    for(var i = 0; i < medicineCalcRadio.buttonsAmount; i++)
+        Engine.addObject(medicineCalcRadio.buttons[i]);
     
 });
