@@ -129,7 +129,7 @@ var RadioButton = function(pos, buttonnumber)
 		var width = context.measureText(text).width;
 		
 		//Our button size will be that width plus some extra
-		this.size.x = width+25;
+		this.size.x = width+22;
 		
 		//Nice hardcoded height
 		this.size.y = 32;
