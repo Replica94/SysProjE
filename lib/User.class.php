@@ -115,13 +115,15 @@ class User
      *
      * @param $score Score to save
      * @param $difficulty Difficulty as an integer (EASY=1, MEDIUM=2, ...)
+     * @return True if successful, or false otherwise.
      */
     public function saveScore($score, $difficulty=1)
     {
         if ($this->loggedIn && !$this->guest) {
             $dao = new UserDAO();
-            $dao->saveScore($this->username, $score, $difficulty);
+            return $dao->saveScore($this->username, $score, $difficulty);
         }
+        return false;
     }
 
     /**
