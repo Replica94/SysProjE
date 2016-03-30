@@ -112,21 +112,24 @@ EngineInitializationFunctions.push(function ()
     Engine.addObject(flowerDrawObject);
     
 
-    var medicineCalcRadio = new RadioButtons();
+
     
-    medicineCalcRadio.position = new Vector2(100, 100);
-    medicineCalcRadio.generateButtons();
-    medicineCalcRadio.size = medicineCalcRadio.reSize();
-    var values = new Array();
-    values.push(1);
-    values.push(2);
-    values.push(3);
-    values.push(4);
-    medicineCalcRadio.changeButtonValues(values);
-    medicineCalcRadio.drawContext += Context.map["gameCalculationScreen"];
-   
-    Engine.addObject(medicineCalcRadio);
-    for(var i = 0; i < medicineCalcRadio.buttonsAmount; i++)
-        Engine.addObject(medicineCalcRadio.buttons[i]);
+    var darknessCalculations = new GameObject;
+
+	darknessCalculations.depth = 499;
+	
+	darknessCalculations.drawContext += Context.map["gameCalculationScreen"];
+	
+	//background darkness
+	darknessCalculations.draw = function()
+	{
+		context.fillStyle="#000000";
+		context.globalAlpha=0.8;
+		context.fillRect(0,0,screenSize.x,screenSize.y);
+		context.globalAlpha=1;
+	};
+	
+	Engine.addObject(darknessCalculations);
     
+
 });
