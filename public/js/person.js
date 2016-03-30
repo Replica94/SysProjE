@@ -119,7 +119,6 @@ var Persons = {
 	
 	addPersonToLine : function()
 	{
-		
 		var p = new Person();
 		this.allPersons.push(p);
 		Engine.addObject(p);

@@ -1,6 +1,7 @@
 var mboRowsPerScreen = 3;
 var mboColumnsPerScreen = 3;
 var mboChosenBox = null;
+var mboBoxes = [];
 
 var MedicineBoxObject = function()
 {
@@ -44,6 +45,7 @@ var MedicineBoxObject = function()
 		mboChosenBox = this;
 		Engine.setDrawContext(Context.map["gameMedicineCabinetExamine"]);
 	}
+	
 }
 
 MedicineBoxObject.prototype = new RealObject();
@@ -55,6 +57,7 @@ EngineInitializationFunctions.push(function ()
 		for (var j = 0; j < 3; j++)
 		{
 			var box = new MedicineBoxObject();
+			mboBoxes.push(box);
 			box.row = i;
 			box.column = j;
 			Engine.addObject(box);

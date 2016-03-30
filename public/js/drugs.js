@@ -24,7 +24,7 @@ var Drugs =
 	drugs : {},
 	loaded: false,
 	drugsLeft: 0,
-	drugLoadSize: 10,
+	drugLoadSize: 18,
 	load : function (sync)
 	{
 		Drugs.loaded = false;
@@ -59,7 +59,7 @@ var Drugs =
 				}
 			}
 		}
-		get.open("GET","http://medicutor.herokuapp.com/api/random.php?n=10&form=tablet",sync);
+		get.open("GET","http://medicutor.herokuapp.com/api/random.php?n=18&form=tablet",sync);
 		get.send(null);
 	},
 	popDrug : function ()
@@ -114,4 +114,25 @@ AssetLoadFunctions.push(function()
 	return Drugs.loaded;
 });
 
+var currentCalculation = "";
+
+function PrepareForNextCustomer()
+{
+	//defined in cabinet.js
+	currentCalculation = GetCalculation();
+	var seld = Math.floor(Math.random()*mboBoxes.length);
+	var i = 0;
+	for (var asd = 0; asd < mboBoxes.length; asd++)
+	{
+		var tdrug;
+		if (i == seld)
+			tdrug = currentCalculation.drug;
+		else
+			tdrug = Drugs.popDrug();
+		
+		var description = tdrug["label"];
+		mboBoxes[asd].label = GenerateRandomLabel(tdrug["name"],"",tdrug["label"],Math.random());
+		i++;
+	}
+}
 
