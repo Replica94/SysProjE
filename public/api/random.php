@@ -2,6 +2,7 @@
 require_once("../../lib/dao/DrugDAO.class.php");
 
 header("Content-Type: application/json; charset=UTF-8");
+header("Access-Control-Allow-Origin: *");
 
 if (isset($_REQUEST['n'])) {
     $num = max($_REQUEST['n'], 1);
