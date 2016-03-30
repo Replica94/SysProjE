@@ -12,10 +12,7 @@ EngineInitializationFunctions.push(function ()
 	};
 	recipebutton.onClick = function()
 	{
-		Engine.setDrawContext(Context.map["recipeDesk"]);
-        Persons.allPersons[0].setIsServed();
-        Score.updateScore();
-		Score.newRound();
+        Engine.setDrawContext(Context.map["recipeDesk"]);
 	};
     recipebutton.inputContext = Context.map["gstates"];
     recipebutton.drawContext += Context.map["gameScreenDesk"];
@@ -116,7 +113,7 @@ EngineInitializationFunctions.push(function ()
     
     var darknessCalculations = new GameObject;
 
-	darknessCalculations.depth = 499;
+	darknessCalculations.depth = 100;
 	
 	darknessCalculations.drawContext += Context.map["gameCalculationScreen"];
 	
@@ -131,5 +128,77 @@ EngineInitializationFunctions.push(function ()
 	
 	Engine.addObject(darknessCalculations);
     
-
+    var confirmdrug = new ButtonObject();
+	confirmdrug.position.x = screenSize.x / 1.5;
+	confirmdrug.position.y = screenSize.y / 7;
+	confirmdrug.depth = 400;
+	confirmdrug.setText("Confirm");
+	confirmdrug.update = function()
+	{
+		this.updateRealObject();
+	};
+	confirmdrug.onClick = function()
+	{
+        Engine.setDrawContext(7);
+	};
+    confirmdrug.inputContext += Context.map["gameMedicineCabinetExamine"];
+    confirmdrug.drawContext += Context.map["gameMedicineCabinetExamine"];
+	Engine.addObject(confirmdrug);
+    
+        
+    var confirmamount = new ButtonObject();
+	confirmamount.position.x = screenSize.x / 1.4;
+	confirmamount.position.y = screenSize.y / 3.1;
+	confirmamount.depth = 400;
+	confirmamount.setText("Confirm");
+	confirmamount.update = function()
+	{
+		this.updateRealObject();
+	};
+	confirmamount.onClick = function()
+	{
+        if(RadioButtons.isselected)
+        {
+            Engine.setDrawContext(Context.map["gameScreenDesk"]);
+            Persons.allPersons[0].setIsServed();
+            Score.updateScore();
+            Score.newRound();
+        }
+	};
+    confirmamount.draw = function()
+	{
+		context.lineWidth = 2;
+		//Set the current drawing font
+		context.font = this.font;
+		
+		//this.mouseHover is set by the Engine
+		//if the mouse is over the object
+		
+		if (this.mouseHover && RadioButtons.isselected) //if mouse.hover or button selected
+			context.fillStyle = "#AAAAAA"; //use some darker background
+		else if(!RadioButtons.isselected)
+			context.fillStyle = "#AAAAAA";
+        else
+            context.fillStyle = "#FFFFFF";
+		
+		//Fill the area from position to position+size
+		context.fillRect(this.position.x, this.position.y, this.size.x, this.size.y);
+		
+		//Stroke a nice shadow
+		context.strokeStyle = "#888888";
+		context.strokeRect(this.position.x, this.position.y, this.size.x-2, this.size.y-2);
+		
+		//Stroke dat edges 2
+		context.strokeStyle = "#000000";
+		context.strokeRect(this.position.x, this.position.y, this.size.x, this.size.y);
+		
+		//Change color to black
+		context.fillStyle = "#000000";
+		
+		//And print our text
+		context.fillText(this.text,this.position.x+10,this.position.y+22);
+	}
+    confirmamount.inputContext += Context.map["gameCalculationScreen"];
+    confirmamount.drawContext += Context.map["gameCalculationScreen"];
+	Engine.addObject(confirmamount);
 });

@@ -192,7 +192,7 @@ var RadioButtons =
     position : new Vector2(1235, 232),
     size : new Vector2(1,1),
     depth : 0,
-    
+    isselected : false,
     changeButtonValues : function(values)
     {
         for(var i = 0; i < this.buttonsAmount; i++)
@@ -228,6 +228,7 @@ var RadioButtons =
                 this.buttons[i].selected = false;
             }
         }
+        this.isselected = true;
     },
     
     update : function()

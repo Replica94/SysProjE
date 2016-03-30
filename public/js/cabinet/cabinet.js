@@ -113,7 +113,7 @@ EngineInitializationFunctions.push(function ()
 	var boxm = new GameObject;
 	boxm.depth = 450;
 	boxm.drawContext += Context.map["gameMedicineCabinetExamine"];
-	
+	boxm.drawContext += Context.map["gameCalculationScreen"];
 	boxm.draw = function()
 	{
 		RenderLabel(new Vector2(screenSize.x/2-200, 10), mboChosenBox.label);
