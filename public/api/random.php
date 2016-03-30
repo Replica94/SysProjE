@@ -36,6 +36,7 @@ foreach ($drugnames as $drug) {
     $newdrug["form"] = strtolower($data["form"]);
     $newdrug["strength"] = $data["strength"];
     $newdrug["container"] = strtolower($data["container"]);
+    $newdrug["labeltext"] = "";
     $drugs[] = $newdrug;
 }
 
