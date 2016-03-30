@@ -15,13 +15,28 @@ var MedicineBoxObject = function()
 	
 	this.inputContext += Context.map["gameMedicineCabinetContexts"];
 	this.drawContext += Context.map["gameMedicineCabinetContexts"];
+	this.size = new Vector2(64,80);
 	
+	if (Math.random() < 0.25)
+		this.image = Texture.map["medicine1"];
+	else if (Math.random() < 0.33)
+		this.image = Texture.map["medicine2"];
+	else if (Math.random() < 0.5)
+		this.image = Texture.map["medicine3"];
+	else
+		this.image = Texture.map["medicine4"];
+		
 	this.update = function()
 	{
 		this.updateRealObject();
 		this.position.x = screenSize.x*(0.9*this.column/mboColumnsPerScreen +0.1);
-		this.position.y = screenSize.y*(0.7*this.row/mboColumnsPerScreen +0.3);
+		this.position.y = screenSize.y*(0.7*this.row/mboColumnsPerScreen +0.3)-64;
 		
+	}
+	
+	this.draw = function()
+	{
+		context.drawImage(this.image,this.position.x,this.position.y,this.size.x,this.size.y);
 	}
 	
 	this.onClick = function()
@@ -31,7 +46,7 @@ var MedicineBoxObject = function()
 	}
 }
 
-MedicineBoxObject.prototype = new ButtonObject();
+MedicineBoxObject.prototype = new RealObject();
 MedicineBoxObject.constructor = MedicineBoxObject;
 
 EngineInitializationFunctions.push(function ()
@@ -42,7 +57,6 @@ EngineInitializationFunctions.push(function ()
 			var box = new MedicineBoxObject();
 			box.row = i;
 			box.column = j;
-			box.setText("them meds "+i*j)
 			Engine.addObject(box);
 		}
 		/*
@@ -70,6 +84,7 @@ EngineInitializationFunctions.push(function ()
 	{
 		context.drawImage(this.image, this.position.x, this.position.y);
 	};
+	
 	back.drawContext += Context.map["gameMedicineCabinetContexts"];
 	back.inputContext = back.drawContext;
 	back.depth =451;

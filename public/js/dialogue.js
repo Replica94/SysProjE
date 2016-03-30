@@ -35,6 +35,28 @@ var Dialogue =
 			}
 		else
 			return "...";
+	},
+	getRandomPraise : function()
+	{
+		if ("dialogue" in this.dialogue &&
+			"positive" in this.dialogue["dialogue"] &&
+			this.dialogue["dialogue"]["positive"].length > 0)
+			{
+				return this.dialogue["dialogue"]["positive"][GetRandomBetween(0,this.dialogue["dialogue"]["positive"].length)]["praise"];
+			}
+		else
+			return "...";
+	},
+	getRandomComplaint : function()
+	{
+		if ("dialogue" in this.dialogue &&
+			"negative" in this.dialogue["dialogue"] &&
+			this.dialogue["dialogue"]["negative"].length > 0)
+			{
+				return this.dialogue["dialogue"]["negative"][GetRandomBetween(0,this.dialogue["dialogue"]["negative"].length)]["complant"];
+			}
+		else
+			return "...";
 	}
 }
 Dialogue.load();

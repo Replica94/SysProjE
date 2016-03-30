@@ -66,6 +66,7 @@ var Engine =
 			Engine.currentUpdateContext = Context.updateContext.game;
 	},
 	
+	
 	/**
 		Engine updating routine.
 		
@@ -138,9 +139,18 @@ var Engine =
 		}
 	},
 	
+	remoteDoom : function() 
+	{
+		for (var i = Engine.objects.length - 1; i >= 0; i--)
+		{
+			var obj = Engine.objects[i];
+			if (obj.isDoomed)
+				Engine.objects.splice(i, 1); 		
+		}
+	},
+	
 	init: function ()
 	{
-		Engine.addObject(new RealObject);
 		_EngineInit(Engine);
 	},
 	

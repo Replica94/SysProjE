@@ -11,7 +11,7 @@ var MenuButtonObject = function()
 {
 	ButtonObject.call(this);
 	
-	this.font = "30px Arial";
+	this.font = "48px Arial";
 	
 	this.draw = function()
 	{
@@ -42,6 +42,7 @@ MenuButtonObject.constructor = MenuButtonObject;
 //Init menu stuff
 EngineInitializationFunctions.push(function ()
 {
+	var diff = "Easy";
 	var menuContext;
 	menuContext = [];
 	menuContext += Context.map["menus"];
@@ -49,27 +50,81 @@ EngineInitializationFunctions.push(function ()
 	var mainMenuContext = [];
 	mainMenuContext += Context.map["mainMenu"];
 	
-	var button = new MenuButtonObject();
+	var NewGame = new MenuButtonObject();
 	
-	button.position.x = 160;
-	button.position.y = 60;
+	NewGame.position.x = screenSize.x / 4;
+	NewGame.position.y = screenSize.y / 3;
 	
-	button.setText("Go to da game!!!");
+	NewGame.setText("New Game");
 	
-	button.depth = 500;
+	NewGame.depth = 500;
 	
 	//Set the target draw & input context
-	button.drawContext += mainMenuContext;
-	button.inputContext += mainMenuContext;
+	NewGame.drawContext += mainMenuContext;
+	NewGame.inputContext += mainMenuContext;
 	
 	//Override the onClick, like all the good buttons do
-	button.onClick = function()
+	NewGame.onClick = function()
 	{
 		//start the game or something i guess
+        GameLogic.resetGame();
+        GameLogic.startRound();
 		Engine.setDrawContext(Context.map["gameScreenDesk"]);
 	};
 	
-	Engine.addObject(button);
+	Engine.addObject(NewGame);
+    
+	
+    var difficultyButton = new MenuButtonObject();
+	
+	difficultyButton.position.x = screenSize.x / 4;
+	difficultyButton.position.y = NewGame.position.y + 100;
+	
+	difficultyButton.setText("Difficulty: " + diff);
+	
+	difficultyButton.depth = 500;
+	
+	//Set the target draw & input context
+	difficultyButton.drawContext += mainMenuContext;
+	difficultyButton.inputContext += mainMenuContext;
+	
+	//Override the onClick, like all the good buttons do
+	difficultyButton.onClick = function()
+	{
+		Difficulty.changeDifficulty();
+		difficultyButton.setText("Difficulty: " + Difficulty.gameDifficultyString);
+	};
+
+	
+	Engine.addObject(difficultyButton);
+    
+    var logout = new MenuButtonObject();
+	
+	logout.position.x = screenSize.x / 4;
+	logout.position.y = difficultyButton.position.y + 100;
+	
+	logout.setText("Logout");
+	
+	logout.depth = 500;
+	
+	//Set the target draw & input context
+	logout.drawContext += mainMenuContext;
+	logout.inputContext += mainMenuContext;
+	
+	//Override the onClick, like all the good buttons do
+	logout.onClick = function()
+	{
+		//start the game or something i guess
+        location.href = 'logout.php';
+		
+	};
+	
+	Engine.addObject(logout);
+	
+	
+
+    
+    
 	
 	var darkness = new GameObject;
 
@@ -88,3 +143,7 @@ EngineInitializationFunctions.push(function ()
 	
 	Engine.addObject(darkness);
 });
+
+
+
+
