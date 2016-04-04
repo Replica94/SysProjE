@@ -32,7 +32,7 @@ function generateLabelText($drugdata)
         $labeltext .= "Attention! May have detrimental effects on driving and use of heavy machinery! ";
     }
     if (isset($drugdata["dailydose"]) && strlen($drugdata["dailydose"]) > 0) {
-        $labeltext .= "Recommended daily dose " . $drugdata["dailydose"] . " " . $drugdata["dailydoseunit"] . ". ";
+        $labeltext .= "Defined daily dose " . $drugdata["dailydose"] . " " . $drugdata["dailydoseunit"] . ". ";
     }
     if (isset($drugdata["size"]) && strlen($drugdata["size"]) > 0) {
         $labeltext .= "Contains " . str_replace("kpl", "pcs", $drugdata["size"]) . ".";
