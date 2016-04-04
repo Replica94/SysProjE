@@ -116,7 +116,7 @@ SELECT DISTINCT lm.laakemuotonimie AS laakemuoto, pak.vahvuus AS vahvuus, sa.nim
     FROM pakkaus AS pak
         INNER JOIN laakeaine AS la ON pak.pakkausnro = la.pakkausnro
         INNER JOIN laakemuoto AS lm ON lm.laakemuototun = pak.laakemuototun
-        INNER JOIN sailytysastia AS sa ON sa.astiatun = pak.astiatun
+        LEFT JOIN sailytysastia AS sa ON sa.astiatun = pak.astiatun
     WHERE
         la.ainenimi = ? AND
         pak.vaikainelkm = 1 AND
