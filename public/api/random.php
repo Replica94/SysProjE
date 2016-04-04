@@ -27,17 +27,19 @@ $fcon = file("../../namegen/drugnames.txt");
 
 function generateLabelText($drugdata)
 {
-    $labeltext = "";
+    $labeltext = array();
     if ($drugdata["warning"] == "1") {
-        $labeltext .= "Attention! May have detrimental effects on driving and use of heavy machinery! ";
+        $labeltext[] = "Attention! May have detrimental effects on driving and use of heavy machinery!";
     }
     if (isset($drugdata["dailydose"]) && strlen($drugdata["dailydose"]) > 0) {
-        $labeltext .= "Defined daily dose " . $drugdata["dailydose"] . " " . $drugdata["dailydoseunit"] . ". ";
+        $labeltext[] = "Defined daily dose " . $drugdata["dailydose"] . " " . $drugdata["dailydoseunit"] . ".";
     }
     if (isset($drugdata["size"]) && strlen($drugdata["size"]) > 0) {
-        $labeltext .= "Contains " . str_replace("kpl", "pcs", $drugdata["size"]) . ".";
+        $labeltext[] = "Contains " . str_replace("kpl", "pcs", $drugdata["size"]) . ".";
     }
-    return $labeltext;
+    $labeltext[] = "Strength " . $drugdata["strength"] . ".";
+    shuffle($labeltext);
+    return implode(" ", $labeltext);
 }
 
 foreach ($drugnames as $drug) {
