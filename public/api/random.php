@@ -61,7 +61,4 @@ foreach ($drugnames as $drug) {
     $drugs[] = $newdrug;
 }
 
-$othertime += microtime(true);
-$othertime -= $querytime;
-
 echo json_encode(array("drugs" => $drugs));
