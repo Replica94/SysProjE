@@ -14,7 +14,12 @@ if (!isset($_REQUEST['score'])) {
     die(json_encode(array("success" => "false", "error" => "Score not given")));    
 }
 
-if (!$user->saveScore($_REQUEST['score'])) {
+$difficulty = 1;
+if (isset($_REQUEST['difficulty'])) {
+    $difficulty = $_REQUEST['difficulty'];
+}
+
+if (!$user->saveScore($_REQUEST['score'], $difficulty)) {
     header("HTTP/1.1 500 Internal Server Error");
     header("Content-Type: application/json; charset=UTF-8");
     die(json_encode(array("success" => "false", "error" => "Database error")));        
