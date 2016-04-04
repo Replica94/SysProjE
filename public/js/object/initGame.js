@@ -115,16 +115,5 @@ function _EngineInit(eng)
 		eng.addObject(btn2);
 	}	
 
-	var btn2 = new ButtonObject();
-	btn2.position.x = 0;
-	btn2.position.y = 12;
-	btn2.depth = 1243;
-	btn2.setText("pop some drugs");
-	btn2.drawOffset = Context.drawOffset["behindDesk"];
-	btn2.onClick = function()
-	{
-		alert(JSON.stringify(GetCalculation()));
-	};
-	
-	eng.addObject(btn2);	
+
 }

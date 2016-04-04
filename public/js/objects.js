@@ -201,4 +201,36 @@ EngineInitializationFunctions.push(function ()
     confirmamount.inputContext += Context.map["gameCalculationScreen"];
     confirmamount.drawContext += Context.map["gameCalculationScreen"];
 	Engine.addObject(confirmamount);
+    
+    var backFromCalcScreen = new ButtonObject();
+	backFromCalcScreen.position.x = screenSize.x / 30;
+	backFromCalcScreen.position.y = screenSize.y / 1.1;
+	backFromCalcScreen.depth = 400;
+	backFromCalcScreen.setText("Back");
+	backFromCalcScreen.update = function()
+	{
+		this.updateRealObject();
+	};
+	backFromCalcScreen.onClick = function()
+	{
+        Engine.setDrawContext(5);
+	};
+    backFromCalcScreen.inputContext += Context.map["gameCalculationScreen"];
+    backFromCalcScreen.drawContext += Context.map["gameCalculationScreen"];
+	Engine.addObject(backFromCalcScreen);
+    
+    //huge recipe object
+    var recipeDrawObject2 = new RealObject();
+    recipeDrawObject2.position.x = screenSize.x / 4;
+    recipeDrawObject2.position.y = screenSize.y / 4;
+    recipeDrawObject2.size.x = 640;
+    recipeDrawObject2.size.y = 400;
+    recipeDrawObject2.depth = 500;
+    recipeDrawObject2.drawContext += Context.map["gameCalculationScreen"];
+
+    recipeDrawObject2.draw = function()
+    {
+        context.drawImage(Texture.map["prescription"], this.position.x, this.position.y, this.size.x, this.size.y);
+    }
+    Engine.addObject(recipeDrawObject2);
 });
