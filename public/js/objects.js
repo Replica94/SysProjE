@@ -245,4 +245,23 @@ EngineInitializationFunctions.push(function ()
 	};
 	
 	Engine.addObject(boxm2);
+    
+    var confirmamount2 = new ButtonObject();
+	confirmamount2.position.x = screenSize.x / 2;
+	confirmamount2.position.y = screenSize.y / 2;
+	confirmamount2.depth = 400;
+	confirmamount2.setText("Confirm");
+    confirmamount2.drawContext += Context.map["gameScreenDesk"];
+	confirmamount2.update = function()
+	{
+		this.updateRealObject();
+	};
+	confirmamount2.onClick = function()
+	{
+        Persons.allPersons[0].setIsServed();
+        Score.updateScore();
+        Score.newRound();
+	};
+    Engine.addObject(confirmamount2);
+    
 });

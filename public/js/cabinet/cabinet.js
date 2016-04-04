@@ -80,12 +80,12 @@ EngineInitializationFunctions.push(function ()
 	*/
 	
 	var back = new RealObject;
-	back.size = new Vector2(128,128);
-	back.position = new Vector2(4,128);
+	back.size = new Vector2(64,64);
+	back.position = new Vector2(screenSize.x / 50, screenSize.y / 1.1);
 	back.image = Texture.map["backArrow"];
 	back.draw = function()
 	{
-		context.drawImage(this.image, this.position.x, this.position.y);
+		context.drawImage(this.image, this.position.x, this.position.y, this.size.x, this.size.y);
 	};
 	
 	back.drawContext += Context.map["gameMedicineCabinetContexts"];
