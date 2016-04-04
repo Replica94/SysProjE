@@ -101,7 +101,7 @@ function GetCalculation()
 	ak.agent = ak.drug["drug"];
 	
 	var bunchOfRandomNumbers = [];
-	for (var i = 0; i < 125; i++)
+	for (var i = 0; i < 40; i++)
 	{
 		bunchOfRandomNumbers.push((i+1)/8);
 	}
