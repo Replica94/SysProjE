@@ -95,7 +95,7 @@ function _EngineInit(eng)
 	Engine.addObject(tocabinet);
 	
 
-	
+	/*
 	var i = 0;
 	for (var ctx in Context.map)
 	{
@@ -114,6 +114,6 @@ function _EngineInit(eng)
 		i++;
 		eng.addObject(btn2);
 	}	
-
+    */
 
 }
