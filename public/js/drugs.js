@@ -1,6 +1,6 @@
 function GetGreaterUnit(unit)
 {
-	if (unit[0] == 'µ')
+	if (unit[0] == 'Âµ')
 		unit = 'm' + unit
 	else if (unit[0] == 'm')
 		return unit.substr(1);
@@ -12,7 +12,7 @@ function GetGreaterUnit(unit)
 function GetSmallerUnit(unit)
 {
 	if (unit[0] == 'm')
-		unit = 'µ'+unit;
+		unit = 'Âµ'+unit;
 	else
 		unit = 'm'+unit
 	
@@ -24,7 +24,7 @@ var Drugs =
 	drugs : {},
 	loaded: false,
 	drugsLeft: 0,
-	drugLoadSize: 18,
+	drugLoadSize: 90,
 	load : function (sync)
 	{
 		Drugs.loaded = false;
@@ -41,7 +41,7 @@ var Drugs =
 					
 					for (var i = 0; i < Drugs.drugLoadSize; i++)
 					{
-						var spl = Drugs.drugs[i]["strength"].replace("mikro",'µ').split(" ");
+						var spl = Drugs.drugs[i]["strength"].replace("mikro",'Âµ').split(" ");
 						Drugs.drugs[i]["strengthNum"] = Number(spl[0]);
 						
 						Drugs.drugs[i]["unit"] = "";
@@ -59,7 +59,7 @@ var Drugs =
 				}
 			}
 		}
-		get.open("GET","http://medicutor.herokuapp.com/api/random.php?n=18&form=tablet",sync);
+		get.open("GET","http://medicutor.herokuapp.com/api/random.php?n=90&form=tablet",sync);
 		get.send(null);
 	},
 	popDrug : function ()
@@ -118,6 +118,7 @@ var currentCalculation = "";
 
 function PrepareForNextCustomer()
 {
+
 	//defined in cabinet.js
 	currentCalculation = GetCalculation();
 	var seld = Math.floor(Math.random()*mboBoxes.length);

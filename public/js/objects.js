@@ -63,12 +63,13 @@ EngineInitializationFunctions.push(function ()
         context.drawImage(Texture.map["prescription"], this.position.x, this.position.y, this.size.x, this.size.y);
     }
     Engine.addObject(recipeDrawObject);
+    
     //audio pause button
 	var pause = new RealObject();
-	pause.position.x = 90;
+	pause.position.x = 120;
 	pause.position.y = 0;
-    pause.size.x = 20;
-    pause.size.y = 30;
+    pause.size.x = 30;
+    pause.size.y = 45;
 	pause.depth = 1000;
 	pause.onClick = function()
 	{
@@ -226,6 +227,7 @@ EngineInitializationFunctions.push(function ()
     recipeDrawObject2.size.x = 640;
     recipeDrawObject2.size.y = 400;
     recipeDrawObject2.depth = 500;
+    recipeDrawObject2.checkForInput = false;
     recipeDrawObject2.drawContext += Context.map["gameCalculationScreen"];
 
     recipeDrawObject2.draw = function()
@@ -233,4 +235,14 @@ EngineInitializationFunctions.push(function ()
         context.drawImage(Texture.map["prescription"], this.position.x, this.position.y, this.size.x, this.size.y);
     }
     Engine.addObject(recipeDrawObject2);
+    
+    var boxm2 = new GameObject;
+	boxm2.depth = 450;
+	boxm2.drawContext += Context.map["gameCalculationScreen"];
+	boxm2.draw = function()
+	{
+		RenderLabel(new Vector2(screenSize.x/4, 10), mboChosenBox.label);
+	};
+	
+	Engine.addObject(boxm2);
 });

@@ -32,6 +32,7 @@ var Persons = {
             {
                 this.leavingPersons.push(this.allPersons[i]);
                 this.allPersons.splice(i,1);
+                PrepareForNextCustomer();
                 for(var j = 0; j < this.allPersons.length; j++)
                 {
                     this.allPersons[j].positionInQueue--;
@@ -206,7 +207,7 @@ function Person()
 			
         if(this.isServed)
         {
-			PrepareForNextCustomer();
+			
             //Speechbubble when the person is served
             this.maxtimebubble = 2000;
             if(Date.now() - this.wasServedAt < this.maxtimebubble)
