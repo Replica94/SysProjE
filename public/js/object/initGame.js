@@ -16,6 +16,7 @@ function _EngineInit(eng)
 			console.log(err);
 		}
 	}	
+	PrepareForNextCustomer();
 	//Create a desk
 	var ts = new TiledObject;
 	

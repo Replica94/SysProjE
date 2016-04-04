@@ -206,6 +206,7 @@ function Person()
 			
         if(this.isServed)
         {
+			PrepareForNextCustomer();
             //Speechbubble when the person is served
             this.maxtimebubble = 2000;
             if(Date.now() - this.wasServedAt < this.maxtimebubble)

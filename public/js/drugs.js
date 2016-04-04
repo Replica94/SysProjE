@@ -121,6 +121,8 @@ function PrepareForNextCustomer()
 	//defined in cabinet.js
 	currentCalculation = GetCalculation();
 	var seld = Math.floor(Math.random()*mboBoxes.length);
+	
+	console.log(mboBoxes.length);
 	var i = 0;
 	for (var asd = 0; asd < mboBoxes.length; asd++)
 	{
@@ -130,9 +132,9 @@ function PrepareForNextCustomer()
 		else
 			tdrug = Drugs.popDrug();
 		
-		var description = tdrug["label"];
-		mboBoxes[asd].label = GenerateRandomLabel(tdrug["name"],"",tdrug["label"],Math.random());
+		console.log(tdrug);
+		
+		mboBoxes[asd].label = GenerateRandomLabel(tdrug["name"],"",tdrug["labeltext"],Math.random());
 		i++;
 	}
 }
-
