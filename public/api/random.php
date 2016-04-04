@@ -25,6 +25,21 @@ $drugs = array();
 
 $fcon = file("../../namegen/drugnames.txt");
 
+function generateLabelText($drugdata)
+{
+    $labeltext = "";
+    if ($drugdata["warning"] == "1") {
+        $labeltext .= "Attention! May have detrimental effects on driving and use of heavy machinery! ";
+    }
+    if (isset($drugdata["dailydose"]) && strlen($drugdata["dailydose"]) > 0) {
+        $labeltext .= "Maximum daily dose " . $drugdata["dailydose"] . ". ";
+    }
+    if (isset($drugdata["size"]) && strlen($drugdata["size"]) > 0) {
+        $labeltext .= "Contains " . str_replace("kpl", "pcs", $drugdata["size"]) . ".";
+    }
+    return $labeltext;
+}
+
 foreach ($drugnames as $drug) {
     $newdrug["drug"] = strtolower($drug);
     $newdrug["name"] = strtolower(rtrim($fcon[array_rand($fcon)]));
@@ -36,7 +51,7 @@ foreach ($drugnames as $drug) {
     $newdrug["form"] = strtolower($data["form"]);
     $newdrug["strength"] = $data["strength"];
     $newdrug["container"] = strtolower($data["container"]);
-    $newdrug["labeltext"] = "";
+    $newdrug["labeltext"] = generateLabelText($data);
     $drugs[] = $newdrug;
 }
 
