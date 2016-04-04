@@ -94,7 +94,15 @@ function _EngineInit(eng)
 	};
 	Engine.addObject(tocabinet);
 	
-
+    //give radiobuttons current calc buttons
+    var values = new Array();
+    values.push(currentCalculation.choices[0]);
+    values.push(currentCalculation.choices[1]);
+    values.push(currentCalculation.choices[2]);
+    values.push(currentCalculation.choices[3]);
+    RadioButtons.changeButtonValues(values);
+    
+    RadioButtons.rePositionButtons(new Vector2(screenSize.x / 1.6, screenSize.y / 2.6));
 	/*
 	var i = 0;
 	for (var ctx in Context.map)

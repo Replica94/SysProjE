@@ -12,7 +12,6 @@ function Timer()
 	this.currenttime = 0;
 	this.roundInitTime = 0;
 	
-
 	this.setText = function(text)
 	{
 		//Temporarily change the canvas' font
@@ -60,6 +59,7 @@ function Timer()
 		//And print our text
 		context.fillText(this.text,this.position.x+7,this.position.y+37);
 	}
+    
 	this.update = function(){
 		this.currenttime = Time.getSecondsSinceStart();
 		this.setText(this.currenttime);

@@ -111,7 +111,7 @@ var RadioButton = function(pos, buttonnumber)
     this.selected = false;
     this.value = 0;
     this.position = pos;
-    this.size = new Vector2(48, 48);
+    this.size = new Vector2(150, 48);
     this.font = "18px Arial";
 	this.text = this.value;
     this.depth = 500;
@@ -126,15 +126,15 @@ var RadioButton = function(pos, buttonnumber)
 		
 		//context.measureText(text) gets the approximate
 		//width of the button text
-		var width = context.measureText(text).width;
+		//var width = context.measureText(text).width;
 		
 		//Our button size will be that width plus some extra
-		this.size.x = width+22;
+		//this.size.x = width+22;
 		
 		//Nice hardcoded height
 		this.size.y = 32;
 		
-		this.text = text;
+		this.text = text + " pcs";
 	}
     this.draw = function()
 	{
@@ -201,6 +201,15 @@ var RadioButtons =
             this.buttons[i].setText(values[i]);
         }
         this.reSize();
+    },
+    
+    rePositionButtons : function(vektor)
+    {
+        this.position = vektor;
+        for(var i = 0; i < this.buttonsAmount; i++)
+        {
+            this.buttons[i].position = new Vector2(this.position.x, this.position.y + i * 50);
+        }
     },
     
     reSize : function()

@@ -135,12 +135,7 @@ Input.init(canvas);
 Persons.initPersons();
 
 RadioButtons.generateButtons();
-var values = new Array();
-values.push(1);
-values.push(2);
-values.push(3);
-values.push(4);
-RadioButtons.changeButtonValues(values);
+
 RadioButtons.reSize();
 //creates new person
 MyAudio.loadMusic();
