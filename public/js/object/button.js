@@ -231,6 +231,17 @@ var RadioButtons =
         this.isselected = true;
     },
     
+    getSelectedButtonValue : function()
+    {
+        for(var i = 0; i < this.buttonsAmount; i++) 
+        {
+            if(this.buttons[i].selected)
+            {
+                return this.buttons[i].value;
+            }
+        }
+    },
+    
     update : function()
     {
         

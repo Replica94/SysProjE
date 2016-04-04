@@ -141,6 +141,7 @@ EngineInitializationFunctions.push(function ()
 	confirmdrug.onClick = function()
 	{
         Engine.setDrawContext(7);
+        alert(currentCalculation.correctAnswer);
 	};
     confirmdrug.inputContext += Context.map["gameMedicineCabinetExamine"];
     confirmdrug.drawContext += Context.map["gameMedicineCabinetExamine"];
@@ -160,10 +161,24 @@ EngineInitializationFunctions.push(function ()
 	{
         if(RadioButtons.isselected)
         {
-            Engine.setDrawContext(Context.map["gameScreenDesk"]);
-            Persons.allPersons[0].setIsServed();
-            Score.updateScore();
-            Score.newRound();
+            if(RadioButtons.getSelectedButtonValue() == currentCalculation.correctAnswer)
+            {
+                Engine.setDrawContext(Context.map["gameScreenDesk"]);
+                Persons.allPersons[0].setIsServed();
+                Score.updateScore();
+                Score.newRound();
+                var values = new Array();
+                values.push(currentCalculation.choices[0]);
+                values.push(currentCalculation.choices[1]);
+                values.push(currentCalculation.choices[2]);
+                values.push(currentCalculation.choices[3]);
+                RadioButtons.changeButtonValues(values);
+            }
+            else 
+            {
+                gameLogic.gameover();
+            }
+
         }
 	};
     confirmamount.draw = function()
@@ -246,6 +261,14 @@ EngineInitializationFunctions.push(function ()
 	
 	Engine.addObject(boxm2);
     
+    var prescriptiontext = new WriteObject();
+    prescriptiontext.setText("asdasd");
+    prescriptiontext.position = new Vector2(494, 375);
+    prescriptiontext.drawContext += Context.map["gameCalculationScreen"];
+    prescriptiontext.depth = 1000;
+    
+    Engine.addObject(prescriptiontext);
+    /*
     var confirmamount2 = new ButtonObject();
 	confirmamount2.position.x = screenSize.x / 2;
 	confirmamount2.position.y = screenSize.y / 2;
@@ -263,5 +286,5 @@ EngineInitializationFunctions.push(function ()
         Score.newRound();
 	};
     Engine.addObject(confirmamount2);
-    
+    */
 });
