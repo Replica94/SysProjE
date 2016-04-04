@@ -51,8 +51,8 @@ EngineInitializationFunctions.push(function ()
     
     //huge recipe object
     var recipeDrawObject = new RealObject();
-    recipeDrawObject.position.x = 678;
-    recipeDrawObject.position.y = 154;
+    recipeDrawObject.position.x = screenSize.x / 3;
+    recipeDrawObject.position.y = screenSize.y / 4;
     recipeDrawObject.size.x = 640;
     recipeDrawObject.size.y = 400;
     //recipeDrawObject.depth = 200;
@@ -109,9 +109,6 @@ EngineInitializationFunctions.push(function ()
     }
     Engine.addObject(flowerDrawObject);
     
-
-
-    
     var darknessCalculations = new GameObject;
 
 	darknessCalculations.depth = 100;
@@ -131,9 +128,12 @@ EngineInitializationFunctions.push(function ()
     
     var confirmdrug = new ButtonObject();
 	confirmdrug.position.x = screenSize.x / 1.5;
-	confirmdrug.position.y = screenSize.y / 7;
+	confirmdrug.position.y = screenSize.y / 10;
+    
+    confirmdrug.font = "28px Arial";
 	confirmdrug.depth = 400;
 	confirmdrug.setText("Confirm");
+    
 	confirmdrug.update = function()
 	{
 		this.updateRealObject();
@@ -141,7 +141,7 @@ EngineInitializationFunctions.push(function ()
 	confirmdrug.onClick = function()
 	{
         Engine.setDrawContext(7);
-        alert(currentCalculation.correctAnswer);
+        alert(currentCalculation.choices[currentCalculation.correctAnswer]);
 	};
     confirmdrug.inputContext += Context.map["gameMedicineCabinetExamine"];
     confirmdrug.drawContext += Context.map["gameMedicineCabinetExamine"];
@@ -149,9 +149,10 @@ EngineInitializationFunctions.push(function ()
     
         
     var confirmamount = new ButtonObject();
-	confirmamount.position.x = screenSize.x / 1.4;
-	confirmamount.position.y = screenSize.y / 3.1;
+	confirmamount.position.x = screenSize.x / 1.3;
+	confirmamount.position.y = screenSize.y / 2.2;
 	confirmamount.depth = 400;
+    confirmamount.font = "28px Arial";
 	confirmamount.setText("Confirm");
 	confirmamount.update = function()
 	{
@@ -161,7 +162,7 @@ EngineInitializationFunctions.push(function ()
 	{
         if(RadioButtons.isselected)
         {
-            if(RadioButtons.getSelectedButtonValue() == currentCalculation.correctAnswer)
+            if(RadioButtons.getSelectedButtonValue() == currentCalculation.choices[currentCalculation.correctAnswer])
             {
                 Engine.setDrawContext(Context.map["gameScreenDesk"]);
                 Persons.allPersons[0].setIsServed();
@@ -251,6 +252,70 @@ EngineInitializationFunctions.push(function ()
     }
     Engine.addObject(recipeDrawObject2);
     
+    var prescriptiontext = new WriteObject();
+    
+    prescriptiontext.position = new Vector2(screenSize.x / 4, screenSize.y / 2.65);
+    prescriptiontext.drawContext += Context.map["gameCalculationScreen"];
+    prescriptiontext.depth = 1000;
+    prescriptiontext.update = function()
+    {
+        this.setText(currentCalculation.agent + " " + currentCalculation.wanted);
+    };
+    
+    Engine.addObject(prescriptiontext);
+    
+    var prescriptiontextdesk = new WriteObject(); 
+    prescriptiontextdesk.position = new Vector2(screenSize.x / 3, screenSize.y / 2.65);
+    prescriptiontextdesk.drawContext += Context.map["recipeDesk"];
+    prescriptiontextdesk.depth = 1000;
+    prescriptiontextdesk.update = function()
+    {
+        this.setText(currentCalculation.agent + " " + currentCalculation.wanted);
+    };
+    Engine.addObject(prescriptiontextdesk);
+    
+    var prescriptiontextdeskname = new WriteObject();
+    prescriptiontextdeskname.position = new Vector2(screenSize.x / 2.55, screenSize.y / 3.25);
+    prescriptiontextdeskname.drawContext += Context.map["recipeDesk"];
+    prescriptiontextdeskname.depth = 1000;
+    prescriptiontextdeskname.setText("No name");
+    Engine.addObject(prescriptiontextdeskname);
+    
+    var prescriptiontextdeskbirth = new WriteObject();
+    prescriptiontextdeskbirth.position = new Vector2(screenSize.x / 1.92, screenSize.y / 3.25);
+    prescriptiontextdeskbirth.drawContext += Context.map["recipeDesk"];
+    prescriptiontextdeskbirth.depth = 1000;
+    prescriptiontextdeskbirth.setText("Unknown");
+    Engine.addObject(prescriptiontextdeskbirth);
+    
+    var prescriptiontextdeskweight = new WriteObject();
+    prescriptiontextdeskweight.position = new Vector2(screenSize.x / 1.62, screenSize.y / 3.25);
+    prescriptiontextdeskweight.drawContext += Context.map["recipeDesk"];
+    prescriptiontextdeskweight.depth = 1000;
+    prescriptiontextdeskweight.setText("Too much");
+    Engine.addObject(prescriptiontextdeskweight);
+    
+    var prescriptiontextname = new WriteObject();
+    prescriptiontextname.position = new Vector2(screenSize.x / 3.1875, screenSize.y / 3.25);
+    prescriptiontextname.drawContext += Context.map["gameCalculationScreen"];
+    prescriptiontextname.depth = 1000;
+    prescriptiontextname.setText("No name");
+    Engine.addObject(prescriptiontextname);
+    
+    var prescriptiontextbirth = new WriteObject();
+    prescriptiontextbirth.position = new Vector2(screenSize.x / 2.28, screenSize.y / 3.25);
+    prescriptiontextbirth.drawContext += Context.map["gameCalculationScreen"];
+    prescriptiontextbirth.depth = 1000;
+    prescriptiontextbirth.setText("Unknown");
+    Engine.addObject(prescriptiontextbirth);
+    
+    var prescriptiontextweight = new WriteObject();
+    prescriptiontextweight.position = new Vector2(screenSize.x / 1.875, screenSize.y / 3.25);
+    prescriptiontextweight.drawContext += Context.map["gameCalculationScreen"];
+    prescriptiontextweight.depth = 1000;
+    prescriptiontextweight.setText("Too much");
+    Engine.addObject(prescriptiontextweight);
+    
     var boxm2 = new GameObject;
 	boxm2.depth = 450;
 	boxm2.drawContext += Context.map["gameCalculationScreen"];
@@ -261,13 +326,7 @@ EngineInitializationFunctions.push(function ()
 	
 	Engine.addObject(boxm2);
     
-    var prescriptiontext = new WriteObject();
-    prescriptiontext.setText("asdasd");
-    prescriptiontext.position = new Vector2(494, 375);
-    prescriptiontext.drawContext += Context.map["gameCalculationScreen"];
-    prescriptiontext.depth = 1000;
-    
-    Engine.addObject(prescriptiontext);
+
     /*
     var confirmamount2 = new ButtonObject();
 	confirmamount2.position.x = screenSize.x / 2;

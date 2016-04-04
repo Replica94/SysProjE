@@ -48,7 +48,7 @@
         if ($stmt) {
             $stmt->bind_param("s", $drugname);
             if ($stmt->execute()) {
-                $stmt->bind_result($form, $strength, $container, $warning, $dailydose, $size);
+                $stmt->bind_result($form, $strength, $container, $warning, $dailydose, $dailydoseunit, $size);
                 while ($stmt->fetch()) {
                     $result[] = array(
                         "form" => $form,
@@ -56,6 +56,7 @@
                         "container" => $container, 
                         "warning" => $warning,
                         "dailydose" => $dailydose,
+                        "dailydoseunit" => $dailydoseunit,
                         "size" => $size
                     );
                 }
@@ -124,7 +125,8 @@ SELECT DISTINCT
     pak.vahvuus AS vahvuus, 
     sa.nimie AS astia,
     pak.liikennevaara AS liikennevaara,
-    CONCAT(pak.DDD, ' ', pak.DDDyksikko) AS vrkannos,
+    pak.DDD AS vrkannos,
+    pak.DDDyksikko AS vrkannosyksikko,
     CONCAT(pak.koko, ' ', pak.yksikko) AS koko
     
     FROM pakkaus AS pak

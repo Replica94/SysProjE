@@ -170,20 +170,6 @@ var WriteObject = function()
 		//Set the current drawing font
 		context.font = this.font;
 		
-		//Fill the area from position to position+size
-		context.fillRect(this.position.x, this.position.y, this.size.x, this.size.y);
-		
-		//Stroke a nice shadow
-		context.strokeStyle = "#888888";
-		context.strokeRect(this.position.x, this.position.y, this.size.x-2, this.size.y-2);
-		
-		//Stroke dat edges 2
-		context.strokeStyle = "#000000";
-		context.strokeRect(this.position.x, this.position.y, this.size.x, this.size.y);
-		
-		//Change color to black
-		context.fillStyle = "#000000";
-		
 		//And print our text
 		context.fillText(this.text,this.position.x+10,this.position.y+22);
 	}
@@ -198,7 +184,7 @@ var WriteObject = function()
 		
 		//context.measureText(text) gets the approximate
 		//width of the button text
-        if(fixedsize){
+        if(this.fixedsize){
             var width = context.measureText(text).width;
 		      
 		  //Add some extra width
