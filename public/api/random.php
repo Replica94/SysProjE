@@ -32,7 +32,7 @@ function generateLabelText($drugdata)
         $labeltext .= "Attention! May have detrimental effects on driving and use of heavy machinery! ";
     }
     if (isset($drugdata["dailydose"]) && strlen($drugdata["dailydose"]) > 0) {
-        $labeltext .= "Maximum daily dose " . $drugdata["dailydose"] . ". ";
+        $labeltext .= "Maximum daily dose " . $drugdata["dailydose"] . " " . $drugdata["dailydoseunit"] . ". ";
     }
     if (isset($drugdata["size"]) && strlen($drugdata["size"]) > 0) {
         $labeltext .= "Contains " . str_replace("kpl", "pcs", $drugdata["size"]) . ".";
@@ -43,16 +43,23 @@ function generateLabelText($drugdata)
 foreach ($drugnames as $drug) {
     $newdrug["drug"] = strtolower($drug);
     $newdrug["name"] = strtolower(rtrim($fcon[array_rand($fcon)]));
+
     $alldata = $dao->getDrugData($drug);
     // $alldata has data for others forms, make sure we only get those of $form if it is set
     do {
         $data = $alldata[array_rand($alldata)];
     } while (isset($form) && strpos(strtolower($data["form"]), $form) === false);
+    
     $newdrug["form"] = strtolower($data["form"]);
     $newdrug["strength"] = $data["strength"];
     $newdrug["container"] = strtolower($data["container"]);
     $newdrug["labeltext"] = generateLabelText($data);
+    $newdrug["dailydose"] = $data["dailydose"];
+    $newdrug["dailydoseunit"] = $data["dailydoseunit"];
     $drugs[] = $newdrug;
 }
+
+$othertime += microtime(true);
+$othertime -= $querytime;
 
 echo json_encode(array("drugs" => $drugs));
