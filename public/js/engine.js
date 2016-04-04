@@ -153,11 +153,25 @@ var Engine =
 	{
 		_EngineInit(Engine);
 	},
+	thingBreakingTime: 0,
+	gameEnd: false,
 	
 	draw: function (context) 
 	{
+		if (Engine.gameEnd)
+			this.thingBreakingTime += 0.20;
+		
 		for (var i = 0; i <  Engine.objects.length; i++)
 		{
+			if (Engine.gameEnd)
+			{
+				context.save();
+				context.translate(screenSize.x/2,screenSize.y/2);
+				context.scale(1/this.thingBreakingTime,1/this.thingBreakingTime);
+				var thingyBreaker = this.thingBreakingTime*(400+i)/200;
+				context.rotate(thingyBreaker);
+				context.translate(-screenSize.x/2,-screenSize.y/2);
+			}
 			var obj = Engine.objects[i];
 			try
 			{
@@ -183,7 +197,27 @@ var Engine =
 				console.log(obj);
 				console.log(err);
 			}
+			if (Engine.gameEnd)
+			{
+				context.restore();
+			}
 			
+		}
+		if (Engine.gameEnd)
+		{
+			context.save();
+			context.translate(screenSize.x/2,screenSize.y/2);
+			context.scale(this.thingBreakingTime/10,this.thingBreakingTime/10);
+			context.font = "24px Arial";
+			context.fillStyle = "#000000";
+			var width = context.measureText("GAME OVER").width;
+			context.strokeStyle = "#FFFFFF";
+			context.strokeText("GAME OVER",-width/2,0);
+
+			context.fillText("GAME OVER",-width/2,0);
+			
+			context.translate(-screenSize.x/2,-screenSize.y/2);
+			context.restore();
 		}
 	}
 }

@@ -176,7 +176,7 @@ EngineInitializationFunctions.push(function ()
             }
             else 
             {
-                gameLogic.gameover();
+                GameLogic.gameover();
             }
 
         }

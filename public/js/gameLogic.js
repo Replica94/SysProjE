@@ -41,7 +41,7 @@ var GameLogic =
     
     gameover : function()
     {
-    
+		Engine.gameEnd = true;
     }
 
 }
