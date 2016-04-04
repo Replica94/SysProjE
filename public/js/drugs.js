@@ -21,23 +21,35 @@ function GetSmallerUnit(unit)
 
 var Drugs = 
 {
-	drugs : {},
+	drugs : [],
 	loaded: false,
 	drugsLeft: 0,
-	drugLoadSize: 90,
+	drugLoadSize: 36,
+	asyncRequestRunning: false,
 	load : function (sync)
 	{
+		//while (Drugs.asyncRequestRunning);
+		
+		if (sync)
+			Drugs.asyncRequestRunning = true;
 		Drugs.loaded = false;
+		
 		var get = new XMLHttpRequest();
 		get.onreadystatechange = function(event)
 		{
 			if (get.readyState==4)
 			{
+				Drugs.asyncRequestRunning = false;
 				if (get.status==200)
 				{
-					console.log(get.responseText);
-					Drugs.drugsLeft = Drugs.drugLoadSize;
-					Drugs.drugs = JSON.parse(get.responseText)["drugs"];
+					console.log("Added "+Drugs.drugLoadSize+" to the pool "+Drugs.drugsLeft);
+					//console.log(get.responseText);
+					Drugs.drugs.splice(Drugs.drugsLeft,Drugs.drugs.length -Drugs.drugsLeft);
+					Drugs.drugsLeft += Drugs.drugLoadSize;
+					if (Drugs.drugs.length > 0)
+						Drugs.drugs = JSON.parse(get.responseText)["drugs"].concat(Drugs.drugs);	
+					else
+						Drugs.drugs = JSON.parse(get.responseText)["drugs"];
 					
 					for (var i = 0; i < Drugs.drugLoadSize; i++)
 					{
@@ -59,13 +71,18 @@ var Drugs =
 				}
 			}
 		}
-		get.open("GET","http://medicutor.herokuapp.com/api/random.php?n=90&form=tablet",sync);
+		get.open("GET","http://medicutor.herokuapp.com/api/random.php?n="+Drugs.drugLoadSize+"&form=tablet",sync);
 		get.send(null);
 	},
 	popDrug : function ()
 	{
 		Drugs.drugsLeft--;
 		var retDrug = Drugs.drugs[Drugs.drugsLeft];
+		
+		if (Drugs.drugsLeft == Drugs.drugLoadSize/2)
+		{
+			Drugs.load(true);
+		}
 		if (Drugs.drugsLeft <= 0)
 		{
 			Drugs.load(false);
@@ -123,7 +140,6 @@ function PrepareForNextCustomer()
 	currentCalculation = GetCalculation();
 	var seld = Math.floor(Math.random()*mboBoxes.length);
 	
-	console.log(mboBoxes.length);
 	var i = 0;
 	for (var asd = 0; asd < mboBoxes.length; asd++)
 	{
@@ -133,7 +149,6 @@ function PrepareForNextCustomer()
 		else
 			tdrug = Drugs.popDrug();
 		
-		console.log(tdrug);
 		
 		mboBoxes[asd].label = GenerateRandomLabel(tdrug["name"],"",tdrug["labeltext"],Math.random());
 		i++;
