@@ -48,9 +48,16 @@
         if ($stmt) {
             $stmt->bind_param("s", $drugname);
             if ($stmt->execute()) {
-                $stmt->bind_result($form, $strength, $container);
+                $stmt->bind_result($form, $strength, $container, $warning, $dailydose, $size);
                 while ($stmt->fetch()) {
-                    $result[] = array("form" => $form, "strength" => $strength, "container" => $container);
+                    $result[] = array(
+                        "form" => $form,
+                        "strength" => $strength, 
+                        "container" => $container, 
+                        "warning" => $warning,
+                        "dailydose" => $dailydose,
+                        "size" => $size
+                    );
                 }
             }
         }
@@ -112,7 +119,14 @@
     private function makeQueries()
     {
         $this->queries["drugdata"] = <<<SQL
-SELECT DISTINCT lm.laakemuotonimie AS laakemuoto, pak.vahvuus AS vahvuus, sa.nimie AS astia
+SELECT DISTINCT 
+    lm.laakemuotonimie AS laakemuoto, 
+    pak.vahvuus AS vahvuus, 
+    sa.nimie AS astia,
+    pak.liikennevaara AS liikennevaara,
+    CONCAT(pak.DDD, ' ', pak.DDDyksikko) AS vrkannos,
+    CONCAT(pak.koko, ' ', pak.yksikko) AS koko
+    
     FROM pakkaus AS pak
         INNER JOIN laakeaine AS la ON pak.pakkausnro = la.pakkausnro
         INNER JOIN laakemuoto AS lm ON lm.laakemuototun = pak.laakemuototun
