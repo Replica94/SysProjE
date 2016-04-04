@@ -14,7 +14,7 @@ EngineInitializationFunctions.push(function ()
 	{
         Engine.setDrawContext(Context.map["recipeDesk"]);
 	};
-    recipebutton.inputContext = Context.map["gstates"];
+    recipebutton.inputContext += Context.map["gameScreenDesk"];
     recipebutton.drawContext += Context.map["gameScreenDesk"];
 	Engine.addObject(recipebutton);
     
@@ -30,7 +30,6 @@ EngineInitializationFunctions.push(function ()
 	{
 		Engine.setDrawContext(1);
 	}
-    
     restartbutton.inputContext = Context.map["gstates"];
     restartbutton.drawContext = Context.map["gstates"];
 	Engine.addObject(restartbutton);
@@ -131,7 +130,7 @@ EngineInitializationFunctions.push(function ()
 	confirmdrug.position.y = screenSize.y / 10;
     
     confirmdrug.font = "28px Arial";
-	confirmdrug.depth = 400;
+	confirmdrug.depth = 10000;
 	confirmdrug.setText("Confirm");
     
 	confirmdrug.update = function()
@@ -140,11 +139,14 @@ EngineInitializationFunctions.push(function ()
 	};
 	confirmdrug.onClick = function()
 	{
-        Engine.setDrawContext(7);
-        alert(currentCalculation.choices[currentCalculation.correctAnswer]);
+        if(mboChosenBox != null){
+            Engine.setDrawContext(7);
+            alert(currentCalculation.choices[currentCalculation.correctAnswer]);
+        }
+         
 	};
-    confirmdrug.inputContext += Context.map["gameMedicineCabinetExamine"];
-    confirmdrug.drawContext += Context.map["gameMedicineCabinetExamine"];
+    confirmdrug.inputContext += Context.map["gameMedicineCabinetContexts"];
+    confirmdrug.drawContext += Context.map["gameMedicineCabinetContexts"];
 	Engine.addObject(confirmdrug);
     
         
@@ -326,7 +328,98 @@ EngineInitializationFunctions.push(function ()
 	
 	Engine.addObject(boxm2);
     
+    
+    var recipebuttoncabinet = new ButtonObject();
+	recipebuttoncabinet.position.x = screenSize.x / 2;
+	recipebuttoncabinet.position.y = screenSize.y / 1.08;
+	recipebuttoncabinet.depth = 400;
+	recipebuttoncabinet.setText("Prescription");
+	recipebuttoncabinet.update = function()
+	{
+		this.updateRealObject();
+	};
+	recipebuttoncabinet.onClick = function()
+	{
+        Engine.setDrawContext(Context.map["gameCabinetRecipeShow"]);
+	};
+    recipebuttoncabinet.inputContext += Context.map["gameMedicineCabinetContexts"];
+    recipebuttoncabinet.drawContext += Context.map["gameMedicineCabinetContexts"];
+	Engine.addObject(recipebuttoncabinet);
+    
+    //Whole screen invisible button when recipe is shown on desk
+    var invRecipeBackButtonCabinet = new InvisibleButton();
+    invRecipeBackButtonCabinet.position.x = 0;
+    invRecipeBackButtonCabinet.position.y = 0;
+    invRecipeBackButtonCabinet.size.x = screenSize.x;
+    invRecipeBackButtonCabinet.size.y = screenSize.y;
+    invRecipeBackButtonCabinet.depth = 100000;
+    invRecipeBackButtonCabinet.inputContext += Context.map["gameCabinetRecipeShow"];
+    invRecipeBackButtonCabinet.onClick = function()
+    {
+        if(mboChosenBox != null)
+            Engine.setDrawContext(Context.map["gameMedicineCabinet"]);
+        Engine.setDrawContext(Context.map["gameMedicineCabinetExamine"]);
+    }
+    Engine.addObject(invRecipeBackButtonCabinet);
+    
+    //huge recipe object
+    var recipeDrawObjectCabinet = new RealObject();
+    recipeDrawObjectCabinet.position.x = screenSize.x / 3;
+    recipeDrawObjectCabinet.position.y = screenSize.y / 4;
+    recipeDrawObjectCabinet.size.x = 640;
+    recipeDrawObjectCabinet.size.y = 400;
+    recipeDrawObjectCabinet.depth = 10000;
+    recipeDrawObjectCabinet.checkForInput = false;
+    recipeDrawObjectCabinet.drawContext += Context.map["gameCabinetRecipeShow"];
 
+    recipeDrawObjectCabinet.draw = function()
+    {
+        context.drawImage(Texture.map["prescription"], this.position.x, this.position.y, this.size.x, this.size.y);
+    }
+    Engine.addObject(recipeDrawObjectCabinet);
+    
+    
+    var prescriptiontextdesk = new WriteObject(); 
+    prescriptiontextdesk.position = new Vector2(screenSize.x / 3, screenSize.y / 2.65);
+    prescriptiontextdesk.drawContext += Context.map["recipeDesk"];
+    prescriptiontextdesk.depth = 1000;
+    prescriptiontextdesk.update = function()
+    {
+        this.setText(currentCalculation.agent + " " + currentCalculation.wanted);
+    };
+    Engine.addObject(prescriptiontextdesk);
+    
+    var prescriptiontextcabinetname = new WriteObject();
+    prescriptiontextcabinetname.position = new Vector2(screenSize.x / 2.55, screenSize.y / 3.25);
+    prescriptiontextcabinetname.drawContext += Context.map["gameCabinetRecipeShow"];
+    prescriptiontextcabinetname.depth = 1000000;
+    prescriptiontextcabinetname.setText("No name");
+    Engine.addObject(prescriptiontextcabinetname);
+    
+    var prescriptiontextcabinetbirth = new WriteObject();
+    prescriptiontextcabinetbirth.position = new Vector2(screenSize.x / 1.92, screenSize.y / 3.25);
+    prescriptiontextcabinetbirth.drawContext += Context.map["gameCabinetRecipeShow"];
+    prescriptiontextcabinetbirth.depth = 1000000;
+    prescriptiontextcabinetbirth.setText("Unknown");
+    Engine.addObject(prescriptiontextcabinetbirth);
+    
+    var prescriptiontextcabinetweight = new WriteObject();
+    prescriptiontextcabinetweight.position = new Vector2(screenSize.x / 1.62, screenSize.y / 3.25);
+    prescriptiontextcabinetweight.drawContext += Context.map["gameCabinetRecipeShow"];
+    prescriptiontextcabinetweight.depth = 1000000;
+    prescriptiontextcabinetweight.setText("Too much");
+    Engine.addObject(prescriptiontextcabinetweight);
+    
+    var prescriptiontextcabinet = new WriteObject(); 
+    prescriptiontextcabinet.position = new Vector2(screenSize.x / 3, screenSize.y / 2.65);
+    prescriptiontextcabinet.drawContext += Context.map["gameCabinetRecipeShow"];
+    prescriptiontextcabinet.depth = 1000000;
+    prescriptiontextcabinet.update = function()
+    {
+        this.setText(currentCalculation.agent + " " + currentCalculation.wanted);
+    };
+    Engine.addObject(prescriptiontextcabinet);
+    
     /*
     var confirmamount2 = new ButtonObject();
 	confirmamount2.position.x = screenSize.x / 2;

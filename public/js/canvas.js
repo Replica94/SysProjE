@@ -93,13 +93,7 @@ function CanvasDraw()
 	context.fillStyle = "#111811";
 	context.save();
 	context.scale(gameScreenScale,gameScreenScale);
-	
-	var label = {};
-	var description = "asdjhawdn awiodmnaw poidmnsifosen pognaeöonaeöonwöefnweöni fse ö nifeö s sdgljgoseö seongse gnseöogek asdfaw niefös f.";
-	
-	var label = GenerateRandomLabel(RandomBrandName(1),"300mg ibuprofen",description,43);
-	
-	RenderLabel(new Vector2(25, 25), label);
+
 	GameLogic.step();
 
 	Engine.draw(context);
