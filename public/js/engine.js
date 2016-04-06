@@ -215,12 +215,17 @@ var Engine =
 			context.scale(this.thingBreakingTime/10,this.thingBreakingTime/10);
 			context.font = "24px Arial";
 			context.fillStyle = "#000000";
+			
+			
 			var width = context.measureText("GAME OVER").width;
 			context.strokeStyle = "#FFFFFF";
-			
 			context.strokeText("GAME OVER",-width/2,0);
-
 			context.fillText("GAME OVER",-width/2,0);
+			
+			var scorestr = "FINAL SCORE: "+Score.currentScore;
+			var scoreWidth = context.measureText(scorestr).width;
+			context.strokeText(scorestr,-scoreWidth/2,28);
+			context.fillText(scorestr,-scoreWidth/2,28);
 			
 			context.translate(-screenSize.x/2,-screenSize.y/2);
 			context.restore();
