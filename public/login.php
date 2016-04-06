@@ -24,7 +24,7 @@ if ($session->get('register_flag') != null) {
 }
 
 if (isset($_POST['submit'])) {
-    if ($_POST['submit'] == 'Guest') {
+    if ($_POST['submit'] == 'Login as guest') {
         $user = new User();
         $user->setGuest(true);
         $session->set('user', $user);

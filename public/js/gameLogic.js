@@ -12,10 +12,6 @@ var GameLogic =
             case Context.map["gameMedicineCabinet"]:
             case Context.map["recipeDesk"]:
             case Context.map["gameCalculationScreen"]:
-                if(Time.getSecondsSinceStart() > 10)
-                {
-
-                }
 				MyAudio.loopMusic();
                 Persons.update();
 				break;
@@ -57,6 +53,7 @@ var Difficulty =
 {
 	gameDifficultyString : "Easy",
 	gameDifficulty : 1,
+    disabled : true,
 	
 	changeDifficulty : function()
 	{
