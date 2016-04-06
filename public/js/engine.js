@@ -229,6 +229,13 @@ var Engine =
 			
 			context.translate(-screenSize.x/2,-screenSize.y/2);
 			context.restore();
+			if (this.thingBreakingTime > 30.0)
+			if (Input.isPressed())
+			{
+				Engine.gameEnd = false;
+				this.thingBreakingTime = 0.0;
+				Engine.setDrawContext(Context.map["mainMenu"]);
+			}
 		}
 	}
 }
