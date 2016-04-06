@@ -9,6 +9,12 @@ EngineInitializationFunctions.push(function ()
 	recipebutton.update = function()
 	{
 		this.updateRealObject();
+        if(Persons.showrecipe)
+        {
+            recipebutton.visible = false;
+        }
+        else 
+            recipebutton.visible = true;
 	};
 	recipebutton.onClick = function()
 	{
@@ -171,12 +177,6 @@ EngineInitializationFunctions.push(function ()
                 Persons.allPersons[0].setIsServed();
                 Score.updateScore();
                 Score.newRound();
-                var values = new Array();
-                values.push(currentCalculation.choices[0]);
-                values.push(currentCalculation.choices[1]);
-                values.push(currentCalculation.choices[2]);
-                values.push(currentCalculation.choices[3]);
-                RadioButtons.changeButtonValues(values);
             }
             else 
             {
@@ -421,23 +421,5 @@ EngineInitializationFunctions.push(function ()
     };
     Engine.addObject(prescriptiontextcabinet);
     
-    /*
-    var confirmamount2 = new ButtonObject();
-	confirmamount2.position.x = screenSize.x / 2;
-	confirmamount2.position.y = screenSize.y / 2;
-	confirmamount2.depth = 400;
-	confirmamount2.setText("Confirm");
-    confirmamount2.drawContext += Context.map["gameScreenDesk"];
-	confirmamount2.update = function()
-	{
-		this.updateRealObject();
-	};
-	confirmamount2.onClick = function()
-	{
-        Persons.allPersons[0].setIsServed();
-        Score.updateScore();
-        Score.newRound();
-	};
-    Engine.addObject(confirmamount2);
-    */
+    
 });
