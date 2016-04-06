@@ -111,21 +111,37 @@ EngineInitializationFunctions.push(function ()
 	logout.drawContext += mainMenuContext;
 	logout.inputContext += mainMenuContext;
 	
-	//Override the onClick, like all the good buttons do
 	logout.onClick = function()
 	{
-		//start the game or something i guess
         location.href = 'logout.php';
 		
 	};
 	
 	Engine.addObject(logout);
 	
+	var gotoscore = new MenuButtonObject();
+	
+	gotoscore.position.x = screenSize.x / 4;
+	gotoscore.position.y = logout.position.y + 100;
+	
+	gotoscore.setText("Highscores");
+	
+	gotoscore.depth = 500;
+	
+	gotoscore.drawContext += mainMenuContext;
+	gotoscore.inputContext += mainMenuContext;
+	
+	gotoscore.onClick = function()
+	{
+        location.href = 'highscore.php';
+		
+	};
+	Engine.addObject(gotoscore);
+	
+	
 	
 
     
-    
-	
 	var darkness = new GameObject;
 
 	darkness.depth = 499;
