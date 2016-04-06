@@ -78,7 +78,7 @@ var LabelLayouts = [];
 LabelLayouts.push
 (
 	{
-		size : new Vector2(455,140),
+		size : new Vector2(455,170),
 		namePos : new Vector2(62, 24),
 		descPos : new Vector2(180, 62),
 		subNamePos : new Vector2(12,42),
@@ -86,7 +86,7 @@ LabelLayouts.push
 		descWidth : 250
 	},
 	{
-		size : new Vector2(355,175),
+		size : new Vector2(355,205),
 		namePos : new Vector2(32, 24),
 		subNamePos : new Vector2(20,52),
 		descPos : new Vector2(10, 72),
@@ -94,7 +94,7 @@ LabelLayouts.push
 		descWidth : 200
 	},
 	{
-		size : new Vector2(415,145),
+		size : new Vector2(415,175),
 		namePos : new Vector2(24, 34),
 		subNamePos : new Vector2(24,52),
 		descPos : new Vector2(10, 72),

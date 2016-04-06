@@ -237,6 +237,7 @@ var Engine =
 			{
 				Engine.gameEnd = false;
 				this.thingBreakingTime = 0.0;
+				this.gameEndReason = 0;
 				Engine.setDrawContext(Context.map["mainMenu"]);
 			}
 		}
