@@ -42,6 +42,13 @@ var GameLogic =
     gameover : function()
     {
 		Engine.gameEnd = true;
+		
+		
+		
+		var ajx = "http://medicutor.herokuapp.com/api/newscore.php?score="+Score.currentScore;	
+		var get = new XMLHttpRequest();
+		get.open("GET",ajx,true);
+		get.send(null);
     }
 
 }
