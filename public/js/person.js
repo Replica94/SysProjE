@@ -28,9 +28,9 @@ var Persons = {
             this.nextpersontime *= 0.95;
 		}
         
-        if(this.allPersons.length > 10)
+        if(this.allPersons.length >= 10)
         {
-            Engine.gameEnd = true;
+            GameLogic.gameover(1);
         }
         
         for(var i = 0; i < this.allPersons.length; i++)

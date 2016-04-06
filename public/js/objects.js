@@ -180,7 +180,7 @@ EngineInitializationFunctions.push(function ()
             }
             else 
             {
-                GameLogic.gameover();
+                GameLogic.gameover(0);
             }
 
         }
