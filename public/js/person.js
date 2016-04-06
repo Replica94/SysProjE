@@ -10,6 +10,7 @@ var Persons = {
 	facescount : 16,
 	bodiescount : 10,
 	allPersons : [],
+    nextpersontime : 30000,
     leavingPersons : [],
     Hats : [],
     Hats2 : [],
@@ -22,9 +23,15 @@ var Persons = {
 	
 	update : function()
 	{
-		if(Date.now() - this.lpersonarrtime > 4000 && this.allPersons.length < 10){
+		if(Date.now() - this.lpersonarrtime > this.nextpersontime && this.allPersons.length < 10 || this.allPersons.length < 1){
 			this.addPersonToLine();
+            this.nextpersontime *= 0.95;
 		}
+        
+        if(this.allPersons.length > 10)
+        {
+            Engine.gameEnd = true;
+        }
         
         for(var i = 0; i < this.allPersons.length; i++)
         {
