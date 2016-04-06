@@ -133,7 +133,7 @@ EngineInitializationFunctions.push(function ()
 	
 	gotoscore.onClick = function()
 	{
-        location.href = 'highscore.php';
+		window.open('highscore.php');
 		
 	};
 	Engine.addObject(gotoscore);
