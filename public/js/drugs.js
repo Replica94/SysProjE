@@ -208,6 +208,7 @@ function PrepareForNextCustomer()
 		
 		
 		mboBoxes[asd].label = GenerateRandomLabel(tdrug["name"],"",tdrug["labeltext"],Math.random());
+        mboBoxes[asd].drug = tdrug;
 		i++;
 	}
 }

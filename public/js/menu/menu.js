@@ -91,9 +91,37 @@ EngineInitializationFunctions.push(function ()
 	//Override the onClick, like all the good buttons do
 	difficultyButton.onClick = function()
 	{
-		Difficulty.changeDifficulty();
-		difficultyButton.setText("Difficulty: " + Difficulty.gameDifficultyString);
+        if(!Difficulty.disabled){
+            Difficulty.changeDifficulty();
+            difficultyButton.setText("Difficulty: " + Difficulty.gameDifficultyString);
+        }
+
 	};
+    
+    difficultyButton.draw = function()
+	{
+		context.font = this.font;
+		
+        if(!Difficulty.disabled)
+        {
+            if (this.mouseHover)
+                context.fillStyle = "#FF0000";
+            else
+                context.fillStyle = "#FFFFFF";
+        }
+        else
+        {
+            context.fillStyle = "#BBBBBB";
+        }
+            
+
+		
+		//And print our text
+		context.fillText(this.text,this.position.x+6,this.position.y+32);
+		
+		//Change color to black
+		context.fillStyle = "#000000";
+	}
 
 	
 	Engine.addObject(difficultyButton);
