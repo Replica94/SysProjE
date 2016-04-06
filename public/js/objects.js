@@ -114,6 +114,22 @@ EngineInitializationFunctions.push(function ()
     }
     Engine.addObject(flowerDrawObject);
     
+    //the computer
+    var computerDrawObject = new RealObject();
+    computerDrawObject.position.x = 200;
+    computerDrawObject.position.y = -25;
+    computerDrawObject.size.x = 130*1.3;
+    computerDrawObject.size.y = 170*1.3;
+    computerDrawObject.drawOffset = Context.drawOffset["behindDesk"];
+    //recipeDrawObject.depth = 200;
+    computerDrawObject.drawContext += Context.map["menuanddesk"];
+
+    computerDrawObject.draw = function()
+    {
+        context.drawImage(Texture.map["computer"], this.position.x, this.position.y, this.size.x, this.size.y);
+    }
+    Engine.addObject(computerDrawObject);
+    
     var darknessCalculations = new GameObject;
 
 	darknessCalculations.depth = 100;
