@@ -164,7 +164,8 @@ EngineInitializationFunctions.push(function ()
 	{
         if(RadioButtons.isselected)
         {
-            if(RadioButtons.getSelectedButtonValue() == currentCalculation.choices[currentCalculation.correctAnswer])
+            if(RadioButtons.getSelectedButtonValue() == currentCalculation.choices[currentCalculation.correctAnswer] 
+               && mboChosenBox.drug.drug == currentCalculation.agent)
             {
                 Engine.setDrawContext(Context.map["gameScreenDesk"]);
                 Persons.allPersons[0].setIsServed();
