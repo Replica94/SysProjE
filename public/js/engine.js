@@ -155,6 +155,7 @@ var Engine =
 	},
 	thingBreakingTime: 0,
 	gameEnd: false,
+	gameEndReason: 0,
 	
 	draw: function (context) 
 	{
@@ -215,12 +216,14 @@ var Engine =
 			context.scale(this.thingBreakingTime/10,this.thingBreakingTime/10);
 			context.font = "24px Arial";
 			context.fillStyle = "#000000";
+			var gameendstr = "GAME OVER";
+			if (Engine.gameEndReason == 1)
+				gameendstr = "TOO SLOW";
 			
-			
-			var width = context.measureText("GAME OVER").width;
+			var width = context.measureText(gameendstr).width;
 			context.strokeStyle = "#FFFFFF";
-			context.strokeText("GAME OVER",-width/2,0);
-			context.fillText("GAME OVER",-width/2,0);
+			context.strokeText(gameendstr,-width/2,0);
+			context.fillText(gameendstr,-width/2,0);
 			
 			var scorestr = "FINAL SCORE: "+Score.currentScore;
 			var scoreWidth = context.measureText(scorestr).width;
