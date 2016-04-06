@@ -16,6 +16,7 @@ function _EngineInit(eng)
 			console.log(err);
 		}
 	}	
+	PrepareForNextCustomer();
 	//Create a desk
 	var ts = new TiledObject;
 	
@@ -69,8 +70,40 @@ function _EngineInit(eng)
 	//add the object
 	eng.addObject(sky);
 	
-
+	var tocabinet = new RealObject;
+	tocabinet.size = new Vector2(250,100);
+	tocabinet.position = new Vector2(4,4);
+	tocabinet.image = Texture.map["cabinetArrow"];
+	tocabinet.draw = function()
+	{
+		context.drawImage(this.image, this.position.x, this.position.y, this.size.x, this.size.y);
+	};
 	
+	tocabinet.update = function()
+	{
+		this.updateRealObject();
+		tocabinet.position = new Vector2(0,screenSize.y-this.size.y);
+		
+	};
+	tocabinet.drawContext += Context.map["gameDeskContexts"];
+	tocabinet.inputContext += Context.map["gameDeskContexts"];
+	tocabinet.depth = 451;
+	tocabinet.onClick = function()
+	{
+		Engine.setDrawContext(Context.map["gameMedicineCabinet"]);
+	};
+	Engine.addObject(tocabinet);
+	
+    //give radiobuttons current calc buttons
+    var values = new Array();
+    values.push(currentCalculation.choices[0]);
+    values.push(currentCalculation.choices[1]);
+    values.push(currentCalculation.choices[2]);
+    values.push(currentCalculation.choices[3]);
+    RadioButtons.changeButtonValues(values);
+    
+    RadioButtons.rePositionButtons(new Vector2(screenSize.x / 1.6, screenSize.y / 2.6));
+	/*
 	var i = 0;
 	for (var ctx in Context.map)
 	{
@@ -88,5 +121,7 @@ function _EngineInit(eng)
 		};
 		i++;
 		eng.addObject(btn2);
-	}		
+	}	
+    */
+
 }

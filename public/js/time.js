@@ -6,7 +6,7 @@ var Time =
 	now : 0,
     
 	reset : function(){
-		inittime : Date.now();
+		this.inittime = Date.now();
 	},
     
 	calcDelta : function(){

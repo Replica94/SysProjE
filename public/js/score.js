@@ -1,17 +1,41 @@
-function Timer()
+var Score =
+{
+    currentScore : 0,
+    roundTime : 0,
+    roundStartTime : 0,
+    updateScore : function()
+    {
+        this.roundTime = Date.now() - this.roundStartTime;
+        this.roundTime = Math.floor(this.roundTime / 1000);
+        if(this.roundTime < 20)
+            this.currentScore += 100;
+        else
+            this.currentScore += 100 - this.roundTime;
+    },
+    
+	newRound : function()
+	{
+		this.roundStartTime = Date.now();
+	},
+	
+    resetScore : function()
+    {
+        this.currentScore = 0;
+    }
+    
+    
+}
+
+function ScoreShow()
 {
 	this.position = new Vector2(32,128);
-	
+	this.size = new Vector2(128,48);
 	this.checkForInput = false;
-	this.position.x = screenSize.x - 58;																																																																			
-	this.position.y = 20;
+	this.position.x = screenSize.x - 150;																																																																			
+	this.position.y = 80;
 	this.font = "36px Arial";
-	this.text = "0";
-	this.size = new Vector2(context.measureText(this.text).width+25, 48);
-	this.updateContext += Context.updateContext.game;
+	this.text = "";
 	this.currenttime = 0;
-	this.roundInitTime = 0;
-	
 	this.setText = function(text)
 	{
 		//Temporarily change the canvas' font
@@ -59,12 +83,10 @@ function Timer()
 		//And print our text
 		context.fillText(this.text,this.position.x+7,this.position.y+37);
 	}
-    
 	this.update = function(){
-		this.currenttime = Time.getSecondsSinceStart();
-		this.setText(this.currenttime);
+		this.setText(Score.currentScore);
 	}
-
 }
-Timer.prototype = new RealObject();
-Timer.constructor = Timer.Object;
+
+ScoreShow.prototype = new RealObject();
+ScoreShow.constructor = ScoreShow.Object;

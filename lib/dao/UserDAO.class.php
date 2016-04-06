@@ -146,6 +146,102 @@ SQL;
     }
     
     /**
+     * Add a score for a user.
+     *
+     * @param $username Username of the scoring user.
+     * @param $score Score to addScore
+     * @param $difficulty Difficulty as an integer (default=1)
+     * @return True if the operation was successful, or false otherwise.
+     */
+    public function saveScore($username, $score, $difficulty=1)
+    {
+        $userid = $this->getUserId($username);
+        if ($userid != null) {
+            $res = pg_query_params(
+                $this->conn,
+                "INSERT INTO score(accountid, difficulty, score, added) VALUES ($1, $2, $3, NOW())",
+                array($userid, $difficulty, $score));
+            return $res != false;
+        }
+        return false;
+    }
+   
+    
+    /**
+     * Get a user's highscore for the given difficulty.
+     *
+     * @param $username Username of the scoring user.
+     * @param $difficulty Difficulty as an integer (default=null), or null for all difficulties.
+     * @return Result array if successful, or null otherwise.
+     */
+    public function getUserHighScore($username, $difficulty=null)
+    {
+        $userid = $this->GetUserId($username);
+        if ($userid != null) {
+            if (isset($difficulty)) {
+                $res = pg_query_params(
+                    $this->conn,
+                    "SELECT accountid, difficulty, MAX(score) AS highscore FROM score WHERE accountid = $1 AND difficulty = $2 GROUP BY accountid, difficulty",
+                    array($userid, $difficulty)
+                );
+            }
+            else {
+                $res = pg_query_params(
+                    $this->conn,
+                    "SELECT accountid, difficulty, MAX(score) AS highscore FROM score WHERE accountid = $1 GROUP BY accountid, difficulty",
+                    array($userid)
+                );
+            }
+            if (isset($res) && !is_bool($res)) {
+                $rv = array();
+                do {
+                    $row = pg_fetch_array($res);
+                    if ($row !== false) {
+                        $rv[] = $row;
+                    }
+                } while ($row !== false);
+                return $rv;
+            }
+        }
+        return null;
+    }
+    
+    /**
+     * Gets the best scores and the users who achieved them.
+     *
+     * @param $difficulty Difficulty to get scores for (default=10)
+     * @param $num Number of highscores to get (default=10)
+     * @return Array of $user => $key pairs.
+     */
+    public function getHallOfFame($difficulty=1, $num=10)
+    {
+        $sql = <<<SQL
+SELECT acc.username, hs.highscore 
+    FROM
+        (SELECT accountid, MAX(score) AS highscore FROM score WHERE difficulty = $1 GROUP BY accountid) AS hs
+        INNER JOIN account AS acc
+            ON acc.id = hs.accountid
+ORDER BY highscore DESC
+LIMIT $2
+SQL;
+        $res = pg_query_params(
+            $this->conn,
+            $sql,
+            array($difficulty, $num)
+        );
+        $rv = array();
+        if (!is_bool($res)) {
+            do {
+                $row = pg_fetch_array($res);
+                if ($row !== false) {
+                    $rv[] = $row;
+                }
+            } while ($row !== false);
+        }
+        return $rv;        
+    }
+    
+    /**
      * Map a username to a userid.
      *
      * @param $username

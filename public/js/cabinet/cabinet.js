@@ -1,6 +1,7 @@
 var mboRowsPerScreen = 3;
 var mboColumnsPerScreen = 3;
 var mboChosenBox = null;
+var mboBoxes = [];
 
 var MedicineBoxObject = function()
 {
@@ -44,6 +45,7 @@ var MedicineBoxObject = function()
 		mboChosenBox = this;
 		Engine.setDrawContext(Context.map["gameMedicineCabinetExamine"]);
 	}
+	
 }
 
 MedicineBoxObject.prototype = new RealObject();
@@ -55,6 +57,7 @@ EngineInitializationFunctions.push(function ()
 		for (var j = 0; j < 3; j++)
 		{
 			var box = new MedicineBoxObject();
+			mboBoxes.push(box);
 			box.row = i;
 			box.column = j;
 			Engine.addObject(box);
@@ -77,12 +80,12 @@ EngineInitializationFunctions.push(function ()
 	*/
 	
 	var back = new RealObject;
-	back.size = new Vector2(128,128);
-	back.position = new Vector2(4,128);
+	back.size = new Vector2(64,64);
+	back.position = new Vector2(screenSize.x / 50, screenSize.y / 1.1);
 	back.image = Texture.map["backArrow"];
 	back.draw = function()
 	{
-		context.drawImage(this.image, this.position.x, this.position.y);
+		context.drawImage(this.image, this.position.x, this.position.y, this.size.x, this.size.y);
 	};
 	
 	back.drawContext += Context.map["gameMedicineCabinetContexts"];
@@ -113,7 +116,7 @@ EngineInitializationFunctions.push(function ()
 	var boxm = new GameObject;
 	boxm.depth = 450;
 	boxm.drawContext += Context.map["gameMedicineCabinetExamine"];
-	
+    boxm.drawContext += Context.map["gameCabinetRecipeShow"];
 	boxm.draw = function()
 	{
 		RenderLabel(new Vector2(screenSize.x/2-200, 10), mboChosenBox.label);

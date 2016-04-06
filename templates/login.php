@@ -19,8 +19,8 @@
 				<input class="w3-check" type="checkbox" id="remember_me" name="remember_me" value="true">
 				<label for="remember_me">Remember me</label><p>
 				<a href="http://medicutor.herokuapp.com/register.php">New user</a>
-				<input class="w3-input" type="submit" name="submit" value="Guest"><p>
-				<input class="w3-input" type="submit" name="submit" value="Login">
+				<input class="w3-input" type="submit" name="submit" value="Login"><p>
+				<input class="w3-input" type="submit" name="submit" value="Login as guest">
         </form>
         <?php foreach ($warnings as $warning): ?>
             <div class="warning"><?php echo $warning ?></div>

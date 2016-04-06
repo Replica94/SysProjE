@@ -10,6 +10,7 @@ class User
 {
     private $loggedIn = false;
     private $username = null;
+    private $guest = false;
     
     /** 
      * Attempts to login with username and password.
@@ -108,7 +109,53 @@ class User
             $this->loggedIn = true;
         }
     }
+    
+    /** 
+     * Save a score.
+     *
+     * @param $score Score to save
+     * @param $difficulty Difficulty as an integer (EASY=1, MEDIUM=2, ...)
+     * @return True if successful, or false otherwise.
+     */
+    public function saveScore($score, $difficulty=1)
+    {
+        if ($this->loggedIn && !$this->guest) {
+            $dao = new UserDAO();
+            return $dao->saveScore($this->username, $score, $difficulty);
+        }
+        return false;
+    }
 
+    /**
+     * Gets the user's highscore for the given difficulty, or all difficulties
+     * if no difficulty given.
+     *
+     * @param $difficulty Difficulty to get highscore for, or null for all difficulties.
+     * @return Highscore for the given difficulty, or an array with difficulty as 
+     *         the key and score as value for multiple difficulties. Returns 0 for
+     *         guests and those not logged in.
+     */
+    public function getHighScore($difficulty=null) {
+        if ($this->loggedIn && !$this->guest) {
+            $dao = new UserDAO();
+            $res = $dao->getUserHighScore($this->username, $difficulty);
+            if ($res === null) {
+                return 0;
+            }
+            if (is_array($res)) {
+                $ret = array();
+                foreach ($res as $key => $value) {
+                    $ret[$value["difficulty"]] = $value["highscore"];
+                }
+                return $ret;
+            }
+            else {
+                return $res;
+            }
+        }
+        return array();
+    }
+    
     /**
      * Check whether the user is a guest or not.
      *
@@ -117,5 +164,22 @@ class User
     public function isGuest() 
     {
         return $this->guest;
+    }
+    
+    /**
+     * Gets best scores and scores for a given difficulty.
+     *
+     * @param $difficulty Difficulty (default=1)
+     * @param $num Number of highest scores to get
+     * @return Array with highscores (each row is of format: $user => $score), ordered from highest to lowest
+     */
+    public static function getHallOfFame($difficulty=1, $num=10)
+    {
+        $dao = new UserDAO();
+        $rv = array();
+        foreach ($dao->getHallOfFame($difficulty, $num) as $key => $value) {
+            $rv[] = array("highscore" => $value["highscore"], "username" => $value["username"]);
+        }
+        return $rv;
     }
 }

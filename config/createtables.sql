@@ -27,3 +27,20 @@ CREATE TABLE auth_token
 WITH (
   OIDS=FALSE
 );
+
+DROP TABLE IF EXISTS score;
+CREATE TABLE score
+(
+  id serial NOT NULL,
+  accountid serial NOT NULL,
+  difficulty integer NOT NULL,
+  score integer NOT NULL,
+  added timestamp without time zone NOT NULL,
+  CONSTRAINT score_pkey PRIMARY KEY (id),
+  CONSTRAINT score_account_fkey FOREIGN KEY (accountid)
+      REFERENCES account (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+)
+WITH (
+  OIDS=FALSE
+);

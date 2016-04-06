@@ -28,16 +28,35 @@ function requireSSL()
 /**
  * Enforces that the user isn't logged in. If the user is logged in,
  * redirect them to the given address and exit. MUST be called before any
- * output has been sent to the client, otherwise the function does nothing.
+ * output has been sent to the client, otherwise the function doesn't send headers.
  *
- * @param $redirect The address to redirect to (default index.php)
+ * @param $redirect The address to redirect to (default index.php), or null for no redirect.
  */
 function requireNotLoggedIn($redirect = 'index.php') 
 {
     if (isLoggedIn() && !headers_sent()) {
-        header("Location: {$redirect}");
+        if (!headers_sent() && isset($redirect)) {
+            header("Location: {$redirect}");
+        }
         exit();
     }   
+}
+
+/**
+ * Enforces that the user is logged in. If the user isn't logged in,
+ * redirect them to the given address and exit. MUST be called before any
+ * output has been sent to the client, otherwise the function doesn't send headers.
+ *
+ * @param $redirect The address to redirect to (default login.php), or null for no redirect.
+ */
+function requireLoggedIn($redirect = 'login.php')
+{
+    if (!isLoggedIn()) {
+        if (isset($redirect) && !headers_sent()) {
+            header("Location: {$redirect}");
+        }
+        exit();
+    }
 }
 
 /**

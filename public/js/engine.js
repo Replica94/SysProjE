@@ -66,6 +66,7 @@ var Engine =
 			Engine.currentUpdateContext = Context.updateContext.game;
 	},
 	
+	
 	/**
 		Engine updating routine.
 		
@@ -138,15 +139,39 @@ var Engine =
 		}
 	},
 	
+	remoteDoom : function() 
+	{
+		for (var i = Engine.objects.length - 1; i >= 0; i--)
+		{
+			var obj = Engine.objects[i];
+			if (obj.isDoomed)
+				Engine.objects.splice(i, 1); 		
+		}
+	},
+	
 	init: function ()
 	{
 		_EngineInit(Engine);
 	},
+	thingBreakingTime: 0,
+	gameEnd: false,
 	
 	draw: function (context) 
 	{
+		if (Engine.gameEnd)
+			this.thingBreakingTime += 0.20;
+		
 		for (var i = 0; i <  Engine.objects.length; i++)
 		{
+			if (Engine.gameEnd)
+			{
+				context.save();
+				context.translate(screenSize.x/2,screenSize.y/2);
+				context.scale(1/(1+this.thingBreakingTime*0.3),1/(1+this.thingBreakingTime*0.3));
+				var thingyBreaker = this.thingBreakingTime*(400+i)/1200;
+				context.rotate(thingyBreaker);
+				context.translate(-screenSize.x/2,-screenSize.y/2);
+			}
 			var obj = Engine.objects[i];
 			try
 			{
@@ -172,7 +197,33 @@ var Engine =
 				console.log(obj);
 				console.log(err);
 			}
+			if (Engine.gameEnd)
+			{
+				context.restore();
+			}
 			
+		}
+		if (Engine.gameEnd)
+		{
+			context.fillStyle= "#"+Math.floor(96-Math.cos(this.thingBreakingTime/40)*96).toString(16)+"0000";
+			context.globalAlpha=0.02;
+			context.fillRect(0,0,screenSize.x,screenSize.y);
+			context.globalAlpha=1;
+			
+			context.save();
+			context.translate(screenSize.x/2,screenSize.y/2);
+			context.scale(this.thingBreakingTime/10,this.thingBreakingTime/10);
+			context.font = "24px Arial";
+			context.fillStyle = "#000000";
+			var width = context.measureText("GAME OVER").width;
+			context.strokeStyle = "#FFFFFF";
+			
+			context.strokeText("GAME OVER",-width/2,0);
+
+			context.fillText("GAME OVER",-width/2,0);
+			
+			context.translate(-screenSize.x/2,-screenSize.y/2);
+			context.restore();
 		}
 	}
 }

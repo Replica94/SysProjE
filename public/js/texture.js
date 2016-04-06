@@ -14,6 +14,7 @@ var Texture = {
 		Texture.addTexture("background","assets/img/background.png");
 		Texture.addTexture("cabinet","assets/img/cabinet.png");
 		Texture.addTexture("backArrow","assets/img/back.png");
+		Texture.addTexture("cabinetArrow","assets/img/da_arrow.png");
         Texture.addTexture("plant","assets/img/cigarplant.png");
 		
 		Texture.addTexture("medicine1","assets/img/container-blank.png");

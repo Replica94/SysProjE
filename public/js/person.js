@@ -6,9 +6,9 @@ var Persons = {
     personids : 0,
 	//last persons arrive time
 	lpersonarrtime : 0,
-	hatscount : 17,
+	hatscount : 18,
 	facescount : 16,
-	bodiescount : 7,
+	bodiescount : 10,
 	allPersons : [],
     leavingPersons : [],
     Hats : [],
@@ -32,6 +32,7 @@ var Persons = {
             {
                 this.leavingPersons.push(this.allPersons[i]);
                 this.allPersons.splice(i,1);
+                PrepareForNextCustomer();
                 for(var j = 0; j < this.allPersons.length; j++)
                 {
                     this.allPersons[j].positionInQueue--;
@@ -119,11 +120,20 @@ var Persons = {
 	
 	addPersonToLine : function()
 	{
-		
 		var p = new Person();
 		this.allPersons.push(p);
 		Engine.addObject(p);
 		this.lpersonarrtime = Date.now();
+	},
+	
+	resetPersons : function()
+	{
+		for(var i = 0; i < this.allPersons.length; i++)
+		{
+			this.allPersons[i].isDoomed = true;
+		}
+		Engine.remoteDoom();
+		this.allPersons = [];
 	},
 	
 	renderAllPersons : function() 
@@ -197,6 +207,7 @@ function Person()
 			
         if(this.isServed)
         {
+			
             //Speechbubble when the person is served
             this.maxtimebubble = 2000;
             if(Date.now() - this.wasServedAt < this.maxtimebubble)

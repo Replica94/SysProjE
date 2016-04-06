@@ -11,6 +11,11 @@ var GameLogic =
             case Context.map["gameMedicineCabinetExamine"]:
             case Context.map["gameMedicineCabinet"]:
             case Context.map["recipeDesk"]:
+            case Context.map["gameCalculationScreen"]:
+                if(Time.getSecondsSinceStart() > 10)
+                {
+
+                }
 				MyAudio.loopMusic();
                 Persons.update();
 				break;
@@ -22,9 +27,48 @@ var GameLogic =
 		}
 	},
     
+    startRound : function()
+    {
+        Score.roundStartTime = Date.now();
+    },
+    
     resetGame : function()
     {
-        
+        Score.resetScore();
+		Persons.resetPersons();
+		Time.reset(); 
+    },
+    
+    gameover : function()
+    {
+		Engine.gameEnd = true;
     }
+
+}
+
+var Difficulty =
+{
+	gameDifficultyString : "Easy",
+	gameDifficulty : 1,
 	
+	changeDifficulty : function()
+	{
+		if(this.gameDifficulty < 3)
+			this.gameDifficulty++
+		else
+			this.gameDifficulty = 1;
+		switch(this.gameDifficulty)
+		{
+			case 1:
+			this.gameDifficultyString = "Easy";
+			break;
+			case 2:
+			this.gameDifficultyString = "Medium";
+			break;
+			case 3:
+			this.gameDifficultyString = "Hard";
+			break;
+			
+		}
+	}
 }
