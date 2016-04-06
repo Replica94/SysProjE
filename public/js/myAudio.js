@@ -3,28 +3,35 @@ var MyAudio =
     soundEffects : [],
     music : [],
     currentMusicId : 0,
+    currentMusic : 0,
 	paused : true,
     playing : false,
     loadMusic : function()
     {
         this.music.push(new Audio("assets/sounds/music.mp3"));
+        this.currentMusic = this.music[0];
     },
     
     loopMusic : function()
     {
-		
-		if(!this.playing && !this.paused)
+		if(!this.paused)
 		{
-			this.music[this.currentMusicId].play();
-			this.music[this.currentMusicId].loop = true;
+			this.currentMusic.play();
 		}
-		if(this.music[this.currentMusicId].ended){
-			this.playing = false;
+		else if(this.currentMusic.ended){
+			this.paused = true;
 		}
-		if(this.paused)
+		else if(this.paused)
 		{
-			this.music[this.currentMusicId].pause();
+			this.currentMusic.pause();
 		}
+    },
+    
+    changeMusic : function(id)
+    {
+        this.currentMusic.pause();
+        this.currentMusic = this.music[id];
+        this.currentMusic.play();
     }
     
 }
