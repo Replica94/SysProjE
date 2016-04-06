@@ -171,12 +171,6 @@ EngineInitializationFunctions.push(function ()
                 Persons.allPersons[0].setIsServed();
                 Score.updateScore();
                 Score.newRound();
-                var values = new Array();
-                values.push(currentCalculation.choices[0]);
-                values.push(currentCalculation.choices[1]);
-                values.push(currentCalculation.choices[2]);
-                values.push(currentCalculation.choices[3]);
-                RadioButtons.changeButtonValues(values);
             }
             else 
             {

@@ -91,10 +91,15 @@ var Drugs =
 						for (var i2 = 1; i2 < spl.length; i2++)
 							Drugs.drugs[i]["unit"] += spl[i2];
 						
-						var dailyDoseInStrengthUnits = ConvertUnits(Drugs.drugs[i]["unit"],Drugs.drugs[i]["dailydoseunit"],Drugs.drugs[i]["dailydose"])
-						Drugs.drugs[i].dailyDoseInStrengthUnits = dailyDoseInStrengthUnits;
-						console.log(Drugs.drugs[i]["strength"] +" ("+Drugs.drugs[i]["dailydoseunit"]+","+Drugs.drugs[i]["dailydose"]+")"+dailyDoseInStrengthUnits+" "+Drugs.drugs[i]["unit"] +":    ");
-						console.log(Drugs.drugs[i]);
+						if (Drugs.drugs[i]["dailydose"].length == 0)
+							Drugs.drugs[i].dailyDoseInStrengthUnits = 0;
+						else
+						{
+							var dailyDoseInStrengthUnits = ConvertUnits(Drugs.drugs[i]["unit"],Drugs.drugs[i]["dailydoseunit"],Drugs.drugs[i]["dailydose"])
+							Drugs.drugs[i].dailyDoseInStrengthUnits = dailyDoseInStrengthUnits;
+						}
+					//	console.log(Drugs.drugs[i]["strength"] +" ("+Drugs.drugs[i]["dailydoseunit"]+","+Drugs.drugs[i]["dailydose"]+")"+dailyDoseInStrengthUnits+" "+Drugs.drugs[i]["unit"] +":    ");
+					//	console.log(Drugs.drugs[i]);
 						
 						
 					}
@@ -146,7 +151,7 @@ function GetCalculation()
 	if (strengthMax < 1)
 		strengthMax = 2;
 	
-	console.log(strengthMax);
+	//console.log(strengthMax);
 	var interval = strengthMax*2/40;
 	var mgCount = ak.drug["strengthNum"]; 
 	var bunchOfRandomNumbers = [];
@@ -211,4 +216,11 @@ function PrepareForNextCustomer()
         mboBoxes[asd].drug = tdrug;
 		i++;
 	}
+	
+	var values = new Array();
+	values.push(currentCalculation.choices[0]);
+	values.push(currentCalculation.choices[1]);
+	values.push(currentCalculation.choices[2]);
+	values.push(currentCalculation.choices[3]);
+	RadioButtons.changeButtonValues(values);
 }
