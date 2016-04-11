@@ -17,7 +17,7 @@ var Texture = {
 		Texture.addTexture("cabinetArrow","assets/img/da_arrow.png");
         Texture.addTexture("plant","assets/img/cigarplant.png");
         Texture.addTexture("computer","assets/img/computer.png");
-		
+		Texture.addTexture("presc","assets/img/prescription_table.png");
 		Texture.addTexture("medicine1","assets/img/container-blank.png");
 		Texture.addTexture("medicine2","assets/img/container-blue.png");
         Texture.addTexture("medicine3","assets/img/container-green.png");
