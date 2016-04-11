@@ -10,7 +10,7 @@ var Persons = {
 	facescount : 16,
 	bodiescount : 10,
 	allPersons : [],
-    nextpersontime : 20000,
+    nextpersontime : 25000,
     leavingPersons : [],
     Hats : [],
     Hats2 : [],
