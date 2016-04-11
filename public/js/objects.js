@@ -76,6 +76,7 @@ EngineInitializationFunctions.push(function ()
     pause.size.x = 30;
     pause.size.y = 45;
 	pause.depth = 1000;
+    pause.drawContext = Context.map["gstates"];
 	pause.onClick = function()
 	{
 		MyAudio.paused = !MyAudio.paused;
