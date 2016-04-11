@@ -210,13 +210,26 @@ EngineInitializationFunctions.push(function ()
 	user.drawContext += mainMenuContext;
 	user.inputContext += mainMenuContext;
     
-    username.update = function()
+    user.update = function()
     {
         
     }
+    
+    user.draw = function()
+	{
+		context.font = user.font;
+		
+        context.fillStyle = "#FFFFFF";
+		
+		//And print our text
+		context.fillText(user.text,user.position.x+6,user.position.y+32);
+		
+		//Change color to black
+		context.fillStyle = "#000000";
+	}
         
 	//Override the onClick, like all the good buttons do
-	username.onClick = function()
+	user.onClick = function()
 	{
 
 	};
