@@ -28,6 +28,7 @@ var MenuButtonObject = function()
 		//Change color to black
 		context.fillStyle = "#000000";
 	}
+    
 	
 	this.onClick = function()
 	{
@@ -62,7 +63,14 @@ EngineInitializationFunctions.push(function ()
 	//Set the target draw & input context
 	NewGame.drawContext += mainMenuContext;
 	NewGame.inputContext += mainMenuContext;
-	
+    
+    NewGame.update = function()
+    {
+        NewGame.position.x = screenSize.x / 4;
+        NewGame.position.y = screenSize.y / 3;
+        NewGame.updateRealObject();
+    }
+        
 	//Override the onClick, like all the good buttons do
 	NewGame.onClick = function()
 	{
@@ -87,6 +95,14 @@ EngineInitializationFunctions.push(function ()
 	//Set the target draw & input context
 	difficultyButton.drawContext += mainMenuContext;
 	difficultyButton.inputContext += mainMenuContext;
+    
+        
+    difficultyButton.update = function()
+    {
+	   difficultyButton.position.x = screenSize.x / 4;
+	   difficultyButton.position.y = NewGame.position.y + 100;
+        difficultyButton.updateRealObject();
+    }
 	
 	//Override the onClick, like all the good buttons do
 	difficultyButton.onClick = function()
@@ -138,6 +154,13 @@ EngineInitializationFunctions.push(function ()
 	//Set the target draw & input context
 	logout.drawContext += mainMenuContext;
 	logout.inputContext += mainMenuContext;
+    
+    logout.update = function()
+    {
+        logout.position.x = screenSize.x / 4;
+        logout.position.y = difficultyButton.position.y + 100;
+        logout.updateRealObject();
+    }
 	
 	logout.onClick = function()
 	{
@@ -158,6 +181,13 @@ EngineInitializationFunctions.push(function ()
 	
 	gotoscore.drawContext += mainMenuContext;
 	gotoscore.inputContext += mainMenuContext;
+    
+    gotoscore.update = function()
+    {
+        gotoscore.position.x = screenSize.x / 4;
+        gotoscore.position.y = logout.position.y + 100;
+        gotoscore.updateRealObject();
+    }
 	
 	gotoscore.onClick = function()
 	{

@@ -10,7 +10,7 @@ var Persons = {
 	facescount : 16,
 	bodiescount : 10,
 	allPersons : [],
-    nextpersontime : 30000,
+    nextpersontime : 20000,
     leavingPersons : [],
     Hats : [],
     Hats2 : [],
@@ -25,7 +25,10 @@ var Persons = {
 	{
 		if(Date.now() - this.lpersonarrtime > this.nextpersontime && this.allPersons.length < 10 || this.allPersons.length < 1){
 			this.addPersonToLine();
-            this.nextpersontime *= 0.95;
+            if(this.allPersons.length < 6)
+                this.nextpersontime *= 0.95;
+            else
+                this.nextpersontime *= 0.93;
 		}
         
         if(this.allPersons.length >= 10)

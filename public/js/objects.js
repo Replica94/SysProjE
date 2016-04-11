@@ -92,10 +92,28 @@ EngineInitializationFunctions.push(function ()
 	//timer 
 	var timerr = new Timer();
 	timerr.depth = 1000;
+    timerr.update = function()
+    {
+        timerr.position.x = screenSize.x - 150;
+        timerr.position.y = 20;
+        timerr.position.x -= timerr.size.x - timerr.oldwidth;
+		timerr.currenttime = Time.getSecondsSinceStart();
+		timerr.setText(this.currenttime);
+
+	}
 	Engine.addObject(timerr);
+    
     //scores
     var scores = new ScoreShow();
+    scores.update = function()
+    {
+        scores.position.x = screenSize.x - 150;
+        scores.position.y = 80;
+		scores.setText(Score.currentScore);
+	}
 	scores.depth = 1000;
+    
+    
     Engine.addObject(scores);
     
     //the flower
@@ -171,7 +189,7 @@ EngineInitializationFunctions.push(function ()
 	{
         if(mboChosenBox != null){
             Engine.setDrawContext(7);
-            alert(currentCalculation.choices[currentCalculation.correctAnswer]);
+            //alert(currentCalculation.choices[currentCalculation.correctAnswer]);
         }
          
 	};

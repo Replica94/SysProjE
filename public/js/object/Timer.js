@@ -3,13 +3,14 @@ function Timer()
 	this.position = new Vector2(32,128);
 	
 	this.checkForInput = false;
-	this.position.x = screenSize.x - 58;																																																																			
+	this.position.x = screenSize.x - 150;																																																																			
 	this.position.y = 20;
 	this.font = "36px Arial";
 	this.text = "0";
 	this.size = new Vector2(context.measureText(this.text).width+25, 48);
 	this.updateContext += Context.updateContext.game;
 	this.currenttime = 0;
+    this.oldwidth = 0;
 	this.roundInitTime = 0;
 	
 	this.setText = function(text)
@@ -19,12 +20,16 @@ function Timer()
 		
 		//context.measureText(text) gets the approximate
 		//width of the button text
-		var oldwidth = this.size.x;
+		
 		var width = context.measureText(text).width;
 		
 		//Our button size will be that width plus some extra
 		this.size.x = width+15;
-		this.position.x -= this.size.x - oldwidth;
+        if(this.size.x != this.oldwidth)
+        {
+            this.oldwidth = this.size.x;
+        }
+		this.position.x -= this.size.x - this.oldwidth;
 		
 		//Nice hardcoded height
 		
