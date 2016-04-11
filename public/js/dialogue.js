@@ -63,7 +63,7 @@ var Dialogue =
 			"negative" in this.dialogue["dialogue"] &&
 			this.dialogue["dialogue"]["negative"].length > 0)
 			{
-				return this.dialogue["dialogue"]["negative"][GetRandomBetween(0,this.dialogue["dialogue"]["negative"].length)]["complant"];
+				return this.dialogue["dialogue"]["negative"][GetRandomBetween(0,this.dialogue["dialogue"]["negative"].length)]["complaint"];
 			}
 		else
 			return "...";

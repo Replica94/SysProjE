@@ -193,6 +193,8 @@ function Person()
         this.isServed = true;
         this.wasServedAt = Date.now();
     }
+	
+	this.state = 0;
     
     this.update = function()
     {	
@@ -201,7 +203,7 @@ function Person()
         this.a += 0.10 * Time.delta;
         var sini = Math.abs(Math.sin(this.a));
         if(this.position.x >= this.targetpos.x){
-            this.position = new Vector2(this.position.x - 1 * Time.delta, -100 + 30 * sini);
+            this.position = new Vector2(this.position.x - 2 * Time.delta, -100 + 30 * sini);
 		if(this.moving)
 		{
             this.kasvaako = Math.sin(this.a * 2) > 0;
@@ -212,12 +214,33 @@ function Person()
             if(this.position.x <= this.targetpos.x && this.hatoffset.y >= this.hatoffsety -5){
                 this.moving = false;
             }
-
         }
+		else
+		{
+			if (this.state == 0)
+			{
+				this.state +=1;
+				this.speechBubble.display = true;
+			}
+		}
+		if (Math.random() > 0.9998)
+		{
+			this.speechBubble.setText(Dialogue.getRandomComment());
+			this.speechBubble.display = true;
+			
+		}
 			
         if(this.isServed)
         {
-			
+			if (this.state < 2)
+			{
+				this.state = 2;
+				this.speechBubble.display = true;
+				if ((Persons.allPersons.length >= 5) && (Math.random() > 0.7))
+					this.speechBubble.setText(Dialogue.getRandomComplaint());
+				else
+					this.speechBubble.setText(Dialogue.getRandomPraise());
+			}
             //Speechbubble when the person is served
             this.maxtimebubble = 2000;
             if(Date.now() - this.wasServedAt < this.maxtimebubble)
@@ -239,7 +262,6 @@ function Person()
 		
 		this.speechBubble.position = this.position.copy();
 		this.speechBubble.position.x += 90;
-		this.speechBubble.visible = true;
         
     }
 	this.hat = Persons.getRandomHat();
@@ -260,9 +282,10 @@ function Person()
 	this.speechBubble = new SpeechBubbleObject(this);
 	this.speechBubble.drawContext = this.drawContext;
 	this.speechBubble.drawOffset = this.drawOffset;
-	this.speechBubble.display = false;
-    this.speechBubble.setText(Dialogue.getRandomPraise());
+	this.speechBubble.visible = true;
 	Engine.addObject(this.speechBubble);
+    //this.speechBubble.setText(Dialogue.getRandomPraise());
+	this.speechBubble.setText(Dialogue.getRandomGreeting());
 };
 
 Person.prototype = new GameObject();
