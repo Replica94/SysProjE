@@ -27,6 +27,14 @@
         <?php foreach ($warnings as $warning): ?>
             <div class="warning"><?php echo $warning ?></div>
         <?php endforeach; ?>
+        <script type="text/javascript">
+            window.doorbellOptions = {
+                appKey: 'Lk9qZQ2nhfU228PzX36FIRAblIEJfVhwWRkjYsb9s7g0KpzLAn7ozTrdOt3iea6X'
+            };
+            (function(d, t) {
+                var g = d.createElement(t);g.id = 'doorbellScript';g.type = 'text/javascript';g.async = true;g.src = 'https://embed.doorbell.io/button/3234?t='+(new Date().getTime());(d.getElementsByTagName('head')[0]||d.getElementsByTagName('body')[0]).appendChild(g);
+            }(document, 'script'));
+        </script>
     </section>
 	</body>
 </html>
