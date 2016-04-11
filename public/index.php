@@ -1,6 +1,7 @@
 <?php
 require_once(__DIR__ . "/../lib/util.functions.php");
 requireLoggedIn();
+$username = getUser()->getUsername();
 ?>
 
 <html>
@@ -27,6 +28,10 @@ requireLoggedIn();
 
 <body style="margin: 0px;">
 	<canvas id="gCanvas" width="480" height="600"></canvas>
+    
+    <script>
+        var username = '<?php echo $username; ?>';
+    </script>
 	
 	<script src="js/util.js"></script>
 	<script src="js/vector.js"></script>
@@ -61,7 +66,7 @@ requireLoggedIn();
 	<script src="js/canvas.js"></script>
     <script src="js/score.js"></script>
 	<script src="js/object/Timer.js"></script>
-	<!-- doorbell code 
+
 	<script type="text/javascript">
     window.doorbellOptions = {
         appKey: 'Lk9qZQ2nhfU228PzX36FIRAblIEJfVhwWRkjYsb9s7g0KpzLAn7ozTrdOt3iea6X'
@@ -69,7 +74,7 @@ requireLoggedIn();
     (function(d, t) {
         var g = d.createElement(t);g.id = 'doorbellScript';g.type = 'text/javascript';g.async = true;g.src = 'https://embed.doorbell.io/button/3234?t='+(new Date().getTime());(d.getElementsByTagName('head')[0]||d.getElementsByTagName('body')[0]).appendChild(g);
     }(document, 'script'));
-</script>-->
+</script>
 </body>
 </html>
 

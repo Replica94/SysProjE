@@ -16,7 +16,6 @@ var GameLogic =
                 Persons.update();
 				break;
             case Context.map["recipeDesk"]:
-                
                 break;
 			case Context.map["mainMenu"]:
 				break;
@@ -35,12 +34,10 @@ var GameLogic =
 		Time.reset(); 
     },
     
-    gameover : function()
+    gameover : function(id)
     {
+        Engine.gameEndReason = id;
 		Engine.gameEnd = true;
-		
-		
-		
 		var ajx = "http://medicutor.herokuapp.com/api/newscore.php?score="+Score.currentScore;	
 		var get = new XMLHttpRequest();
 		get.open("GET",ajx,true);
