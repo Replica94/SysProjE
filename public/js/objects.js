@@ -4,8 +4,9 @@ EngineInitializationFunctions.push(function ()
 	recipebutton.position.x = 0;
 	recipebutton.position.y = 132;
 	recipebutton.depth = 400;
+    recipebutton.size.x = 100;
+    recipebutton.size.y = 40;
 	recipebutton.drawOffset = Context.drawOffset["behindDesk"];
-	recipebutton.setText("Prescription");
 	recipebutton.update = function()
 	{
 		this.updateRealObject();
@@ -20,6 +21,12 @@ EngineInitializationFunctions.push(function ()
 	{
         Engine.setDrawContext(Context.map["recipeDesk"]);
 	};
+    
+    recipebutton.draw = function()
+	{
+        context.drawImage(Texture.map["presc"], this.position.x, this.position.y, this.size.x, this.size.y);
+	};
+    
     recipebutton.inputContext += Context.map["gameScreenDesk"];
     recipebutton.drawContext += Context.map["gameScreenDesk"];
 	Engine.addObject(recipebutton);
