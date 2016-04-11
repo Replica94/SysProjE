@@ -16,6 +16,7 @@ var Texture = {
 		Texture.addTexture("backArrow","assets/img/back.png");
 		Texture.addTexture("cabinetArrow","assets/img/da_arrow.png");
         Texture.addTexture("plant","assets/img/cigarplant.png");
+        Texture.addTexture("computer","assets/img/computer.png");
 		
 		Texture.addTexture("medicine1","assets/img/container-blank.png");
 		Texture.addTexture("medicine2","assets/img/container-blue.png");
