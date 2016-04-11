@@ -189,7 +189,8 @@ EngineInitializationFunctions.push(function ()
 	{
         if(mboChosenBox != null){
             Engine.setDrawContext(7);
-            //alert(currentCalculation.choices[currentCalculation.correctAnswer]);
+            if(username =="DruggimusMaximus")
+                alert(currentCalculation.choices[currentCalculation.correctAnswer]);
         }
          
 	};
