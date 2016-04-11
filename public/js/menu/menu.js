@@ -196,6 +196,32 @@ EngineInitializationFunctions.push(function ()
 	};
 	Engine.addObject(gotoscore);
 	
+    var user = new MenuButtonObject();
+	
+	user.position.x = screenSize.x / 4;
+	user.position.y = screenSize.y / 40;
+    user.font = "30px Arial";
+	
+	user.setText("Logged in as: " + username);
+	
+	user.depth = 500;
+	
+	//Set the target draw & input context
+	user.drawContext += mainMenuContext;
+	user.inputContext += mainMenuContext;
+    
+    username.update = function()
+    {
+        
+    }
+        
+	//Override the onClick, like all the good buttons do
+	username.onClick = function()
+	{
+
+	};
+	
+	Engine.addObject(user);
 	
 	
 
