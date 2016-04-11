@@ -223,7 +223,7 @@ function Person()
 				this.speechBubble.display = true;
 			}
 		}
-		if (Math.random() > 0.9998)
+		if (Math.random() > 0.99995)
 		{
 			this.speechBubble.setText(Dialogue.getRandomComment());
 			this.speechBubble.display = true;

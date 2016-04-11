@@ -22,7 +22,7 @@ function SpeechBubbleObject(masta)
 		this.size.y = 96;
 		
 		this.text = text;
-		this.displayTimeLimit = text.length+60;
+		this.displayTimeLimit = (text.length+60)*2;
 	}
 	
 	this.draw = function()
