@@ -122,8 +122,16 @@ EngineInitializationFunctions.push(function ()
     computerDrawObject.size.y = 170*1.3;
     computerDrawObject.drawOffset = Context.drawOffset["behindDesk"];
     //recipeDrawObject.depth = 200;
+	computerDrawObject.checkForInput = true;
     computerDrawObject.drawContext += Context.map["menuanddesk"];
-
+	computerDrawObject.inputContext += Context.map["menuanddesk"];
+	computerDrawObject.onClick = function()
+	{
+		var ad = new Audio("assets/sounds/computer.ogg");
+		ad.playbackRate = Math.random()*1.0+0.5;
+		ad.play();
+	}
+	
     computerDrawObject.draw = function()
     {
         context.drawImage(Texture.map["computer"], this.position.x, this.position.y, this.size.x, this.size.y);
