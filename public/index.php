@@ -1,6 +1,7 @@
 <?php
 require_once(__DIR__ . "/../lib/util.functions.php");
 requireLoggedIn();
+$username = getUser()->getUsername();
 ?>
 
 <html>
@@ -27,6 +28,10 @@ requireLoggedIn();
 
 <body style="margin: 0px;">
 	<canvas id="gCanvas" width="480" height="600"></canvas>
+    
+    <script>
+        var username = '<?php echo $username; ?>';
+    </script>
 	
 	<script src="js/util.js"></script>
 	<script src="js/vector.js"></script>
