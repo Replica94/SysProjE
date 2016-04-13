@@ -24,7 +24,10 @@ EngineInitializationFunctions.push(function ()
     
     recipebutton.draw = function()
 	{
-        context.drawImage(Texture.map["presc"], this.position.x, this.position.y, this.size.x, this.size.y);
+		if (this.mouseHover)
+			context.drawImage(Texture.map["presc"], this.position.x-10, this.position.y-10, this.size.x+20, this.size.y+20);
+		else
+			context.drawImage(Texture.map["presc"], this.position.x, this.position.y, this.size.x, this.size.y);
 	};
     
     recipebutton.inputContext += Context.map["gameScreenDesk"];

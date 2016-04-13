@@ -71,19 +71,22 @@ function _EngineInit(eng)
 	eng.addObject(sky);
 	
 	var tocabinet = new RealObject;
-	tocabinet.size = new Vector2(250,100);
+	tocabinet.size = new Vector2(450,200);
 	tocabinet.position = new Vector2(4,4);
 	tocabinet.image = Texture.map["cabinetArrow"];
 	tocabinet.draw = function()
 	{
-		context.drawImage(this.image, this.position.x, this.position.y, this.size.x, this.size.y);
+		if (this.mouseHover)
+			context.drawImage(this.image, this.position.x, this.position.y-(Math.sin(Time.now/177)*24), this.size.x*(1.25+Math.sin(Time.now/100)*0.25), this.size.y);
+		else
+			context.drawImage(this.image, this.position.x, this.position.y, this.size.x, this.size.y);
 	};
 	
 	tocabinet.update = function()
 	{
 		this.updateRealObject();
 		tocabinet.position = new Vector2(0,screenSize.y-this.size.y);
-		
+	
 	};
 	tocabinet.drawContext += Context.map["gameDeskContexts"];
 	tocabinet.inputContext += Context.map["gameDeskContexts"];

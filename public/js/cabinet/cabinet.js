@@ -44,7 +44,10 @@ var MedicineBoxObject = function()
 	
 	this.draw = function()
 	{
-		context.drawImage(this.image,this.position.x,this.position.y,this.size.x,this.size.y);
+		if (this.mouseHover)
+			context.drawImage(this.image,this.position.x-10,this.position.y-10,this.size.x+20,this.size.y+20);
+		else
+			context.drawImage(this.image,this.position.x,this.position.y,this.size.x,this.size.y);
 	}
 	
 	this.onClick = function()
