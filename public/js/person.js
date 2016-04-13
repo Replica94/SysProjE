@@ -1,3 +1,5 @@
+var isfirstperson = true;
+
 
 var Persons = {    
     hatids : 0,
@@ -219,8 +221,14 @@ function Person()
 		{
 			if (this.state == 0)
 			{
+                if(isfirstperson)
+                {
+                    this.speechBubble.setText("Here's my prescription, down there on the table, do you see it? Click it!");
+                    isfirstperson = false;
+                }
 				this.state +=1;
 				this.speechBubble.display = true;
+                
 			}
 		}
 		if (Math.random() > 0.99995)
