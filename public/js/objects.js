@@ -12,10 +12,10 @@ EngineInitializationFunctions.push(function ()
 		this.updateRealObject();
         if(Persons.showrecipe)
         {
-            recipebutton.visible = false;
+            recipebutton.visible = true;
         }
         else 
-            recipebutton.visible = true;
+            recipebutton.visible = false;
 	};
 	recipebutton.onClick = function()
 	{
@@ -149,6 +149,7 @@ EngineInitializationFunctions.push(function ()
     computerDrawObject.position.y = -25;
     computerDrawObject.size.x = 130*1.3;
     computerDrawObject.size.y = 170*1.3;
+    computerDrawObject.depth = -1;
     computerDrawObject.drawOffset = Context.drawOffset["behindDesk"];
     //recipeDrawObject.depth = 200;
 	computerDrawObject.checkForInput = true;

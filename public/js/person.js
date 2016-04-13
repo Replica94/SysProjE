@@ -12,7 +12,7 @@ var Persons = {
 	facescount : 16,
 	bodiescount : 10,
 	allPersons : [],
-    nextpersontime : 25000,
+    nextpersontime : 30000,
     leavingPersons : [],
     Hats : [],
     Hats2 : [],
@@ -22,15 +22,12 @@ var Persons = {
     Faces2 : [],
     //how many persons were eliminated last cycle
     personsServed : true,
-	
+	showrecipe : false,
 	update : function()
 	{
 		if(Date.now() - this.lpersonarrtime > this.nextpersontime && this.allPersons.length < 10 || this.allPersons.length < 1){
 			this.addPersonToLine();
-            if(this.allPersons.length < 6)
-                this.nextpersontime *= 0.95;
-            else
-                this.nextpersontime *= 0.93;
+            this.nextpersontime *= 0.95;
 		}
         
         if(this.allPersons.length >= 10)
@@ -50,6 +47,14 @@ var Persons = {
                     this.allPersons[j].positionInQueue--;
                 }
             }
+        }
+        if(this.allPersons[0].stoppedmoving)
+        {
+            this.showrecipe = true;
+        }
+        else
+        {
+            this.showrecipe = false;
         }
 	},
     
@@ -146,6 +151,8 @@ var Persons = {
 		}
 		Engine.remoteDoom();
 		this.allPersons = [];
+        this.nextpersontime = 30000;
+        isfirstperson = true;
 	},
 	
 	renderAllPersons : function() 
@@ -182,6 +189,7 @@ function Person()
     this.positionInQueue = Persons.allPersons.length;
 	this.targetpos = new Vector2(0 + this.positionInQueue * 100, -100);
 	this.moving = true;
+    this.stoppedmoving = false;
     this.a = 0;
     
     this.eliminate = false;
@@ -190,6 +198,7 @@ function Person()
     this.kasvaako = false;
     this.moveinline = false;
     this.wasServedAt = 0;
+    
     this.setIsServed = function()
     {
         this.isServed = true;
@@ -228,6 +237,7 @@ function Person()
                 }
 				this.state +=1;
 				this.speechBubble.display = true;
+                this.stoppedmoving = true;
                 
 			}
 		}
@@ -288,6 +298,7 @@ function Person()
 	}
 	this.greeting = Dialogue.getRandomGreeting();
 	this.speechBubble = new SpeechBubbleObject(this);
+    this.speechBubble.depth = -100;
 	this.speechBubble.drawContext = this.drawContext;
 	this.speechBubble.drawOffset = this.drawOffset;
 	this.speechBubble.visible = true;
