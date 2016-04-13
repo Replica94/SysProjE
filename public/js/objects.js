@@ -181,31 +181,6 @@ EngineInitializationFunctions.push(function ()
 	
 	Engine.addObject(darknessCalculations);
     
-    var confirmdrug = new ButtonObject();
-	confirmdrug.position.x = screenSize.x / 1.5;
-	confirmdrug.position.y = screenSize.y / 10;
-    
-    confirmdrug.font = "28px Arial";
-	confirmdrug.depth = 10000;
-	confirmdrug.setText("Confirm");
-    
-	confirmdrug.update = function()
-	{
-		this.updateRealObject();
-	};
-	confirmdrug.onClick = function()
-	{
-        if(mboChosenBox != null){
-            Engine.setDrawContext(7);
-            if(username =="DruggimusMaximus")
-                alert(currentCalculation.choices[currentCalculation.correctAnswer]);
-        }
-         
-	};
-    confirmdrug.inputContext += Context.map["gameMedicineCabinetContexts"];
-    confirmdrug.drawContext += Context.map["gameMedicineCabinetContexts"];
-	Engine.addObject(confirmdrug);
-    
         
     var confirmamount = new ButtonObject();
 	confirmamount.position.x = screenSize.x / 1.3;
