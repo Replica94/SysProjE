@@ -192,9 +192,33 @@ EngineInitializationFunctions.push(function ()
 	gotoscore.onClick = function()
 	{
 		window.open('highscore.php');
-		
 	};
 	Engine.addObject(gotoscore);
+	
+	var halp = new MenuButtonObject();
+	
+	halp.position.x = gotoscore.x / 4;
+	halp.position.y = gotoscore.position.y + 100;
+	
+	halp.setText("User guide");
+	
+	halp.depth = 500;
+	
+	halp.drawContext += mainMenuContext;
+	halp.inputContext += mainMenuContext;
+    
+    halp.update = function()
+    {
+        halp.position.x = screenSize.x / 4;
+        halp.position.y = gotoscore.position.y + 100;
+        halp.updateRealObject();
+    }
+	
+	halp.onClick = function()
+	{
+		window.open('https://github.com/Replica94/SysProjE/wiki/user-guide');
+	};
+	Engine.addObject(halp);
 	
     var user = new MenuButtonObject();
 	

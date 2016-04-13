@@ -2,6 +2,7 @@ var mboRowsPerScreen = 3;
 var mboColumnsPerScreen = 3;
 var mboChosenBox = null;
 var mboBoxes = [];
+var displaybox = null;
 
 var MedicineBoxObject = function()
 {
@@ -32,18 +33,31 @@ var MedicineBoxObject = function()
 		this.updateRealObject();
 		this.position.x = screenSize.x*(0.9*this.column/mboColumnsPerScreen +0.1);
 		this.position.y = screenSize.y*(0.7*this.row/mboColumnsPerScreen +0.3)-64;
+		if (this.mouseHover)
+		{
+			displaybox.timer = 2;
+			mboChosenBox = this;
+			displaybox.visible = true;
+		}
 		
 	}
 	
 	this.draw = function()
 	{
-		context.drawImage(this.image,this.position.x,this.position.y,this.size.x,this.size.y);
+		if (this.mouseHover)
+			context.drawImage(this.image,this.position.x-10,this.position.y-10,this.size.x+20,this.size.y+20);
+		else
+			context.drawImage(this.image,this.position.x,this.position.y,this.size.x,this.size.y);
 	}
 	
 	this.onClick = function()
 	{
 		mboChosenBox = this;
-		Engine.setDrawContext(Context.map["gameMedicineCabinetExamine"]);
+        Engine.setDrawContext(Context.map["gameCalculationScreen"]);
+		
+		if(username =="DruggimusMaximus")
+			alert(currentCalculation.choices[currentCalculation.correctAnswer]);
+	
 	}
 	
 }
@@ -62,7 +76,7 @@ EngineInitializationFunctions.push(function ()
 			box.column = j;
 			Engine.addObject(box);
 		}
-		/*
+	/*
 	var back = new GameObject;
 
 	back.depth = 40;
@@ -94,6 +108,7 @@ EngineInitializationFunctions.push(function ()
 	back.onClick = function()
 	{
 		Engine.setDrawContext(Context.map["gameScreenDesk"]);
+		
 	};
 	Engine.addObject(back);
 	
@@ -115,13 +130,21 @@ EngineInitializationFunctions.push(function ()
 	
 	var boxm = new GameObject;
 	boxm.depth = 450;
-	boxm.drawContext += Context.map["gameMedicineCabinetExamine"];
+	boxm.visible = false;
+	boxm.drawContext += Context.map["gameMedicineCabinetContexts"];
     boxm.drawContext += Context.map["gameCabinetRecipeShow"];
+	boxm.timer = 0;
+	boxm.update = function()
+	{
+		boxm.timer -= 1;
+		if (boxm.timer < 0)
+			boxm.visible = false;
+	}
 	boxm.draw = function()
 	{
 		RenderLabel(new Vector2(screenSize.x/2-200, 10), mboChosenBox.label);
 	};
-	
+	displaybox = boxm;
 	Engine.addObject(boxm);
 
 });
