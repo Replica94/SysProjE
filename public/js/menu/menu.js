@@ -200,7 +200,7 @@ EngineInitializationFunctions.push(function ()
 	halp.position.x = gotoscore.x / 4;
 	halp.position.y = gotoscore.position.y + 100;
 	
-	halp.setText("user guide");
+	halp.setText("User guide");
 	
 	halp.depth = 500;
 	
