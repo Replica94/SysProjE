@@ -1,4 +1,15 @@
 <?php
+/** 
+ * Random drug API - fetches a random drug and generates a name for it
+ *
+ * Parameters:
+ *   n = number of drugs to fetch
+ *   form = drug form (e.g. tablet)
+ *
+ * Return:
+ *   JSON object containing the drug objects in the data key
+ */
+
 require_once("../../lib/dao/DrugDAO.class.php");
 
 header("Content-Type: application/json; charset=UTF-8");

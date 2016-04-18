@@ -37,9 +37,9 @@
     /**
      * Gets data for the given drug.
      *
-     * @param $drugname The drug's name as a string
-     * @return An array of arrays, each sub-array representing one result 
-     *         with property names as keys and property values as values.
+     * @param string $drugname The drug's name as a string
+     * @return array An array of arrays, each sub-array representing one result 
+     *               with property names as keys and property values as values.
      */
     public function getDrugData($drugname)
     {
@@ -68,8 +68,8 @@
     /**
      * Returns a random drug name
      *
-     * @param $num Number of drug names to return
-     * @return An array of random drug names, or an empty array if failed.
+     * @param int $num Number of drug names to return
+     * @return array An array of random drug names, or an empty array if failed.
      */
     public function getRandomDrug($num = 1)
     {
@@ -90,12 +90,12 @@
      /**
      * Returns a random drug name of the given form
      *
-     * @param $form Form of the drug, e.g. tablet. Matches if the given string 
-     *              is present anywhere in the form description (i.e. "tablet"
-     *              would match "tablet", but also "film-coated tablet" and 
-     *              "effervescent tablet")
-     * @param $num Number of drug names to return
-     * @return An array of random drug names, or an empty array if failed.
+     * @param string $form Form of the drug, e.g. tablet. Matches if the given string 
+     *                     is present anywhere in the form description (i.e. "tablet"
+     *                     would match "tablet", but also "film-coated tablet" and 
+     *                     "effervescent tablet")
+     * @param int $num Number of drug names to return
+     * @return array An array of random drug names, or an empty array if failed.
      */
     public function getRandomDrugOfForm($form, $num = 1)
     {
@@ -166,8 +166,8 @@ SQL;
     /**
      * Gets a prepared statement with the given name.
      *
-     * @param Name of the prepared statement
-     * @return The prepared statement, or null if not found.
+     * @param string Name of the prepared statement
+     * @return mixed The prepared statement, or null if not found.
      */    
     private function getPrepared($name)
     {

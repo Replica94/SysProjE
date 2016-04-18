@@ -1,4 +1,13 @@
 <?php
+/**
+ * Get score API - gets scores for the currently logged in player
+ *
+ * Parameters:
+ *   difficulty: difficulty as integer (1 = easy, 2 = medium, etc...)
+ *
+ * Return:
+ *   JSON object containing the data in the data key.
+ */
 require_once("../../lib/util.functions.php");
 
 $user = getUser();

@@ -1,4 +1,14 @@
 <?php
+/**
+ * Highscore API - gets the best scores for all players.
+ *
+ * Parameters:
+ *   difficulty: difficulty as integer (1 = easy, 2 = medium, etc)
+ *
+ * Returns:
+ *   JSON object holding the highscores in the data key.
+ */
+
 require_once("../../lib/util.functions.php");
 
 if (!isset($_REQUEST['difficulty'])) {

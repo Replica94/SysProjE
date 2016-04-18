@@ -7,24 +7,11 @@
 class Session 
 { 
     /**
-     * Starts a session if no session exists yet. Otherwise does nothing.
-     *
-     * @return Session object (Singleton)
-     */
-    public static function start() 
-    {
-        if (static::$instance === null) {
-            static::$instance = new static();
-        }
-        return static::$instance;
-    }
-
-    /**
      * Clear a session variable, or all session variables if no $key is
      * given
      *
-     * @param $key The variable to unset
-     * @return True on success, and false on failure.
+     * @param mixed $key The variable to unset
+     * @return bool True on success, and false on failure.
      */ 
     public function clear($key) 
     {
@@ -40,7 +27,7 @@ class Session
      * Destroy all session data and close the session by calling
      * session_destroy()
      *
-     * @return True on success, and false on failure.
+     * @return bool True on success, and false on failure.
      */
     public function destroy() 
     {
@@ -51,8 +38,8 @@ class Session
     /**
      * Get session data (alias to $_SESSION[$key])
      *
-     * @param $key Key of the data to be retrieved
-     * @return Session data
+     * @param mixed $key Key of the data to be retrieved
+     * @return mixed Session data
      */
     public function get($key) 
     {
@@ -65,9 +52,9 @@ class Session
     /**
      * Set session data (alias to $_SESSION[$key] = $value)
      *
-     * @param $key Key of the data to be set
-     * @param $value Value to set to
-     * @return The new data
+     * @param string $key Key of the data to be set
+     * @param mixed $value Value to set to
+     * @return mixed The new data
      */
     public function set($key, $value) 
     {
@@ -86,7 +73,19 @@ class Session
     protected function __clone() 
     {
     }
-
+    
+    /**
+     * Starts a session if no session exists yet. Otherwise does nothing.
+     *
+     * @return Session object (Singleton)
+     */
+    public static function start() 
+    {
+        if (static::$instance === null) {
+            static::$instance = new static();
+        }
+        return static::$instance;
+    }
     
     private static $instance = null;
  }

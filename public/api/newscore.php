@@ -1,4 +1,16 @@
 <?php
+/**
+ * Newscore API - adds a new highscore for the player who is currently logged in
+ * 
+ * Parameters:
+ *   score: the score to add
+ *   difficulty: the difficulty that the score was achieved in
+ *
+ * Returns:
+ *   JSON object with success status in the success key 
+ *   (false for failure, true for success) and any error messages
+ *   in the error key.
+ */
 require_once("../../lib/util.functions.php");
 
 $user = getUser();

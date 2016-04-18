@@ -1,4 +1,17 @@
 <?php
+/**
+ * Drug data API
+ *
+ * Parameters:
+ *   drug: drug name
+ *
+ * Returns:
+ *   JSON object holding the data for the given drug
+ *   in the data key. Error messages are held in the
+ *   message key.
+ */
+ 
+
 require_once("../../lib/dao/DrugDAO.class.php");
 
 if (!isset($_REQUEST['drug'])) {

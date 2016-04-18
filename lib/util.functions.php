@@ -30,7 +30,7 @@ function requireSSL()
  * redirect them to the given address and exit. MUST be called before any
  * output has been sent to the client, otherwise the function doesn't send headers.
  *
- * @param $redirect The address to redirect to (default index.php), or null for no redirect.
+ * @param string $redirect The address to redirect to (default index.php), or null for no redirect.
  */
 function requireNotLoggedIn($redirect = 'index.php') 
 {
@@ -47,7 +47,7 @@ function requireNotLoggedIn($redirect = 'index.php')
  * redirect them to the given address and exit. MUST be called before any
  * output has been sent to the client, otherwise the function doesn't send headers.
  *
- * @param $redirect The address to redirect to (default login.php), or null for no redirect.
+ * @param string $redirect The address to redirect to (default login.php), or null for no redirect.
  */
 function requireLoggedIn($redirect = 'login.php')
 {
@@ -62,7 +62,7 @@ function requireLoggedIn($redirect = 'login.php')
 /**
  * Checks if a user is logged in.
  *
- * @return True if a user is logged in, or false otherwise.
+ * @return bool True if a user is logged in, or false otherwise.
  */
 function isLoggedIn() 
 {
@@ -103,7 +103,7 @@ function clearTokenCookie()
  * Sets up an autoloader in the given dir. Autoloads (classname).class.php
  * files from the given directory.
  *
- * @param dir String to the directory where to autoload from.
+ * @param string $dir String to the directory where to autoload from.
  */
 function autoloader($dir) 
 {
@@ -117,7 +117,7 @@ function autoloader($dir)
 /**
  * Checks if a user object exists in the session and returns it if it does.
  *
- * @return User object if one exists in the session, or null otherwise.
+ * @return User User object if one exists in the session, or null otherwise.
  */
 function getUser() 
 {
@@ -132,8 +132,8 @@ function getUser()
 /**
  * Checks whether the given password meets all the requirements for passwords.
  *
- * @param $passwd Password
- * @return True if $passwd is a valid password, or false otherwise.
+ * @param string $passwd Password
+ * @return bool True if $passwd is a valid password, or false otherwise.
  */
 function isValidPassword($passwd) 
 {
@@ -146,8 +146,8 @@ function isValidPassword($passwd)
 /**
  * Checks whether the given username meets all the requirements for usernames.
  *
- * @param $username Username to test
- * @return True if $username is a valid username, or false otherwise.
+ * @param string $username Username to test
+ * @return bool True if $username is a valid username, or false otherwise.
  */
 function isValidUsername($username) 
 {
@@ -160,8 +160,8 @@ function isValidUsername($username)
 /**
  * Hash a password.
  *
- * @param $password The password to hash
- * @return Hashed password
+ * @param string $password The password to hash
+ * @return string Hashed password
  */
 function pw_encode($password) 
 {
@@ -171,9 +171,9 @@ function pw_encode($password)
 /**
  * Verify that the password matches the given password hash.
  *
- * @param $password Password as plain text
- * @param $pwhash Hashed password
- * @return True if the password matches, or false otherwise.
+ * @param string $password Password as plain text
+ * @param string $pwhash Hashed password
+ * @return bool True if the password matches, or false otherwise.
  */
 function pw_verify($password, $pwhash) 
 {
@@ -184,10 +184,10 @@ function pw_verify($password, $pwhash)
  * Verify a reCAPTCHA. See reCAPTCHA documentation on Google's 
  * site for specifics.
  *
- * @param $secret The secret key used for communication with Google's service
- * @param $response The value of 'g-recaptcha-response' response from the form
- * @param $remoteip The remote user's IP
- * @return True if the captcha was solved successfully, otherwise false.
+ * @param string $secret The secret key used for communication with Google's service
+ * @param string $response The value of 'g-recaptcha-response' response from the form
+ * @param string $remoteip The remote user's IP
+ * @return bool True if the captcha was solved successfully, otherwise false.
  */
 function verifyReCaptcha($secret, $response, $remoteip) 
 {

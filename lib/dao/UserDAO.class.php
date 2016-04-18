@@ -34,8 +34,8 @@ class UserDAO
     /**
      * Checks if the given user exists in the database.
      *
-     * @param $username The username to check for.
-     * @return True if the username exists, or false otherwise.
+     * @param string $username The username to check for.
+     * @return bool True if the username exists, or false otherwise.
      */
     public function userExists($username) 
     {
@@ -49,9 +49,9 @@ class UserDAO
     /**
      * Inserts a new user into the database.
      *
-     * @param $username Username of the new user.
-     * @param $password Password of the new user
-     * @return True if operation was successful, or false otherwise.
+     * @param string $username Username of the new user.
+     * @param string $password Password of the new user
+     * @return bool True if operation was successful, or false otherwise.
      */
     public function createUser($username, $password) 
     {
@@ -66,8 +66,8 @@ class UserDAO
     /**
      * Gets a user's password hash.
      *
-     * @param $username Username
-     * @return Password hash, or null if nothing found.
+     * @param string $username Username
+     * @return string|null Password hash, or null if nothing found.
      */
     public function getPassword($username) 
     {
@@ -84,8 +84,8 @@ class UserDAO
      * Gets an auth token row from the database that matches the given selector
      * and hasn't expired.
      *
-     * @param $selector
-     * @return Auth token row
+     * @param string $selector
+     * @return string Auth token row
      */
     public function getAuthToken($selector) 
     {
@@ -109,8 +109,8 @@ SQL;
     /**
      * Remove the given token from the database.
      *
-     * @param $selector
-     * @param $token
+     * @param string $selector
+     * @param string $token
      */
     public function removeToken($selector, $token) 
     {
@@ -125,11 +125,11 @@ SQL;
     /**
      * Adds a new auth token to the database.
      *
-     * @param $username
-     * @param $selector
-     * @param $token
-     * @param $expiry Expiry time as a UNIX timestamp
-     * @return True if the operation was successful, or false otherwise.
+     * @param string $username
+     * @param string $selector
+     * @param string $token
+     * @param int $expiry Expiry time as a UNIX timestamp
+     * @return bool True if the operation was successful, or false otherwise.
      */
     public function addToken($username, $selector, $token, $expiry) 
     {
@@ -148,10 +148,10 @@ SQL;
     /**
      * Add a score for a user.
      *
-     * @param $username Username of the scoring user.
-     * @param $score Score to addScore
-     * @param $difficulty Difficulty as an integer (default=1)
-     * @return True if the operation was successful, or false otherwise.
+     * @param string $username Username of the scoring user.
+     * @param int $score Score to addScore
+     * @param int $difficulty Difficulty as an integer (default=1)
+     * @return string True if the operation was successful, or false otherwise.
      */
     public function saveScore($username, $score, $difficulty=1)
     {
@@ -170,9 +170,9 @@ SQL;
     /**
      * Get a user's highscore for the given difficulty.
      *
-     * @param $username Username of the scoring user.
-     * @param $difficulty Difficulty as an integer (default=null), or null for all difficulties.
-     * @return Result array if successful, or null otherwise.
+     * @param string $username Username of the scoring user.
+     * @param int $difficulty Difficulty as an integer (default=null), or null for all difficulties.
+     * @return array|null Result array if successful, or null otherwise.
      */
     public function getUserHighScore($username, $difficulty=null)
     {
@@ -209,9 +209,9 @@ SQL;
     /**
      * Gets the best scores and the users who achieved them.
      *
-     * @param $difficulty Difficulty to get scores for (default=10)
-     * @param $num Number of highscores to get (default=10)
-     * @return Array of $user => $key pairs.
+     * @param int $difficulty Difficulty to get scores for (default=10)
+     * @param int $num Number of highscores to get (default=10)
+     * @return array Array of $user => $key pairs.
      */
     public function getHallOfFame($difficulty=1, $num=10)
     {
@@ -244,8 +244,8 @@ SQL;
     /**
      * Map a username to a userid.
      *
-     * @param $username
-     * @return User id if a matching user exists, or null otherwise.
+     * @param string $username
+     * @return int User id if a matching user exists, or null otherwise.
      */
     protected function getUserId($username) 
     {

@@ -15,9 +15,9 @@ class User
     /** 
      * Attempts to login with username and password.
      * 
-     * @param $username Username
-     * @param $password Password
-     * @return True if login was successful, or false otherwise.
+     * @param string $username Username
+     * @param string $password Password
+     * @return bool True if login was successful, or false otherwise.
      */
     public function login($username, $password) 
     {
@@ -36,7 +36,7 @@ class User
     /**
      * Attempts to login with an auth token.
      *
-     * @return True if the login was successful, or false otherwise.
+     * @return bool True if the login was successful, or false otherwise.
      */ 
     public function loginWithToken($token) 
     {
@@ -62,8 +62,8 @@ class User
     /**
      * Generates a new auth token for the user and inserts it into the database.
      *
-     * @param $expiry Expiration time of the token as a UNIX timestamp
-     * @return New auth token, or null if the operation failed.
+     * @param string $expiry Expiration time of the token as a UNIX timestamp
+     * @return string|null New auth token, or null if the operation failed.
      */
     public function generateToken($expiry) 
     {
@@ -79,7 +79,7 @@ class User
     /**
      * Check if the user is logged in.
      * 
-     * @return True if the user is logged in, or false otherwise.
+     * @return bool True if the user is logged in, or false otherwise.
      */
     public function loggedIn() 
     {
@@ -89,7 +89,7 @@ class User
     /**
      * Get the user's username.
      *
-     * @return Username
+     * @return string Username
      */
     public function getUsername() 
     {
@@ -99,7 +99,7 @@ class User
     /**
      * Set the user's guest state.
      *
-     * @param $state Set to true if the user is a guest, or to false otherwise.
+     * @param bool $state Set to true if the user is a guest, or to false otherwise.
      */
     public function setGuest($state) 
     {
@@ -113,9 +113,9 @@ class User
     /** 
      * Save a score.
      *
-     * @param $score Score to save
-     * @param $difficulty Difficulty as an integer (EASY=1, MEDIUM=2, ...)
-     * @return True if successful, or false otherwise.
+     * @param int $score Score to save
+     * @param int $difficulty Difficulty as an integer (EASY=1, MEDIUM=2, ...)
+     * @return bool True if successful, or false otherwise.
      */
     public function saveScore($score, $difficulty=1)
     {
@@ -130,8 +130,8 @@ class User
      * Gets the user's highscore for the given difficulty, or all difficulties
      * if no difficulty given.
      *
-     * @param $difficulty Difficulty to get highscore for, or null for all difficulties.
-     * @return Highscore for the given difficulty, or an array with difficulty as 
+     * @param int|null $difficulty Difficulty to get highscore for, or null for all difficulties.
+     * @return int|array Highscore for the given difficulty, or an array with difficulty as 
      *         the key and score as value for multiple difficulties. Returns 0 for
      *         guests and those not logged in.
      */
@@ -159,7 +159,7 @@ class User
     /**
      * Check whether the user is a guest or not.
      *
-     * @return True if the user is a guest, or false otherwise.
+     * @return bool True if the user is a guest, or false otherwise.
      */
     public function isGuest() 
     {
@@ -169,9 +169,9 @@ class User
     /**
      * Gets best scores and scores for a given difficulty.
      *
-     * @param $difficulty Difficulty (default=1)
-     * @param $num Number of highest scores to get
-     * @return Array with highscores (each row is of format: $user => $score), ordered from highest to lowest
+     * @param int $difficulty Difficulty (default=1)
+     * @param int $num Number of highest scores to get
+     * @return array Array with highscores (each row is of format: $user => $score), ordered from highest to lowest
      */
     public static function getHallOfFame($difficulty=1, $num=10)
     {

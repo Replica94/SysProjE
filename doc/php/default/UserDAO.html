@@ -1,0 +1,535 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+		<head>
+			<!-- template designed by Marco Von Ballmoos -->
+			<title>Docs For Class UserDAO</title>
+			<link rel="stylesheet" href="../media/stylesheet.css" />
+			<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'/>
+		</head>
+		<body>
+			<div class="page-body">			
+<h2 class="class-name">Class UserDAO</h2>
+
+<a name="sec-description"></a>
+<div class="info-box">
+	<div class="info-box-title">Description</div>
+	<div class="nav-bar">
+					<span class="disabled">Description</span> |
+															<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+						
+					</div>
+	<div class="info-box-body">
+        		<!-- ========== Info from phpDoc block ========= -->
+		<p class="notes">
+			Located in <a class="field" href="_lib---dao---UserDAO.class.php.html">/lib/dao/UserDAO.class.php</a> (line <span class="field">8</span>)
+		</p>
+		
+				
+		<pre></pre>
+	
+			</div>
+</div>
+
+
+
+
+	<a name="sec-method-summary"></a>
+	<div class="info-box">
+		<div class="info-box-title">Method Summary</span></div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+												<span class="disabled">Methods</span> (<a href="#sec-methods">details</a>)
+		</div>
+		<div class="info-box-body">			
+			<div class="method-summary">
+																																																																																																												
+												<div class="method-definition">
+											<span class="method-result">UserDAO</span>
+										<a href="#__construct" title="details" class="method-name">__construct</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#__destruct" title="details" class="method-name">__destruct</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">bool</span>
+										<a href="#addToken" title="details" class="method-name">addToken</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$username</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$selector</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$token</span>, <span class="var-type">int</span>&nbsp;<span class="var-name">$expiry</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#clearExpiredTokens" title="details" class="method-name">clearExpiredTokens</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">bool</span>
+										<a href="#createUser" title="details" class="method-name">createUser</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$username</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$password</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">string</span>
+										<a href="#getAuthToken" title="details" class="method-name">getAuthToken</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$selector</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">array</span>
+										<a href="#getHallOfFame" title="details" class="method-name">getHallOfFame</a>
+											([<span class="var-type">int</span>&nbsp;<span class="var-name">$difficulty</span> = <span class="var-default">1</span>], [<span class="var-type">int</span>&nbsp;<span class="var-name">$num</span> = <span class="var-default">10</span>])
+									</div>
+																<div class="method-definition">
+											<span class="method-result">string|null</span>
+										<a href="#getPassword" title="details" class="method-name">getPassword</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$username</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">array|null</span>
+										<a href="#getUserHighScore" title="details" class="method-name">getUserHighScore</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$username</span>, [<span class="var-type">int</span>&nbsp;<span class="var-name">$difficulty</span> = <span class="var-default">null</span>])
+									</div>
+																<div class="method-definition">
+											<span class="method-result">int</span>
+										<a href="#getUserId" title="details" class="method-name">getUserId</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$username</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#removeToken" title="details" class="method-name">removeToken</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$selector</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$token</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">string</span>
+										<a href="#saveScore" title="details" class="method-name">saveScore</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$username</span>, <span class="var-type">int</span>&nbsp;<span class="var-name">$score</span>, [<span class="var-type">int</span>&nbsp;<span class="var-name">$difficulty</span> = <span class="var-default">1</span>])
+									</div>
+																<div class="method-definition">
+											<span class="method-result">bool</span>
+										<a href="#userExists" title="details" class="method-name">userExists</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$username</span>)
+									</div>
+								</div>
+		</div>
+	</div>		
+
+	
+	<a name="sec-methods"></a>
+	<div class="info-box">
+		<div class="info-box-title">Methods</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+																<a href="#sec-method-summary">Methods</a> (<span class="disabled">details</span>)
+						
+		</div>
+		<div class="info-box-body">
+			<A NAME='method_detail'></A>
+
+<a name="method__construct" id="__construct"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">Constructor __construct</span> (line <span class="line-number">13</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Constructor. Creates a DB connection.</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">UserDAO</span>
+		<span class="method-name">
+			__construct
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="method__destruct" id="__destruct"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">Destructor __destruct</span> (line <span class="line-number">28</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Destructor. Closes the DB connection.</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			__destruct
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodaddToken" id="addToken"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">addToken</span> (line <span class="line-number">134</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Adds a new auth token to the database.</p>
+	<ul class="tags">
+				<li><span class="field">return:</span> True if the operation was successful, or false otherwise.</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">bool</span>
+		<span class="method-name">
+			addToken
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$username</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$selector</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$token</span>, <span class="var-type">int</span>&nbsp;<span class="var-name">$expiry</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$username</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$selector</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$token</span>			</li>
+					<li>
+				<span class="var-type">int</span>
+				<span class="var-name">$expiry</span><span class="var-description">: Expiry time as a UNIX timestamp</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodclearExpiredTokens" id="clearExpiredTokens"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">clearExpiredTokens</span> (line <span class="line-number">265</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Clears expired tokens from the database</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			clearExpiredTokens
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodcreateUser" id="createUser"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">createUser</span> (line <span class="line-number">56</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Inserts a new user into the database.</p>
+	<ul class="tags">
+				<li><span class="field">return:</span> True if operation was successful, or false otherwise.</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">bool</span>
+		<span class="method-name">
+			createUser
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$username</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$password</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$username</span><span class="var-description">: Username of the new user.</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$password</span><span class="var-description">: Password of the new user</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodgetAuthToken" id="getAuthToken"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">getAuthToken</span> (line <span class="line-number">90</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Gets an auth token row from the database that matches the given selector  and hasn't expired.</p>
+	<ul class="tags">
+				<li><span class="field">return:</span> Auth token row</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			getAuthToken
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$selector</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$selector</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodgetHallOfFame" id="getHallOfFame"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">getHallOfFame</span> (line <span class="line-number">216</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Gets the best scores and the users who achieved them.</p>
+	<ul class="tags">
+				<li><span class="field">return:</span> Array of $user =&gt; $key pairs.</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">array</span>
+		<span class="method-name">
+			getHallOfFame
+		</span>
+					([<span class="var-type">int</span>&nbsp;<span class="var-name">$difficulty</span> = <span class="var-default">1</span>], [<span class="var-type">int</span>&nbsp;<span class="var-name">$num</span> = <span class="var-default">10</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">int</span>
+				<span class="var-name">$difficulty</span><span class="var-description">: Difficulty to get scores for (default=10)</span>			</li>
+					<li>
+				<span class="var-type">int</span>
+				<span class="var-name">$num</span><span class="var-description">: Number of highscores to get (default=10)</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodgetPassword" id="getPassword"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">getPassword</span> (line <span class="line-number">72</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Gets a user's password hash.</p>
+	<ul class="tags">
+				<li><span class="field">return:</span> Password hash, or null if nothing found.</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">string|null</span>
+		<span class="method-name">
+			getPassword
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$username</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$username</span><span class="var-description">: Username</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodgetUserHighScore" id="getUserHighScore"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">getUserHighScore</span> (line <span class="line-number">177</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Get a user's highscore for the given difficulty.</p>
+	<ul class="tags">
+				<li><span class="field">return:</span> Result array if successful, or null otherwise.</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">array|null</span>
+		<span class="method-name">
+			getUserHighScore
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$username</span>, [<span class="var-type">int</span>&nbsp;<span class="var-name">$difficulty</span> = <span class="var-default">null</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$username</span><span class="var-description">: Username of the scoring user.</span>			</li>
+					<li>
+				<span class="var-type">int</span>
+				<span class="var-name">$difficulty</span><span class="var-description">: Difficulty as an integer (default=null), or null for all difficulties.</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodgetUserId" id="getUserId"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">getUserId</span> (line <span class="line-number">250</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Map a username to a userid.</p>
+	<ul class="tags">
+				<li><span class="field">return:</span> User id if a matching user exists, or null otherwise.</li>
+				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">int</span>
+		<span class="method-name">
+			getUserId
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$username</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$username</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodremoveToken" id="removeToken"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">removeToken</span> (line <span class="line-number">115</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Remove the given token from the database.</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			removeToken
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$selector</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$token</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$selector</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$token</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodsaveScore" id="saveScore"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">saveScore</span> (line <span class="line-number">156</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Add a score for a user.</p>
+	<ul class="tags">
+				<li><span class="field">return:</span> True if the operation was successful, or false otherwise.</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">string</span>
+		<span class="method-name">
+			saveScore
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$username</span>, <span class="var-type">int</span>&nbsp;<span class="var-name">$score</span>, [<span class="var-type">int</span>&nbsp;<span class="var-name">$difficulty</span> = <span class="var-default">1</span>])
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$username</span><span class="var-description">: Username of the scoring user.</span>			</li>
+					<li>
+				<span class="var-type">int</span>
+				<span class="var-name">$score</span><span class="var-description">: Score to addScore</span>			</li>
+					<li>
+				<span class="var-type">int</span>
+				<span class="var-name">$difficulty</span><span class="var-description">: Difficulty as an integer (default=1)</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methoduserExists" id="userExists"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">userExists</span> (line <span class="line-number">40</span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Checks if the given user exists in the database.</p>
+	<ul class="tags">
+				<li><span class="field">return:</span> True if the username exists, or false otherwise.</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">bool</span>
+		<span class="method-name">
+			userExists
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$username</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$username</span><span class="var-description">: The username to check for.</span>			</li>
+				</ul>
+		
+			
+	</div>
+						
+		</div>
+	</div>
+
+
+	<p class="notes" id="credit">
+		Documentation generated on Mon, 18 Apr 2016 13:52:23 +0300 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.4</a>
+	</p>
+	</div></body>
+</html>
