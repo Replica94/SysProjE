@@ -12,10 +12,10 @@ EngineInitializationFunctions.push(function ()
 		this.updateRealObject();
         if(Persons.showrecipe)
         {
-            recipebutton.visible = false;
+            recipebutton.visible = true;
         }
         else 
-            recipebutton.visible = true;
+            recipebutton.visible = false;
 	};
 	recipebutton.onClick = function()
 	{
@@ -149,11 +149,66 @@ EngineInitializationFunctions.push(function ()
     computerDrawObject.position.y = -25;
     computerDrawObject.size.x = 130*1.3;
     computerDrawObject.size.y = 170*1.3;
+    computerDrawObject.depth = -1;
     computerDrawObject.drawOffset = Context.drawOffset["behindDesk"];
     //recipeDrawObject.depth = 200;
 	computerDrawObject.checkForInput = true;
     computerDrawObject.drawContext += Context.map["menuanddesk"];
 	computerDrawObject.inputContext += Context.map["menuanddesk"];
+	computerDrawObject.lastdir = -1;
+	computerDrawObject.update = function()
+	{
+		var prevy =computerDrawObject.position.y;
+		computerDrawObject.position.y = -25;
+		
+		this.updateRealObject();
+		computerDrawObject.position.y = prevy;
+		
+		computerDrawObject.position.x = screenSize.x/2-167;
+		 
+		if (this.mouseHover)
+		{
+			var boing = function()
+			{
+				var ad = new Audio("assets/sounds/boing.ogg");
+				ad.playbackRate = Math.random()*1.0+0.5;
+				ad.volume = 0.5;
+				ad.play();
+			}
+			var ndir = Math.sin(Time.now/280);
+			if (ndir < 0)
+				if (this.lastdir > 0)
+					boing();
+				
+			if (ndir > 0)
+				if (this.lastdir < 0)
+					boing();
+				
+			this.lastdir = ndir;
+				
+			var targety = -25-Math.abs(Math.sin(Time.now/280)*80);
+			var dif = targety-prevy;
+			if (Math.abs(dif) < 7)
+				computerDrawObject.position.y = targety;
+			else
+			{
+				if (dif < 0)
+					computerDrawObject.position.y = prevy-7;
+				else
+					computerDrawObject.position.y = prevy+7;
+			}
+		}
+		else
+		{
+			if (computerDrawObject.position.y < -25)
+				computerDrawObject.position.y += 1;
+			else
+				computerDrawObject.position.y = -25;
+		}
+		
+		
+	}
+	
 	computerDrawObject.onClick = function()
 	{
 		var ad = new Audio("assets/sounds/computer.ogg");
