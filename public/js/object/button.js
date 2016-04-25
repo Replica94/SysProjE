@@ -114,7 +114,7 @@ var RadioButton = function(pos, buttonnumber)
     this.size = new Vector2(150, 48);
     this.font = "18px Arial";
 	this.text = this.value;
-    this.depth = 500;
+    this.depth = 10001;
     this.buttonnumber = buttonnumber;
     this.inputContext += Context.map["gameCalculationScreen"];
     this.drawContext += Context.map["gameCalculationScreen"];
@@ -191,7 +191,7 @@ var RadioButtons =
     buttonsAmount : 4,
     position : new Vector2(1235, 232),
     size : new Vector2(1,1),
-    depth : 0,
+    depth : 10001,
     isselected : false,
     changeButtonValues : function(values)
     {

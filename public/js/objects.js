@@ -243,7 +243,7 @@ EngineInitializationFunctions.push(function ()
     var confirmamount = new ButtonObject();
 	confirmamount.position.x = screenSize.x / 1.3;
 	confirmamount.position.y = screenSize.y / 2.2;
-	confirmamount.depth = 400;
+	confirmamount.depth = 10001;
     confirmamount.font = "28px Arial";
 	confirmamount.setText("Confirm");
 	confirmamount.update = function()
